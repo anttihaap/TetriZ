@@ -1,1 +1,0 @@
-En saanut mill‰‰n pit testi‰ toimimaan, vaikka muutin porjektin nime‰ kaikkiin mahdollisiin muotoihin pom-tiedostoon.

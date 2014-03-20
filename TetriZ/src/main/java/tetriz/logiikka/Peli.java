@@ -97,11 +97,6 @@ public class Peli extends Thread {
         }
     }
 
-    //Luokka ei toimi
-    public void rotaatio() {
-        this.pala.rotaatio();
-    }
-
     public void lopetaPeli() {
         System.out.println("LOPPU");
     }

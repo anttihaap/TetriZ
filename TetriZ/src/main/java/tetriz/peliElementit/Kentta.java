@@ -40,4 +40,8 @@ public class Kentta {
             return Color.white;
         }
     }
+    
+    public Color[][] palautaKenttaPino() {
+        return this.kentta;
+    }
 }

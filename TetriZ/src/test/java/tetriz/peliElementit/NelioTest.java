@@ -70,4 +70,13 @@ public class NelioTest {
         }
         assertEquals(nelio.palautaX(), 0);
     }
+    
+    @Test
+    public void nelioAsettaaKordinaatitOikein() {
+        int x = 10;
+        int y = 10;
+        nelio.asetaKordinaatit(x, y);
+        assertEquals(nelio.palautaX(), x);
+        assertEquals(nelio.palautaY(), y);
+    }
 }
