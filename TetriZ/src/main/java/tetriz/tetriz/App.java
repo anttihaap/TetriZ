@@ -1,6 +1,6 @@
 package tetriz.tetriz;
 
-import logiikka.Peli;
+import tetriz.logiikka.Peli;
 
 /**
  * Hello world!

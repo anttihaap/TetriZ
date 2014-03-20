@@ -1,4 +1,4 @@
-package tetriz.tetriz;
+package tetriz;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package piirto;
+package tetriz.piirto;
 
 import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import peliElementit.Kentta;
-import peliElementit.Pala;
+import tetriz.peliElementit.Kentta;
+import tetriz.peliElementit.Pala;
 
 
 public class KentanPiirto extends JPanel {

@@ -1,10 +1,10 @@
 
-package logiikka;
+package tetriz.logiikka;
 
-import peliElementit.Kentta;
-import peliElementit.Nelio;
-import peliElementit.Pala;
-import piirto.KentanPiirto;
+import tetriz.peliElementit.Kentta;
+import tetriz.peliElementit.Nelio;
+import tetriz.peliElementit.Pala;
+import tetriz.piirto.KentanPiirto;
 
 public class Peli extends Thread {
 
@@ -28,7 +28,7 @@ public class Peli extends Thread {
         this.kentanPiirto = new KentanPiirto();
 
         this.pala = Pala.luoSatunnainenPala();
-        this.pala.luoPalanAloitusPiste(0, 0);
+        this.pala.luoPalaJaAnnaAloitusPiste(this.kentanLeveys / 2, 0);
     }
 
     public void aloitaPeli() {
@@ -59,14 +59,14 @@ public class Peli extends Thread {
     }
 
     public void liikutaPalaaOikealle() {
-        if (voikoPalaaLiikuttaaKartassaSuuntaan(this.pala, 0, 1)) {
+        if (voikoPalaaLiikuttaaKartassaSuuntaan(this.pala, 1, 0)) {
             this.pala.liikuOikealle();
             tulostaPeli();
         }
     }
 
     public void liikutaPalaaVasemmalle() {
-        if (voikoPalaaLiikuttaaKartassaSuuntaan(pala, 0, -1)) {
+        if (voikoPalaaLiikuttaaKartassaSuuntaan(pala, -1, 0)) {
             pala.liikuVasemmalle();
             tulostaPeli();
         }
@@ -88,7 +88,8 @@ public class Peli extends Thread {
     public void luoUusiPala() {
         this.kentta.lisaaPalaKenttaan(this.pala);
         Pala uusiPala = Pala.luoSatunnainenPala();
-        uusiPala.luoPalanAloitusPiste(0, 0);
+        uusiPala.luoPalaJaAnnaAloitusPiste(this.kentanLeveys / 2, 0);
+        System.out.println(uusiPala.toString());
         if (voikoPalaaLiikuttaaKartassaSuuntaan(uusiPala, 0, 0)) {
             this.pala = uusiPala;
         } else {
@@ -111,6 +112,10 @@ public class Peli extends Thread {
         } catch (InterruptedException e) {
 
         }
+    }
+    
+    public void asetaPelinPala(Pala pala) {
+        this.pala = pala;
     }
 
 }

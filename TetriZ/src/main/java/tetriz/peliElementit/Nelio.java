@@ -1,4 +1,4 @@
-package peliElementit;
+package tetriz.peliElementit;
 
 import java.awt.Color;
 
