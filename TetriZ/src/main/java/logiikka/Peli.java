@@ -5,8 +5,6 @@
  */
 package logiikka;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import peliElementit.Kentta;
 import peliElementit.Nelio;
 import peliElementit.Pala;
@@ -17,7 +15,7 @@ import piirto.KentanPiirto;
  *
  * @author Antti
  */
-public class Peli extends Thread implements KeyListener {
+public class Peli extends Thread {
 
     Kentta kentta;
     int kentanLeveys;
@@ -118,34 +116,4 @@ public class Peli extends Thread implements KeyListener {
         System.out.println("LOPPU");
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-public void keyPressed(KeyEvent e) {
-    int keyCode = e.getKeyCode();
-    switch( keyCode ) { 
-        case KeyEvent.VK_UP:
-            // handle up 
-            break;
-        case KeyEvent.VK_DOWN:
-            // handle down 
-            break;
-        case KeyEvent.VK_LEFT:
-            liikutaPalaaVasemmalle();
-            // handle left
-            break;
-        case KeyEvent.VK_RIGHT :
-            liikutaPalaaOikealle();
-            // handle right
-            break;
-     }
-} 
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
