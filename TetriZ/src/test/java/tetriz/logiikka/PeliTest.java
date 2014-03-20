@@ -6,6 +6,7 @@
 
 package tetriz.logiikka;
 
+import tetriz.logiikka.Peli;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -58,18 +59,5 @@ public class PeliTest {
         assertNotNull(pala);
     }
     
-    @Test
-    public void palaLiikkuuAlas() {
-     
-    }
-    
-    @Test
-    public void palaEiLiikuRajanYliOikealle() {
-        Pala lolPala = Pala.NELIOPALA;
-        lolPala.luoPalaJaAnnaAloitusPiste(0, 18);
-        this.peli.asetaPelinPala(lolPala);
-        
-        assertEquals(peli.voikoPalaaLiikuttaaKartassaSuuntaan(lolPala, 0, 1), false);
-    
-    }
+
 }
