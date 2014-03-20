@@ -8,7 +8,7 @@ import logiikka.Peli;
  */
 public class App {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Peli peli = new Peli(10, 20);
         peli.aloitaPeli();
 

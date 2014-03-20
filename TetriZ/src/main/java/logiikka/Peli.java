@@ -10,7 +10,6 @@ import peliElementit.Nelio;
 import peliElementit.Pala;
 import piirto.KentanPiirto;
 
-
 /**
  *
  * @author Antti
@@ -24,13 +23,12 @@ public class Peli extends Thread {
     KentanPiirto kentanPiirto;
 
     Pala pala;
-    
+
     boolean peliKaynnissa;
-    
 
     public Peli(int kentanLeveys, int kentanKorkeus) {
         peliKaynnissa = true;
-        
+
         this.kentanLeveys = kentanLeveys;
         this.kentanKorkeus = kentanKorkeus;
         this.kentta = new Kentta(this.kentanLeveys, this.kentanKorkeus);
@@ -40,19 +38,20 @@ public class Peli extends Thread {
         this.pala = Pala.luoSatunnainenPala();
         this.pala.luoPalanAloitusPiste(0, 0);
     }
-    
-    public void aloitaPeli() throws InterruptedException  {
-        while(peliKaynnissa) {
-            peliEtene();           
+
+    public void aloitaPeli() {
+        while (peliKaynnissa) {
+            peliEtene();
         }
         lopetaPeli();
     }
 
-    public void peliEtene() throws InterruptedException  {
+    public void peliEtene() {
         System.out.println("peliEtene()");
         tulostaPeli();
-       
-        Thread.currentThread().sleep(500);
+
+        odota(500);
+
         liikutaPalaaAlas();
     }
 
@@ -72,30 +71,29 @@ public class Peli extends Thread {
         if (voikoPalaaLiikuttaaKartassaSuuntaan(this.pala, 0, 1)) {
             this.pala.liikuOikealle();
             tulostaPeli();
-        }        
+        }
     }
-    
+
     public void liikutaPalaaVasemmalle() {
         if (voikoPalaaLiikuttaaKartassaSuuntaan(pala, 0, -1)) {
             pala.liikuVasemmalle();
             tulostaPeli();
         }
     }
-    
+
     public boolean voikoPalaaLiikuttaaKartassaSuuntaan(Pala pala, int suuntaX, int suuntaY) {
-        
+
         for (Nelio n : pala.palautaPalanNeliot()) {
             boolean nelioEiMeneVaakatasossaYliKentan = n.X + suuntaX < this.kentanLeveys && n.X + suuntaX >= 0;
             boolean yEiMeneYliRajojen = n.Y + suuntaY < this.kentanKorkeus && n.Y + suuntaY >= 0;
             boolean onkoVariaKentanKohdassa = kentta.onkoVariaKartassaKohdassa(n.X + suuntaX, n.Y + suuntaY);
-            
+
             if (!nelioEiMeneVaakatasossaYliKentan || !yEiMeneYliRajojen || onkoVariaKentanKohdassa) {
                 return false;
             }
         }
         return true;
-    } 
-    
+    }
 
     public void luoUusiPala() {
         this.kentta.lisaaPalaKenttaan(this.pala);
@@ -105,15 +103,23 @@ public class Peli extends Thread {
             this.pala = uusiPala;
         } else {
             peliKaynnissa = false;
-        }       
+        }
     }
 
     public void rotaatio() {
         this.pala.rotaatio();
     }
-    
+
     public void lopetaPeli() {
         System.out.println("LOPPU");
+    }
+
+    public void odota(int ms) {
+        try {
+            Thread.currentThread().sleep(500);
+        } catch (InterruptedException e) {
+
+        }
     }
 
 }
