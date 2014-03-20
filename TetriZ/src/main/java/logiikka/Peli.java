@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package logiikka;
 
 import peliElementit.Kentta;
@@ -10,10 +6,6 @@ import peliElementit.Nelio;
 import peliElementit.Pala;
 import piirto.KentanPiirto;
 
-/**
- *
- * @author Antti
- */
 public class Peli extends Thread {
 
     Kentta kentta;
@@ -40,6 +32,7 @@ public class Peli extends Thread {
     }
 
     public void aloitaPeli() {
+        tulostaPeli();
         while (peliKaynnissa) {
             peliEtene();
         }
@@ -48,11 +41,9 @@ public class Peli extends Thread {
 
     public void peliEtene() {
         System.out.println("peliEtene()");
-        tulostaPeli();
-
         odota(500);
-
         liikutaPalaaAlas();
+        tulostaPeli();
     }
 
     public void tulostaPeli() {
@@ -82,7 +73,6 @@ public class Peli extends Thread {
     }
 
     public boolean voikoPalaaLiikuttaaKartassaSuuntaan(Pala pala, int suuntaX, int suuntaY) {
-
         for (Nelio n : pala.palautaPalanNeliot()) {
             boolean nelioEiMeneVaakatasossaYliKentan = n.X + suuntaX < this.kentanLeveys && n.X + suuntaX >= 0;
             boolean yEiMeneYliRajojen = n.Y + suuntaY < this.kentanKorkeus && n.Y + suuntaY >= 0;
@@ -106,6 +96,7 @@ public class Peli extends Thread {
         }
     }
 
+    //Luokka ei toimi
     public void rotaatio() {
         this.pala.rotaatio();
     }
