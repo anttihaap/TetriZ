@@ -6,4 +6,4 @@
 * **17.03.2014:** 4h - Pelin logiikan ensimmäinen versio.
 * **18.03.2014:** 2h - Alustava piirto-luokka valmis (tosi pahati kesken).
 * **20.03.2014:** 3h - Thread.sleep korjattu parempaan muotoon. Testailua, dokumentointia ja pientä viilausta.
-* **21.03.2014:** 0.5h - Ohjelman rakennetta muutettu selkeämmäksi.
+* **21.03.2014:** 1h - Ohjelman rakennetta muutettu selkeämmäksi + testailua.
