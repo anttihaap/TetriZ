@@ -13,8 +13,9 @@ import tetriz.peliElementit.Pala;
 public class PeliTest {
     
     Peli peli;
-    int pelinLeveys = 10;
-    int pelinKorkeus = 20;
+    int kentanLeveys = 10;
+    int kentanKorkeus = 20;
+    int etenemisViiveMs = 250;
     
     public PeliTest() {
     }
@@ -29,7 +30,7 @@ public class PeliTest {
     
     @Before
     public void setUp() {
-        peli = new Peli(10, 20);
+        peli = new Peli(kentanLeveys, kentanKorkeus, etenemisViiveMs);
     }
     
     @After
@@ -37,11 +38,13 @@ public class PeliTest {
     }
     
     @Test
-    public void peliLuoOikeanKokoisenKentan() {
+    public void konstruktoriAsettaaArvotJaLuokkaPalauttaaOikeatArvot() {
         Kentta kentta = peli.kentta;
-        assertEquals(kentta.kentanKorkeus, this.pelinKorkeus);
-        assertEquals(kentta.kentanLeveys, this.pelinLeveys);
-    }
+        assertEquals(kentta.palautaKentanKorkeus(), this.kentanKorkeus);
+        assertEquals(kentta.palautaKentanLeveys(), this.kentanLeveys);
+        
+        assertEquals(peli.etenemisViiveMs,this.etenemisViiveMs);       
+    }  
     
     @Test
     public void peliLuoPalan() {

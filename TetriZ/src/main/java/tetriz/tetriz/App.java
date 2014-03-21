@@ -9,8 +9,8 @@ import tetriz.logiikka.Peli;
 public class App {
 
     public static void main(String[] args) {
-        Peli peli = new Peli(10, 20);
-        peli.aloitaPeli();
+        Peli peli = new Peli(10, 20, 100);
+        peli.aloita();
 
    }
 }

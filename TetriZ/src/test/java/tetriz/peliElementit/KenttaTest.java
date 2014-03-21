@@ -60,8 +60,7 @@ public class KenttaTest {
     
     @Test 
     public void variLisataanKenttaan() {
-        Color musta = Color.black;
-        
+        Color musta = Color.black;       
         kentta.lisaaVariKenttaan(musta, 0, 0);
         assertEquals(musta, kentta.palautaKentanKordinaatistonVari(0, 0));
     }
@@ -74,5 +73,18 @@ public class KenttaTest {
     @Test
     public void paluattaaEpatosiJosEtsiiVariaYliRajojen() {
         assertEquals(false, kentta.onkoVariaKartassaKohdassa(100, 100));
+    }
+    
+    @Test
+    public void palaLisataanKenttaan() {
+        Pala pala = Pala.NELIOPALA;
+        pala.luoPalaJaAnnaAloitusPiste(leveys / 2, 0);
+        
+        kentta.lisaaPalaKenttaan(pala);
+        
+        //Palan nelion vari tulisi löytyä lisäkysen jälkeen kentästä
+        for (Nelio nelio : pala.palautaPalanNeliot()) {
+            assertEquals(kentta.palautaKentanKordinaatistonVari(nelio.palautaX(), nelio.palautaY()), pala.palatyypinVari);
+        }       
     }
 }
