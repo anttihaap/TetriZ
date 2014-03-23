@@ -29,11 +29,6 @@ public class Nelio {
         return this.vari;
     }
 
-    public void asetaKordinaatit(int x, int y) {
-        this.Y = y;
-        this.X = x;
-    }
-
     public void alas() {
         this.Y++;
     }

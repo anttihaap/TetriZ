@@ -6,13 +6,15 @@
 package tetriz.piirto;
 
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Pala;
 
 
-public class KentanPiirto extends JPanel {
+public class KentanPiirto  {
 
     JFrame frame;
     JPanel squares[][];
@@ -46,9 +48,5 @@ public class KentanPiirto extends JPanel {
         
         frame.revalidate();
         frame.repaint();
-       
-
     }
-
-
 }

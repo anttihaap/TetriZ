@@ -15,9 +15,7 @@ public class Kentta {
     }
 
     public void lisaaVariKenttaan(Color vari, int x, int y) {
-        if (x >= 0 && x < kentanLeveys && y >= 0 && y < kentanKorkeus) {
-            this.kentta[x][y] = vari;
-        }
+        this.kentta[x][y] = vari;
     }
 
     public void lisaaPalaKenttaan(Pala pala) {
@@ -27,11 +25,7 @@ public class Kentta {
     }
 
     public boolean onkoVariaKartassaKohdassa(int x, int y) {
-        if (x < 0 || x >= this.kentanLeveys || y < 0 || y >= this.kentanKorkeus) {
-            return false;
-        } else {
-            return this.kentta[x][y] != null;
-        }
+        return this.kentta[x][y] != null;
     }
 
     public Color palautaKentanKordinaatistonVari(int x, int y) {
@@ -41,11 +35,11 @@ public class Kentta {
             return Color.white;
         }
     }
-    
+
     public int palautaKentanLeveys() {
         return kentanLeveys;
     }
-    
+
     public int palautaKentanKorkeus() {
         return kentanKorkeus;
     }

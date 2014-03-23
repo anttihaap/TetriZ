@@ -46,11 +46,8 @@ public class PeliTest {
         assertEquals(peli.etenemisViiveMs,this.etenemisViiveMs);       
     }  
     
-    @Test
-    public void peliLuoPalan() {
-        Pala pala = peli.pala;
-        assertNotNull(pala);
-    }
+    
+
     
 
 }

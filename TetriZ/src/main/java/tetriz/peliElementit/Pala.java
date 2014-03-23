@@ -5,7 +5,6 @@
  */
 package tetriz.peliElementit;
 
-import tetriz.peliElementit.Nelio;
 import java.awt.Color;
 
 public enum Pala {
@@ -31,29 +30,22 @@ public enum Pala {
     Pala(Color vari) {
         this.aloitusPisteX = 0;
         this.aloitusPisteY = 0;
+        this.neliot = new Nelio[4];
         
         //Asetetaan palatyylin väri:
         this.palatyypinVari = vari;
 
-        //Luodaan palalle palatyypin ominaiset neliöt
-        //this.luoPalanNeliot();
         this.palanKaantoKerrat = 0;
     }
-
-    //Luokka palauttaa satunnaisen Pala luokan
-    //esim. Pala randomPala = Pala.luoSatunnainenPala();
-    public static Pala luoSatunnainenPala() {
-        return values()[(int) (Math.random() * values().length)];
-    }
     
-    public void luoPalaJaAnnaAloitusPiste(int x, int y) {
+    public void luoAloitusPisteJaNeliot(int x, int y) {
         this.aloitusPisteX = x;
         this.aloitusPisteY = y;
-        this.luoNeliot();
+        luoNeliot();
     }
 
     public void luoNeliot() {        
-        this.neliot = new Nelio[4];
+
         switch (this.toString()) {
             case "NELIOPALA":
                 this.neliot[0] = new Nelio(aloitusPisteX - 1, aloitusPisteY, this.palatyypinVari);
@@ -133,13 +125,9 @@ public enum Pala {
         }
     }
 
-    //Ei toimi, kesken!
+    //TODO
     public void rotaatio() {
-        for (Nelio nelio : neliot) {
-            int uusiX = (int) ((nelio.X) * Math.cos(Math.PI / 2) - (nelio.Y) * Math.sin(Math.PI / 2));
-            int uusiY = (int) ((nelio.X) * Math.sin(Math.PI / 2) - (nelio.Y) * Math.cos(Math.PI / 2));
-            nelio.asetaKordinaatit(- 1 * uusiX, -1 * uusiY);
-        }
+
 
     }
 

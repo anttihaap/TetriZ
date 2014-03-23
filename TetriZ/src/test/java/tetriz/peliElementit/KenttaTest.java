@@ -71,14 +71,9 @@ public class KenttaTest {
     }
     
     @Test
-    public void paluattaaEpatosiJosEtsiiVariaYliRajojen() {
-        assertEquals(false, kentta.onkoVariaKartassaKohdassa(100, 100));
-    }
-    
-    @Test
     public void palaLisataanKenttaan() {
         Pala pala = Pala.NELIOPALA;
-        pala.luoPalaJaAnnaAloitusPiste(leveys / 2, 0);
+        pala.luoAloitusPisteJaNeliot(leveys / 2, 0);
         
         kentta.lisaaPalaKenttaan(pala);
         
@@ -87,4 +82,6 @@ public class KenttaTest {
             assertEquals(kentta.palautaKentanKordinaatistonVari(nelio.palautaX(), nelio.palautaY()), pala.palatyypinVari);
         }       
     }
+    
+
 }

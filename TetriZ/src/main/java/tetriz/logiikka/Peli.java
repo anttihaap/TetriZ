@@ -11,28 +11,29 @@ public class Peli {
     int etenemisViiveMs;
 
     Pala pala;
-    PalaHallinta palaHallinta;
+    PalaLogiikka palaHallinta;
 
     boolean peliKaynnissa;
 
-    public Peli(int kentanLeveys, int kentanKorkeus, int etenemisViiveMs) {     
+    public Peli(int kentanLeveys, int kentanKorkeus, int etenemisViiveMs) {
         this.kentta = new Kentta(kentanLeveys, kentanKorkeus);
         this.etenemisViiveMs = etenemisViiveMs;
-        
+
         this.kentanPiirto = new KentanPiirto();
-        
-        this.palaHallinta = new PalaHallinta(kentta);
-        this.pala = palaHallinta.palautaSatunnainenPala();
+
+        this.palaHallinta = new PalaLogiikka(kentta);
         
         peliKaynnissa = true;
     }
 
     public void aloita() {
+        this.pala = palaHallinta.palautaSatunnainenPala();
         tulostaKentta();
+        
         while (peliKaynnissa) {
             etene();
         }
-        lopetaPeli();
+        lopeta();
     }
 
     public void etene() {
@@ -45,7 +46,7 @@ public class Peli {
     }
 
     public void liikutaPalaaAlas() {
-        if (palaHallinta.voikoPalaaLiikuttaaKartassaSuuntaan(pala, 0, 1)) {
+        if (palaHallinta.voikoLiikuttaaAlas(pala)) {
             this.pala.liikutaPalaaAlas();
             tulostaKentta();
         } else {
@@ -54,14 +55,14 @@ public class Peli {
     }
 
     public void liikutaPalaaOikealle() {
-        if (palaHallinta.voikoPalaaLiikuttaaKartassaSuuntaan(pala, 1, 0)) {
+        if (palaHallinta.voikoLiikuttaaOikealle(pala)) {
             this.pala.liikuOikealle();
             tulostaKentta();
         }
     }
 
     public void liikutaPalaaVasemmalle() {
-        if (palaHallinta.voikoPalaaLiikuttaaKartassaSuuntaan(pala, -1, 0)) {
+        if (palaHallinta.voikoLiikuttaaVasemmalle(pala)) {
             pala.liikuVasemmalle();
             tulostaKentta();
         }
@@ -70,9 +71,9 @@ public class Peli {
     public void luoUusiPala() {
         kentta.lisaaPalaKenttaan(pala);
         Pala uusiPala = palaHallinta.palautaSatunnainenPala();
-        
+
         //Jos uutta palaa ei voida luoda, peli päättyy
-        if (palaHallinta.voikoPalaaLiikuttaaKartassaSuuntaan(uusiPala, 0, 0)) {
+        if (palaHallinta.voikoLuoda(uusiPala)) {
             this.pala = uusiPala;
             tulostaKentta();
         } else {
@@ -80,7 +81,7 @@ public class Peli {
         }
     }
 
-    public void lopetaPeli() {
+    public void lopeta() {
         System.out.println("LOPPU");
     }
 
