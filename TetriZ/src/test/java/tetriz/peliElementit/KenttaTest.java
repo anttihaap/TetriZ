@@ -46,28 +46,28 @@ public class KenttaTest {
 
     @Test
     public void kenttaLuoOikeanlaisenKentan() {
-        assertEquals(kentta.kentanKorkeus, this.korkeus);
-        assertEquals(kentta.kentanLeveys, this.leveys);
+        assertEquals(kentta.palautaKentanKorkeus(), this.korkeus);
+        assertEquals(kentta.palautaKentanLeveys(), this.leveys);
     }
     
     @Test
     public void onkoVariaKartassaKohdassaPalauttaaOikeanTotuusarvon() {
         Color musta = Color.black;
-        kentta.lisaaVariKenttaan(musta, 0, 0);
-        assertEquals(true, kentta.onkoVariaKartassaKohdassa(0, 0));
-        assertEquals(false, kentta.onkoVariaKartassaKohdassa(0, 1));
+        kentta.lisaaVari(musta, 0, 0);
+        assertEquals(true, kentta.onkoVaria(0, 0));
+        assertEquals(false, kentta.onkoVaria(0, 1));
     }
     
     @Test 
     public void variLisataanKenttaan() {
         Color musta = Color.black;       
-        kentta.lisaaVariKenttaan(musta, 0, 0);
-        assertEquals(musta, kentta.palautaKentanKordinaatistonVari(0, 0));
+        kentta.lisaaVari(musta, 0, 0);
+        assertEquals(musta, kentta.palautaVari(0, 0));
     }
     
     @Test
     public void palauttaaValkosenVarinJosTyhja() {
-        assertEquals(Color.white, kentta.palautaKentanKordinaatistonVari(0, 0));
+        assertEquals(Color.white, kentta.palautaVari(0, 0));
     }
     
     @Test
@@ -75,11 +75,11 @@ public class KenttaTest {
         Pala pala = Pala.NELIOPALA;
         pala.luoAloitusPisteJaNeliot(leveys / 2, 0);
         
-        kentta.lisaaPalaKenttaan(pala);
+        kentta.lisaaPala(pala);
         
         //Palan nelion vari tulisi löytyä lisäkysen jälkeen kentästä
         for (Nelio nelio : pala.palautaPalanNeliot()) {
-            assertEquals(kentta.palautaKentanKordinaatistonVari(nelio.palautaX(), nelio.palautaY()), pala.palatyypinVari);
+            assertEquals(kentta.palautaVari(nelio.palautaX(), nelio.palautaY()), pala.palatyypinVari);
         }       
     }
     

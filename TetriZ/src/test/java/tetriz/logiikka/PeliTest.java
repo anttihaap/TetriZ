@@ -8,7 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import tetriz.peliElementit.Kentta;
-import tetriz.peliElementit.Pala;
 
 public class PeliTest {
     
@@ -45,9 +44,4 @@ public class PeliTest {
         
         assertEquals(peli.etenemisViiveMs,this.etenemisViiveMs);       
     }  
-    
-    
-
-    
-
 }

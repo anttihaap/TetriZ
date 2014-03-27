@@ -100,7 +100,7 @@ public enum Pala {
 
     public Color palautaVariKordinaatista(int x, int y) {
         for (Nelio nelio : neliot) {
-            if (nelio.X == x && nelio.Y == y) {
+            if (nelio.palautaX() == x && nelio.palautaY() == y) {
                 return nelio.palautaVari();
             }
         }

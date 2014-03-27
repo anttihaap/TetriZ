@@ -12,12 +12,27 @@ public class PalaLogiikka {
         this.kentta = kentta;
     }
 
+    public Pala palautaSatunnainenPala() {
+        Pala satunnainenPala = Pala.values()[(int) (Math.random() * Pala.values().length)];
+        satunnainenPala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
+        return satunnainenPala;
+    }
+
+    public boolean voidaankoLuoda(Pala pala) {
+        for (Nelio n : pala.palautaPalanNeliot()) {
+            if (kentta.onkoVaria(n.palautaX(), n.palautaY())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean voikoLiikuttaaAlas(Pala pala) {
         for (Nelio n : pala.palautaPalanNeliot()) {
             if (n.palautaY() + 1 >= kentta.palautaKentanKorkeus()) {
                 return false;
             }
-            if (kentta.onkoVariaKartassaKohdassa(n.palautaX(), n.palautaY() + 1)) {
+            if (kentta.onkoVaria(n.palautaX(), n.palautaY() + 1)) {
                 return false;
             }
         }
@@ -29,7 +44,7 @@ public class PalaLogiikka {
             if (n.palautaX() + 1 >= kentta.palautaKentanLeveys()) {
                 return false;
             }
-            if (kentta.onkoVariaKartassaKohdassa(n.palautaX() + 1, n.palautaY())) {
+            if (kentta.onkoVaria(n.palautaX() + 1, n.palautaY())) {
                 return false;
             }
         }
@@ -41,26 +56,11 @@ public class PalaLogiikka {
             if (n.palautaX() - 1 > 0) {
                 return false;
             }
-            if (kentta.onkoVariaKartassaKohdassa(n.palautaX() - 1, n.palautaY())) {
+            if (kentta.onkoVaria(n.palautaX() - 1, n.palautaY())) {
                 return false;
             }
         }
         return true;
-    }
-    
-    public boolean voikoLuoda(Pala pala) {
-        for (Nelio n : pala.palautaPalanNeliot()) {
-            if (kentta.onkoVariaKartassaKohdassa(n.palautaX(), n.palautaY())) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    public Pala palautaSatunnainenPala() {
-        Pala satunnainenPala = Pala.values()[(int) (Math.random() * Pala.values().length)];
-        satunnainenPala.luoAloitusPisteJaNeliot(kentta.kentanLeveys / 2, 0);
-        return satunnainenPala;
     }
 
 }

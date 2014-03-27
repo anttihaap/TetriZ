@@ -22,14 +22,14 @@ public class Peli {
         this.kentanPiirto = new KentanPiirto();
 
         this.palaHallinta = new PalaLogiikka(kentta);
-        
+
         peliKaynnissa = true;
     }
 
     public void aloita() {
         this.pala = palaHallinta.palautaSatunnainenPala();
         tulostaKentta();
-        
+
         while (peliKaynnissa) {
             etene();
         }
@@ -50,7 +50,7 @@ public class Peli {
             this.pala.liikutaPalaaAlas();
             tulostaKentta();
         } else {
-            luoUusiPala();
+            seuraavaPala();
         }
     }
 
@@ -68,16 +68,19 @@ public class Peli {
         }
     }
 
-    public void luoUusiPala() {
-        kentta.lisaaPalaKenttaan(pala);
-        Pala uusiPala = palaHallinta.palautaSatunnainenPala();
+    public void seuraavaPala() {
+        //Kiinnitetään nykyinen pala kentään:
+        kentta.lisaaPala(pala);
+        
+        //Luodaan seuraava  pala:
+        Pala seuraavaPala = palaHallinta.palautaSatunnainenPala();
 
         //Jos uutta palaa ei voida luoda, peli päättyy
-        if (palaHallinta.voikoLuoda(uusiPala)) {
-            this.pala = uusiPala;
-            tulostaKentta();
-        } else {
+        if (!palaHallinta.voidaankoLuoda(seuraavaPala)) {
             peliKaynnissa = false;
+        } else {
+            this.pala = seuraavaPala;
+            tulostaKentta();
         }
     }
 

@@ -5,11 +5,11 @@ import java.awt.Color;
 public class Nelio {
 
     //Nelion kordinaatit:
-    public int X;
-    public int Y;
+    private int X;
+    private int Y;
     
     //Nelion vari:
-    public Color vari;
+    private final Color vari;
 
     public Nelio(int x, int y, Color vari) {
         this.X = x;

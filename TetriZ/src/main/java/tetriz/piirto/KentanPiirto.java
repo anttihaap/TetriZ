@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tetriz.piirto;
 
 import java.awt.GridLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import tetriz.peliElementit.Kentta;
@@ -40,7 +33,7 @@ public class KentanPiirto  {
                 if (pala.palautaVariKordinaatista(x, y) != null) {
                     testi[y][x].setBackground(pala.palautaVariKordinaatista(x, y));
                 } else {
-                    testi[y][x].setBackground(kentta.palautaKentanKordinaatistonVari(x, y));
+                    testi[y][x].setBackground(kentta.palautaVari(x, y));
                 }
                 frame.add(testi[y][x]);
             }

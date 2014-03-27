@@ -44,9 +44,9 @@ public class NelioTest {
 
     @Test
     public void nelioLuodaanOikein() {
-        assertEquals(Color.white, nelio.vari);
-        assertEquals(0, nelio.X);
-        assertEquals(0, nelio.Y);
+        assertEquals(Color.white, nelio.palautaVari());
+        assertEquals(0, nelio.palautaX());
+        assertEquals(0, nelio.palautaY());
     }
     
     @Test 

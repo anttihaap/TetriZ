@@ -4,36 +4,28 @@ import java.awt.Color;
 
 public class Kentta {
 
-    public int kentanKorkeus;
-    public int kentanLeveys;
-    public Color[][] kentta;
+    private final int kentanKorkeus;
+    private final int kentanLeveys;
+    private Color[][] kordinaatisto;
 
     public Kentta(int kentanLeveys, int kentanKorkeus) {
         this.kentanLeveys = kentanLeveys;
         this.kentanKorkeus = kentanKorkeus;
-        this.kentta = new Color[kentanLeveys][kentanKorkeus];
+        this.kordinaatisto = new Color[kentanLeveys][kentanKorkeus];
     }
 
-    public void lisaaVariKenttaan(Color vari, int x, int y) {
-        this.kentta[x][y] = vari;
+    public void lisaaVari(Color vari, int x, int y) {
+        this.kordinaatisto[x][y] = vari;
     }
 
-    public void lisaaPalaKenttaan(Pala pala) {
+    public void lisaaPala(Pala pala) {
         for (Nelio n : pala.palautaPalanNeliot()) {
-            lisaaVariKenttaan(n.palautaVari(), n.palautaX(), n.palautaY());
+            lisaaVari(n.palautaVari(), n.palautaX(), n.palautaY());
         }
     }
 
-    public boolean onkoVariaKartassaKohdassa(int x, int y) {
-        return this.kentta[x][y] != null;
-    }
-
-    public Color palautaKentanKordinaatistonVari(int x, int y) {
-        if (this.kentta[x][y] != null) {
-            return this.kentta[x][y];
-        } else {
-            return Color.white;
-        }
+    public boolean onkoVaria(int x, int y) {
+        return this.kordinaatisto[x][y] != null;
     }
 
     public int palautaKentanLeveys() {
@@ -43,4 +35,13 @@ public class Kentta {
     public int palautaKentanKorkeus() {
         return kentanKorkeus;
     }
+
+    public Color palautaVari(int x, int y) {
+        if (this.kordinaatisto[x][y] != null) {
+            return this.kordinaatisto[x][y];
+        } else {
+            return Color.white;
+        }
+    }
+
 }
