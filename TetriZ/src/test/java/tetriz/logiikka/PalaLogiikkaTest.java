@@ -124,9 +124,33 @@ public class PalaLogiikkaTest {
     }
     
     @Test
+    public void eiVoiLiikuttaaOikealleJosEste() {
+        Pala este = Pala.NELIOPALA;
+        este.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2 + 2, 0);
+        kentta.lisaaPala(este);
+        
+        Pala pala = Pala.NELIOPALA;
+        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
+        
+        assertFalse(palaLogiikka.voikoLiikuttaaOikealle(pala));
+    }
+    
+    @Test
     public void eiVoiLiikuttaaLiikaaVasemmalle() {
         Pala pala = Pala.NELIOPALA;
         pala.luoAloitusPisteJaNeliot(1, 0);
+        
+        assertFalse(palaLogiikka.voikoLiikuttaaVasemmalle(pala));
+    }
+    
+    @Test
+    public void eiVoiLiikuttaaVasemmalleJosEste() {
+        Pala este = Pala.NELIOPALA;
+        este.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2 - 2, 0);
+        kentta.lisaaPala(este);
+        
+        Pala pala = Pala.NELIOPALA;
+        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2 - 2, 0);
         
         assertFalse(palaLogiikka.voikoLiikuttaaVasemmalle(pala));
     }

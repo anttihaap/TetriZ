@@ -43,14 +43,5 @@ public class PalaTest {
     public void tearDown() {
     }
 
-    @Test
-    public void palaLiikkuuAlas() {
-
-    }
-    
-    @Test
-    public void palaLiikkuuOikealle() {
-
-    }
     
 }
