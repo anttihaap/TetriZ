@@ -27,7 +27,7 @@ public class Peli {
     }
 
     public void aloita() {
-        this.pala = palaHallinta.palautaSatunnainenPala();
+        this.pala = palautaSatunnainenPala();
         tulostaKentta();
 
         while (peliKaynnissa) {
@@ -47,7 +47,7 @@ public class Peli {
 
     public void liikutaPalaaAlas() {
         if (palaHallinta.voikoLiikuttaaAlas(pala)) {
-            this.pala.liikutaPalaaAlas();
+            this.pala.liikuAlas();
             tulostaKentta();
         } else {
             seuraavaPala();
@@ -73,7 +73,7 @@ public class Peli {
         kentta.lisaaPala(pala);
         
         //Luodaan seuraava  pala:
-        Pala seuraavaPala = palaHallinta.palautaSatunnainenPala();
+        Pala seuraavaPala = palautaSatunnainenPala();
 
         //Jos uutta palaa ei voida luoda, peli päättyy
         if (!palaHallinta.voidaankoLuoda(seuraavaPala)) {
@@ -94,5 +94,11 @@ public class Peli {
         } catch (InterruptedException e) {
 
         }
+    }
+    
+    public Pala palautaSatunnainenPala() {
+        Pala satunnainenPala = Pala.values()[(int) (Math.random() * Pala.values().length)];
+        satunnainenPala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
+        return satunnainenPala;
     }
 }

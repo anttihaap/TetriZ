@@ -107,7 +107,7 @@ public enum Pala {
         return null;
     }
 
-    public void liikutaPalaaAlas() {
+    public void liikuAlas() {
         for (Nelio n : this.neliot) {
             n.alas();
         }

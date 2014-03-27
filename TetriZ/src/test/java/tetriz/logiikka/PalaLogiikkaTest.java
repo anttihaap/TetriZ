@@ -46,22 +46,47 @@ public class PalaLogiikkaTest {
     @After
     public void tearDown() {
     }
-
-    @Test
-    public void luoPalaLuoPalan() {
-        Pala pala = palaLogiikka.palautaSatunnainenPala();
-        assertNotNull(pala);
-    }
     
     @Test 
-    public void palaVoidaanLuodaJosEiEstetta() {
-        Pala pala = palaLogiikka.palautaSatunnainenPala();                
+    public void voiLuodaJosEiEstetta() {
+        //Pala vakioaloituskohtaan
+        Pala pala = Pala.NELIOPALA;
+        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
         assertTrue(palaLogiikka.voidaankoLuoda(pala));      
     }
     
     @Test
+    public void voiLiikuttaaAlasJosEiEstetta() {
+        //Pala vakioaloituskohtaan
+        Pala pala = Pala.NELIOPALA;
+        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
+        
+        assertTrue(palaLogiikka.voikoLiikuttaaOikealle(pala));
+    
+    }
+    
+    @Test
+    public void voiLiikuttaaOikealleJosEIEstetta() {
+        //Pala vakioaloituskohtaan
+        Pala pala = Pala.NELIOPALA;
+        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
+        
+        assertTrue(palaLogiikka.voikoLiikuttaaOikealle(pala));
+    }
+    
+    @Test
+    public void voiLiikuttaaVasemmalleJosEiEstetta() {
+        //Pala vakioaloituskohtaan
+        Pala pala = Pala.NELIOPALA;
+        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
+        
+        assertTrue(palaLogiikka.voikoLiikuttaaVasemmalle(pala));
+    }
+    
+    @Test
     public void palaaEiVoidaLuodaToisenPaalle() {
-        Pala pala = palaLogiikka.palautaSatunnainenPala();
+        Pala pala = Pala.NELIOPALA;
+        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
         
         //Lisätään pala kenttään. Palaa ei voi luoda kentälle uudestaan.
         kentta.lisaaPala(pala);
@@ -69,13 +94,42 @@ public class PalaLogiikkaTest {
     }
     
     @Test
-    public void palaaEiVoiLiikuttaaAlasLiikaa() {
+    public void eiVoiLiikuttaaAlasYliRajojen() {
+        //Luodaan pala oikeaan reunaan
+        Pala pala = Pala.NELIOPALA;
+        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 18);
         
-        
-        for (int i = 0; i < kentta.palautaKentanKorkeus(); i++) {
-            
-        }
-        
+        assertFalse(palaLogiikka.voikoLiikuttaaAlas(pala));
     }
+    
+    @Test 
+    public void eiVoiLiikuttaaAlasJosEste() {
+        //Luodaan este ja liitetään kenttään:
+        Pala este = Pala.NELIOPALA;
+        este.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 2);
+        kentta.lisaaPala(este);
+        
+        Pala pala = Pala.NELIOPALA;
+        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
+
+        assertFalse(palaLogiikka.voikoLiikuttaaAlas(pala));
+    }
+    
+    @Test
+    public void eiVoiLiikuttaaOikealleYliRajojen() {
+        Pala pala = Pala.NELIOPALA;
+        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2 + 4, 0);
+        
+        assertFalse(palaLogiikka.voikoLiikuttaaOikealle(pala));
+    }
+    
+    @Test
+    public void eiVoiLiikuttaaLiikaaVasemmalle() {
+        Pala pala = Pala.NELIOPALA;
+        pala.luoAloitusPisteJaNeliot(1, 0);
+        
+        assertFalse(palaLogiikka.voikoLiikuttaaVasemmalle(pala));
+    }
+    
     
 }
