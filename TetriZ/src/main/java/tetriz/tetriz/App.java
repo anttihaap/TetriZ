@@ -1,8 +1,6 @@
 package tetriz.tetriz;
 
 import tetriz.kayttoliittyma.ValiaikainenKayttoliittyma;
-import tetriz.kayttoliittyma.TestiPiirraNelio;
-import tetriz.logiikka.Peli;
 
 public class App {
 

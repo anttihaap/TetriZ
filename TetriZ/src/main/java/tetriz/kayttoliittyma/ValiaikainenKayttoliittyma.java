@@ -19,7 +19,7 @@ public class ValiaikainenKayttoliittyma extends JFrame implements KeyListener {
 
     public ValiaikainenKayttoliittyma() {
         setTitle("TetriZ");
-        setSize(300, 630);
+        setSize(300, 600);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -40,9 +40,6 @@ public class ValiaikainenKayttoliittyma extends JFrame implements KeyListener {
 
     public void piirraKentta(Color[][] peliTilanne) {
         this.peliTilanneKordinaatiosto = peliTilanne;
-        remove(kenttaPiirto);
-        kenttaPiirto = new PaintKentta(this.peliTilanneKordinaatiosto);
-        add(kenttaPiirto);
         
         kenttaPiirto.repaint();
     }

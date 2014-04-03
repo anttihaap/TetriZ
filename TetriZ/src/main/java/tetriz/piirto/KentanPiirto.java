@@ -21,7 +21,6 @@ public class KentanPiirto extends JComponent {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
     }
 
     public void piirra(Kentta kentta,Pala pala) {

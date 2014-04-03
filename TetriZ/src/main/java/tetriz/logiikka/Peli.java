@@ -1,6 +1,7 @@
 package tetriz.logiikka;
 
 import java.awt.Color;
+import java.util.Arrays;
 import tetriz.kayttoliittyma.ValiaikainenKayttoliittyma;
 import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Nelio;
@@ -18,6 +19,7 @@ public class Peli {
     Pala pala;
 
     boolean peliKaynnissa;
+    Color[][] peliTilanne;
 
     public Peli(int etenemisViiveMs, ValiaikainenKayttoliittyma kayttoliittyma) {
         this(10, 20, etenemisViiveMs, kayttoliittyma);
@@ -31,12 +33,13 @@ public class Peli {
         this.kayttoliittyma = kayttoliittyma;
 
         this.pala = palautaUusiPala();
+        this.peliTilanne = this.kentta.palautaKordinaatisto().clone();
     }
 
     public void aloita() {
         peliKaynnissa = true;
         
-        kayttoliittyma.kaynnistaPiirto(palautaPeliTilanne());
+        kayttoliittyma.kaynnistaPiirto(peliTilanne);
         tulostaKentta();
 
         while (peliKaynnissa) {
@@ -51,7 +54,8 @@ public class Peli {
     }
 
     public void tulostaKentta() {
-        this.kayttoliittyma.piirraKentta(palautaPeliTilanne());
+        paivitaPeliTilanne();
+        this.kayttoliittyma.piirraKentta(peliTilanne);
     }
 
     public void liikutaPalaaAlas() {
@@ -109,16 +113,16 @@ public class Peli {
         Pala uusiPala = new Pala(this.kentta.palautaKentanLeveys() / 2,0);
         return uusiPala;
     }
-
-    public Color[][] palautaPeliTilanne() {
-        Color[][] kentanTilanneJaPala = new Color[this.kentta.palautaKentanLeveys()][this.kentta.palautaKentanKorkeus()];
-              
-                
-        for (Nelio n : pala.palautaPalanNeliot()) {
-            kentanTilanneJaPala[n.palautaX()][n.palautaY()] = n.palautaVari();
+    
+    public void paivitaPeliTilanne() {
+        Color[][] tilanne = this.kentta.palautaKordinaatisto().clone();
+        
+        
+        for(Nelio n: pala.palautaPalanNeliot()) {
+            tilanne[n.palautaX()][n.palautaY()] = n.palautaVari();
         }
+        
                 
-                                
-        return kentanTilanneJaPala;
+        peliTilanne = tilanne;
     }
 }
