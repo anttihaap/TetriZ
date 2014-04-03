@@ -1,11 +1,14 @@
 package tetriz.tetriz;
 
+import tetriz.kayttoliittyma.ValiaikainenKayttoliittyma;
+import tetriz.kayttoliittyma.TestiPiirraNelio;
 import tetriz.logiikka.Peli;
 
 public class App {
 
     public static void main(String[] args) {
-        Peli p = new Peli(10,20,100);
-        p.aloita();
+
+       ValiaikainenKayttoliittyma k = new ValiaikainenKayttoliittyma();
+       k.aloitaPeli();
    }
 }

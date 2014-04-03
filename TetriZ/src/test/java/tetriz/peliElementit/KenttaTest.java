@@ -7,7 +7,6 @@
 package tetriz.peliElementit;
 
 import java.awt.Color;
-import tetriz.peliElementit.Kentta;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -72,14 +71,13 @@ public class KenttaTest {
     
     @Test
     public void palaLisataanKenttaan() {
-        Pala pala = Pala.NELIOPALA;
-        pala.luoAloitusPisteJaNeliot(leveys / 2, 0);
+        Pala pala = new Pala(kentta.palautaKentanLeveys() / 2, 0);
         
         kentta.lisaaPala(pala);
         
         //Palan nelion vari tulisi löytyä lisäkysen jälkeen kentästä
         for (Nelio nelio : pala.palautaPalanNeliot()) {
-            assertEquals(kentta.palautaVari(nelio.palautaX(), nelio.palautaY()), pala.palatyypinVari);
+            assertEquals(kentta.palautaVari(nelio.palautaX(), nelio.palautaY()), pala.vari);
         }       
     }
     

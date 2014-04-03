@@ -36,7 +36,7 @@ public class PalaTest {
     
     @Before
     public void setUp() {
-        peli = new Peli(10, 20, 100);
+       // peli = new Peli(10, 20, 100);
     }
     
     @After

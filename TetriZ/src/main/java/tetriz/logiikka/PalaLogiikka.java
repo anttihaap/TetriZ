@@ -12,6 +12,12 @@ public class PalaLogiikka {
         this.kentta = kentta;
     }
 
+    /**
+     * Metodi palauttaa totuusarvon siitä, että voiko kyseisen palan luoda kenttään.
+     * 
+     * @param pala
+     * @return 
+     */
     public boolean voidaankoLuoda(Pala pala) {
         for (Nelio n : pala.palautaPalanNeliot()) {
             if (kentta.onkoVaria(n.palautaX(), n.palautaY())) {

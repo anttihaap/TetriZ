@@ -1,13 +1,14 @@
 package tetriz.piirto;
 
 import java.awt.GridLayout;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Pala;
 
 
-public class KentanPiirto  {
+public class KentanPiirto extends JComponent {
 
     JFrame frame;
     JPanel squares[][];
@@ -23,7 +24,7 @@ public class KentanPiirto  {
 
     }
 
-    public void piirra(Kentta kentta, Pala pala) {
+    public void piirra(Kentta kentta,Pala pala) {
         frame.getContentPane().removeAll();
 
         JPanel testi[][] = new JPanel[20][10];

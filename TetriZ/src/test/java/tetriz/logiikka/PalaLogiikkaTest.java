@@ -14,6 +14,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Pala;
+import tetriz.peliElementit.TetrisPalatyypit;
 
 /**
  *
@@ -50,108 +51,87 @@ public class PalaLogiikkaTest {
     @Test 
     public void voiLuodaJosEiEstetta() {
         //Pala vakioaloituskohtaan
-        Pala pala = Pala.NELIOPALA;
-        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
-        assertTrue(palaLogiikka.voidaankoLuoda(pala));      
+        Pala nelioPala = new Pala(kentta.palautaKentanLeveys() / 2, 0, TetrisPalatyypit.NELIOPALA);      
+        assertTrue(palaLogiikka.voidaankoLuoda(nelioPala));      
     }
     
     @Test
     public void voiLiikuttaaAlasJosEiEstetta() {
         //Pala vakioaloituskohtaan
-        Pala pala = Pala.NELIOPALA;
-        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
-        
-        assertTrue(palaLogiikka.voikoLiikuttaaOikealle(pala));
-    
+        Pala nelioPala = new Pala(kentta.palautaKentanLeveys() / 2, 0, TetrisPalatyypit.NELIOPALA); 
+        assertTrue(palaLogiikka.voikoLiikuttaaAlas(nelioPala));    
     }
     
     @Test
     public void voiLiikuttaaOikealleJosEIEstetta() {
-        //Pala vakioaloituskohtaan
-        Pala pala = Pala.NELIOPALA;
-        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
-        
-        assertTrue(palaLogiikka.voikoLiikuttaaOikealle(pala));
+        //Pala vakioaloituskohtaanWanhaPalaala3 Pala pPala3= Pala.NELIOPALA;
+        Pala nelioPala = new Pala(kentta.palautaKentanLeveys() /2, 0, TetrisPalatyypit.NELIOPALA);       
+        assertTrue(palaLogiikka.voikoLiikuttaaOikealle(nelioPala));
     }
     
     @Test
     public void voiLiikuttaaVasemmalleJosEiEstetta() {
-        //Pala vakioaloituskohtaan
-        Pala pala = Pala.NELIOPALA;
-        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
-        
-        assertTrue(palaLogiikka.voikoLiikuttaaVasemmalle(pala));
+        //Pala vakioaloituskWanhaPalan
+        Pala nelioPala = new Pala(kentta.palautaKentanLeveys() / 2, 0, TetrisPalatyypit.NELIOPALA);     
+        assertTrue(palaLogiikka.voikoLiikuttaaVasemmalle(nelioPala));
     }
     
     @Test
-    public void palaaEiVoidaLuodaToisenPaalle() {
-        Pala pala = Pala.NELIOPALA;
-        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
+    public void palaaEiVoidaLuodaToisWanhaPalalle() {
+        Pala nelioPala = new Pala(kentta.palautaKentanLeveys() / 2, 0, TetrisPalatyypit.NELIOPALA);
         
         //Lisätään pala kenttään. Palaa ei voi luoda kentälle uudestaan.
-        kentta.lisaaPala(pala);
-        assertFalse(palaLogiikka.voidaankoLuoda(pala));
+        kentta.lisaaPala(nelioPala);
+        assertFalse(palaLogiikka.voidaankoLuoda(nelioPala));
     }
     
     @Test
     public void eiVoiLiikuttaaAlasYliRajojen() {
-        //Luodaan pala oikeaan reunaan
-        Pala pala = Pala.NELIOPALA;
-        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 18);
-        
-        assertFalse(palaLogiikka.voikoLiikuttaaAlas(pala));
+        //Luodaan pala oikeaan reunaPala3       Pala3 pala = Pala.NELIOPALA;
+        Pala nelioPala = new Pala(kentta.palautaKentanLeveys() / 2, 18, TetrisPalatyypit.NELIOPALA);        
+        assertFalse(palaLogiikka.voikoLiikuttaaAlas(nelioPala));
     }
     
     @Test 
     public void eiVoiLiikuttaaAlasJosEste() {
-        //Luodaan este ja liitetään kenttään:
-        Pala este = Pala.NELIOPALA;
-        este.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 2);
-        kentta.lisaaPala(este);
-        
-        Pala pala = Pala.NELIOPALA;
-        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
+        //Luodaan este ja liitetään kenttaan este:
+        Pala nelioPalaEste = new Pala(kentta.palautaKentanLeveys() / 2, 2, TetrisPalatyypit.NELIOPALA);
+        kentta.lisaaPala(nelioPalaEste);
 
-        assertFalse(palaLogiikka.voikoLiikuttaaAlas(pala));
+        //Luodaan pala esteen päälle ja yritetään liikuttaa alas:
+        Pala nelioPala = new Pala(kentta.palautaKentanLeveys() / 2, 0, TetrisPalatyypit.NELIOPALA);
+        assertFalse(palaLogiikka.voikoLiikuttaaAlas(nelioPala));
     }
     
     @Test
-    public void eiVoiLiikuttaaOikealleYliRajojen() {
-        Pala pala = Pala.NELIOPALA;
-        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2 + 4, 0);
-        
-        assertFalse(palaLogiikka.voikoLiikuttaaOikealle(pala));
+    public void eiVoiLiikuttaaOikealleKentanYli() {
+        Pala nelioPala = new Pala(kentta.palautaKentanLeveys() / 2 + 4, 0, TetrisPalatyypit.NELIOPALA);      
+        assertFalse(palaLogiikka.voikoLiikuttaaOikealle(nelioPala));
     }
     
     @Test
     public void eiVoiLiikuttaaOikealleJosEste() {
-        Pala este = Pala.NELIOPALA;
-        este.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2 + 2, 0);
-        kentta.lisaaPala(este);
+        Pala nelioPalaEste = new Pala(kentta.palautaKentanLeveys() / 2 + 2, 0, TetrisPalatyypit.NELIOPALA);      
+        kentta.lisaaPala(nelioPalaEste);
         
-        Pala pala = Pala.NELIOPALA;
-        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
-        
-        assertFalse(palaLogiikka.voikoLiikuttaaOikealle(pala));
+        Pala nelioPala = new Pala(kentta.palautaKentanLeveys() / 2, 0, TetrisPalatyypit.NELIOPALA);
+        assertFalse(palaLogiikka.voikoLiikuttaaOikealle(nelioPala));
     }
     
     @Test
-    public void eiVoiLiikuttaaLiikaaVasemmalle() {
-        Pala pala = Pala.NELIOPALA;
-        pala.luoAloitusPisteJaNeliot(1, 0);
+    public void eiVoiLiikuttaaVasemmalleKentanYli() {
+        Pala nelioPala = new Pala(1, 0, TetrisPalatyypit.NELIOPALA);
         
-        assertFalse(palaLogiikka.voikoLiikuttaaVasemmalle(pala));
+        assertFalse(palaLogiikka.voikoLiikuttaaVasemmalle(nelioPala));
     }
     
     @Test
     public void eiVoiLiikuttaaVasemmalleJosEste() {
-        Pala este = Pala.NELIOPALA;
-        este.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2 - 2, 0);
-        kentta.lisaaPala(este);
+        Pala nelioPalaEste = new Pala(kentta.palautaKentanLeveys() / 2 - 2, 0, TetrisPalatyypit.NELIOPALA);
+        kentta.lisaaPala(nelioPalaEste);
         
-        Pala pala = Pala.NELIOPALA;
-        pala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2 - 2, 0);
-        
+        Pala pala = new Pala(kentta.palautaKentanLeveys() / 2 - 2, 0, TetrisPalatyypit.NELIOPALA);
+       
         assertFalse(palaLogiikka.voikoLiikuttaaVasemmalle(pala));
     }
     

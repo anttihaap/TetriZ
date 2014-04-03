@@ -1,33 +1,42 @@
 package tetriz.logiikka;
 
+import java.awt.Color;
+import tetriz.kayttoliittyma.ValiaikainenKayttoliittyma;
 import tetriz.peliElementit.Kentta;
+import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
-import tetriz.piirto.KentanPiirto;
 
 public class Peli {
 
+    ValiaikainenKayttoliittyma kayttoliittyma;
+    PalaLogiikka palaLogiikka;
+
     Kentta kentta;
-    KentanPiirto kentanPiirto;
+
     int etenemisViiveMs;
 
     Pala pala;
-    PalaLogiikka palaHallinta;
 
     boolean peliKaynnissa;
 
-    public Peli(int kentanLeveys, int kentanKorkeus, int etenemisViiveMs) {
+    public Peli(int etenemisViiveMs, ValiaikainenKayttoliittyma kayttoliittyma) {
+        this(10, 20, etenemisViiveMs, kayttoliittyma);
+    }
+
+    public Peli(int kentanLeveys, int kentanKorkeus, int etenemisViiveMs, ValiaikainenKayttoliittyma kayttoliittyma) {
         this.kentta = new Kentta(kentanLeveys, kentanKorkeus);
         this.etenemisViiveMs = etenemisViiveMs;
 
-        this.kentanPiirto = new KentanPiirto();
+        this.palaLogiikka = new PalaLogiikka(kentta);
+        this.kayttoliittyma = kayttoliittyma;
 
-        this.palaHallinta = new PalaLogiikka(kentta);
-
-        peliKaynnissa = true;
+        this.pala = palautaUusiPala();
     }
 
     public void aloita() {
-        this.pala = palautaSatunnainenPala();
+        peliKaynnissa = true;
+        
+        kayttoliittyma.kaynnistaPiirto(palautaPeliTilanne());
         tulostaKentta();
 
         while (peliKaynnissa) {
@@ -42,11 +51,11 @@ public class Peli {
     }
 
     public void tulostaKentta() {
-        this.kentanPiirto.piirra(kentta, pala);
+        this.kayttoliittyma.piirraKentta(palautaPeliTilanne());
     }
 
     public void liikutaPalaaAlas() {
-        if (palaHallinta.voikoLiikuttaaAlas(pala)) {
+        if (palaLogiikka.voikoLiikuttaaAlas(pala)) {
             this.pala.liikuAlas();
             tulostaKentta();
         } else {
@@ -55,14 +64,14 @@ public class Peli {
     }
 
     public void liikutaPalaaOikealle() {
-        if (palaHallinta.voikoLiikuttaaOikealle(pala)) {
+        if (palaLogiikka.voikoLiikuttaaOikealle(pala)) {
             this.pala.liikuOikealle();
             tulostaKentta();
         }
     }
 
     public void liikutaPalaaVasemmalle() {
-        if (palaHallinta.voikoLiikuttaaVasemmalle(pala)) {
+        if (palaLogiikka.voikoLiikuttaaVasemmalle(pala)) {
             pala.liikuVasemmalle();
             tulostaKentta();
         }
@@ -71,12 +80,12 @@ public class Peli {
     public void seuraavaPala() {
         //Kiinnitetään nykyinen pala kentään:
         kentta.lisaaPala(pala);
-        
-        //Luodaan seuraava  pala:
-        Pala seuraavaPala = palautaSatunnainenPala();
+
+        //Luodaan seuraava pala entisen tilalle:
+        Pala seuraavaPala = palautaUusiPala();
 
         //Jos uutta palaa ei voida luoda, peli päättyy
-        if (!palaHallinta.voidaankoLuoda(seuraavaPala)) {
+        if (!palaLogiikka.voidaankoLuoda(seuraavaPala)) {
             peliKaynnissa = false;
         } else {
             this.pala = seuraavaPala;
@@ -95,10 +104,21 @@ public class Peli {
 
         }
     }
-    
-    public Pala palautaSatunnainenPala() {
-        Pala satunnainenPala = Pala.values()[(int) (Math.random() * Pala.values().length)];
-        satunnainenPala.luoAloitusPisteJaNeliot(kentta.palautaKentanLeveys() / 2, 0);
-        return satunnainenPala;
+
+    private Pala palautaUusiPala() {
+        Pala uusiPala = new Pala(this.kentta.palautaKentanLeveys() / 2,0);
+        return uusiPala;
+    }
+
+    public Color[][] palautaPeliTilanne() {
+        Color[][] kentanTilanneJaPala = new Color[this.kentta.palautaKentanLeveys()][this.kentta.palautaKentanKorkeus()];
+              
+                
+        for (Nelio n : pala.palautaPalanNeliot()) {
+            kentanTilanneJaPala[n.palautaX()][n.palautaY()] = n.palautaVari();
+        }
+                
+                                
+        return kentanTilanneJaPala;
     }
 }

@@ -43,5 +43,8 @@ public class Kentta {
             return Color.white;
         }
     }
-
+    
+    public Color[][] palautaKordinaatisto() {
+        return kordinaatisto;
+    }
 }
