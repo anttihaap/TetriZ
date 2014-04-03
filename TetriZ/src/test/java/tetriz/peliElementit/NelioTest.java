@@ -22,26 +22,44 @@ public class NelioTest {
     
     Nelio nelio;
     
+    /**
+     *
+     */
     public NelioTest() {
     }
     
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
     
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }
     
+    /**
+     *
+     */
     @Before
     public void setUp() {
         nelio = new Nelio(0, 0, Color.white);
     }
     
+    /**
+     *
+     */
     @After
     public void tearDown() {
     }
 
+    /**
+     *
+     */
     @Test
     public void nelioLuodaanOikein() {
         assertEquals(Color.white, nelio.palautaVari());
@@ -49,6 +67,9 @@ public class NelioTest {
         assertEquals(0, nelio.palautaY());
     }
     
+    /**
+     *
+     */
     @Test 
     public void nelioPalauttaaOikeatArvot() {
         assertEquals(Color.white, nelio.palautaVari());
@@ -56,6 +77,9 @@ public class NelioTest {
         assertEquals(0, nelio.palautaY());
     }
     
+    /**
+     *
+     */
     @Test
     public void nelioLiikkuuOikeinJokaiseenSuuntaan() {
         for (int i = 0; i < 10; i++) {

@@ -6,28 +6,27 @@ import tetriz.peliElementit.Pala;
 
 public class PalaLogiikka {
 
-    Kentta kentta;
-
-    public PalaLogiikka(Kentta kentta) {
-        this.kentta = kentta;
-    }
 
     /**
-     * Metodi palauttaa totuusarvon siitä, että voiko kyseisen palan luoda kenttään.
-     * 
+     * Metodi palauttaa totuusarvon siitä, että voiko kyseisen palan luoda kenttään.  
      * @param pala
-     * @return 
+     * @return totuusarvo luonnista
      */
-    public boolean voidaankoLuoda(Pala pala) {
+    public boolean voidaankoLuoda(Pala pala, Kentta k) {
         for (Nelio n : pala.palautaPalanNeliot()) {
-            if (kentta.onkoVaria(n.palautaX(), n.palautaY())) {
+            if (k.onkoVaria(n.palautaX(), n.palautaY())) {
                 return false;
             }
         }
         return true;
     }
 
-    public boolean voikoLiikuttaaAlas(Pala pala) {
+    /**
+     * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa kentässä alaspäin. 
+     * @param pala
+     * @return totuusarvo palan liikuttamisesta alas
+     */
+    public boolean voikoLiikuttaaAlas(Pala pala, Kentta kentta) {
         for (Nelio n : pala.palautaPalanNeliot()) {
             if (n.palautaY() + 1 >= kentta.palautaKentanKorkeus()) {
                 return false;
@@ -39,7 +38,12 @@ public class PalaLogiikka {
         return true;
     }
 
-    public boolean voikoLiikuttaaOikealle(Pala pala) {
+    /**
+     * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa kentässä oikealle. 
+     * @param pala
+     * @return tootusarvo palan liikuttamisesta oikealle
+     */
+    public boolean voikoLiikuttaaOikealle(Pala pala, Kentta kentta) {
         for (Nelio n : pala.palautaPalanNeliot()) {
             if (n.palautaX() + 1 >= kentta.palautaKentanLeveys()) {
                 return false;
@@ -51,7 +55,13 @@ public class PalaLogiikka {
         return true;
     }
 
-    public boolean voikoLiikuttaaVasemmalle(Pala pala) {
+    /**
+     * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa kentässä vasemmalle. 
+     * @param pala
+     * @param kentta
+     * @return totuusarvo palan liikuttamisesta vasemmalle
+     */
+    public boolean voikoLiikuttaaVasemmalle(Pala pala, Kentta kentta) {
         for (Nelio n : pala.palautaPalanNeliot()) {
             if (n.palautaX() - 1 < 0) {
                 return false;

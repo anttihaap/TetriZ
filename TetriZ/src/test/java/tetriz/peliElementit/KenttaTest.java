@@ -23,32 +23,53 @@ public class KenttaTest {
     private final int korkeus = 20;
     private final int leveys = 10;
     
+    /**
+     *
+     */
     public KenttaTest() {
     }
     
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
     
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }
     
+    /**
+     *
+     */
     @Before
     public void setUp() {
         kentta = new Kentta(leveys,korkeus);
     }
     
+    /**
+     *
+     */
     @After
     public void tearDown() {
     }
 
+    /**
+     *
+     */
     @Test
     public void kenttaLuoOikeanlaisenKentan() {
         assertEquals(kentta.palautaKentanKorkeus(), this.korkeus);
         assertEquals(kentta.palautaKentanLeveys(), this.leveys);
     }
     
+    /**
+     *
+     */
     @Test
     public void onkoVariaKartassaKohdassaPalauttaaOikeanTotuusarvon() {
         Color musta = Color.black;
@@ -57,6 +78,9 @@ public class KenttaTest {
         assertEquals(false, kentta.onkoVaria(0, 1));
     }
     
+    /**
+     *
+     */
     @Test 
     public void variLisataanKenttaan() {
         Color musta = Color.black;       
@@ -64,11 +88,17 @@ public class KenttaTest {
         assertEquals(musta, kentta.palautaVari(0, 0));
     }
     
+    /**
+     *
+     */
     @Test
     public void palauttaaValkosenVarinJosTyhja() {
         assertEquals(Color.white, kentta.palautaVari(0, 0));
     }
     
+    /**
+     *
+     */
     @Test
     public void palaLisataanKenttaan() {
         Pala pala = new Pala(kentta.palautaKentanLeveys() / 2, 0);

@@ -1,45 +1,38 @@
 package tetriz.piirto;
 
-import java.awt.GridLayout;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Graphics;
 import javax.swing.JPanel;
-import tetriz.peliElementit.Kentta;
-import tetriz.peliElementit.Pala;
 
+/**
+ *
+ * @author Antti
+ */
+public class KentanPiirto extends JPanel {
 
-public class KentanPiirto extends JComponent {
+    Color[][] pelitilanne;
 
-    JFrame frame;
-    JPanel squares[][];
-
-    public KentanPiirto() {
-        squares = new JPanel[20][10];
-        frame = new JFrame("Uli");
-        frame.setSize(300, 600);
-        frame.setLayout(new GridLayout(20, 10));
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+    /**
+     *
+     * @param pelitilanne
+     */
+    public KentanPiirto(Color[][] pelitilanne) {
+        this.pelitilanne = pelitilanne;
     }
-
-    public void piirra(Kentta kentta,Pala pala) {
-        frame.getContentPane().removeAll();
-
-        JPanel testi[][] = new JPanel[20][10];
+         
+    @Override
+    public void paint(Graphics g) {
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 10; x++) {
-                testi[y][x] = new JPanel();
-                if (pala.palautaVariKordinaatista(x, y) != null) {
-                    testi[y][x].setBackground(pala.palautaVariKordinaatista(x, y));
+                if (pelitilanne[x][y] == null) {
+                    g.setColor(Color.white);
                 } else {
-                    testi[y][x].setBackground(kentta.palautaVari(x, y));
+                    g.setColor(pelitilanne[x][y]);
                 }
-                frame.add(testi[y][x]);
+                g.fillRect(x * 30, y * 30, 30, 30);
             }
         }
-        
-        frame.revalidate();
-        frame.repaint();
     }
+
 }
+

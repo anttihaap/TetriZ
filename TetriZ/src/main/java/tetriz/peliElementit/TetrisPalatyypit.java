@@ -3,14 +3,45 @@ package tetriz.peliElementit;
 
 import java.awt.Color;
 
+/**
+ *
+ * @author Antti
+ */
 public enum TetrisPalatyypit {
 
+    /**
+     *
+     */
     NELIOPALA(Color.pink),
+
+    /**
+     *
+     */
     SUORAPALA(Color.red),
+
+    /**
+     *
+     */
     KOLMIOPALA(Color.blue),
+
+    /**
+     *
+     */
     OIKEAVINO(Color.green),
+
+    /**
+     *
+     */
     VASENVINO(Color.black),
+
+    /**
+     *
+     */
     OIKEAL(Color.orange),
+
+    /**
+     *
+     */
     VASENL(Color.yellow);
 
     Color vari;
@@ -18,4 +49,6 @@ public enum TetrisPalatyypit {
     TetrisPalatyypit(Color vari) {
         this.vari = vari;
     }
+    
+    
 }

@@ -8,15 +8,25 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import tetriz.logiikka.Peli;
-import tetriz.piirto.PaintKentta;
+import tetriz.piirto.KentanPiirto;
 
+/**
+ *
+ * @author Antti
+ */
 public class ValiaikainenKayttoliittyma extends JFrame implements KeyListener {
 
     JPanel kenttaPiirto;
     Peli peli;
     
+    /**
+     *
+     */
     public Color[][] peliTilanneKordinaatiosto;
 
+    /**
+     *
+     */
     public ValiaikainenKayttoliittyma() {
         setTitle("TetriZ");
         setSize(300, 600);
@@ -26,18 +36,29 @@ public class ValiaikainenKayttoliittyma extends JFrame implements KeyListener {
         addKeyListener(this);
     }
 
+    /**
+     *
+     */
     public void aloitaPeli() {
         peli = new Peli(10, 20, 200, this);
         peli.aloita();
     }
 
+    /**
+     *
+     * @param pelitilanne
+     */
     public void kaynnistaPiirto(Color[][] pelitilanne) 
     {
         this.peliTilanneKordinaatiosto = pelitilanne;
-        kenttaPiirto = new PaintKentta(this.peliTilanneKordinaatiosto);
+        kenttaPiirto = new KentanPiirto(this.peliTilanneKordinaatiosto);
         add(kenttaPiirto);
     }
 
+    /**
+     *
+     * @param peliTilanne
+     */
     public void piirraKentta(Color[][] peliTilanne) {
         this.peliTilanneKordinaatiosto = peliTilanne;
         

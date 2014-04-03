@@ -2,6 +2,10 @@ package tetriz.peliElementit;
 
 import java.awt.Color;
 
+/**
+ *
+ * @author Antti
+ */
 public class Pala {
 
     TetrisPalatyypit palaTyyppi;
@@ -11,6 +15,12 @@ public class Pala {
     int aloitusKordinaattiX;
     int aloitusKordinaattiY;
 
+    /**
+     *
+     * @param aloitusKordinaattiX
+     * @param aloitusKordinaattiY
+     * @param tyyppi
+     */
     public Pala(int aloitusKordinaattiX, int aloitusKordinaattiY, TetrisPalatyypit tyyppi) {
         this.aloitusKordinaattiX = aloitusKordinaattiX;
         this.aloitusKordinaattiY = aloitusKordinaattiY;
@@ -22,6 +32,11 @@ public class Pala {
         luoPalanNeliot();
     }
 
+    /**
+     *
+     * @param aloitusKordinaattiX
+     * @param aloitusKordinaattiY
+     */
     public Pala(int aloitusKordinaattiX, int aloitusKordinaattiY) {
         this(aloitusKordinaattiX, aloitusKordinaattiY, TetrisPalatyypit.values()[(int) (Math.random() * TetrisPalatyypit.values().length)]);
     }
@@ -73,10 +88,20 @@ public class Pala {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Nelio[] palautaPalanNeliot() {
         return this.neliot;
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     public Color palautaVariKordinaatista(int x, int y) {
         for (Nelio nelio : neliot) {
             if (nelio.palautaX() == x && nelio.palautaY() == y) {
@@ -86,18 +111,27 @@ public class Pala {
         return null;
     }
 
+    /**
+     *
+     */
     public void liikuAlas() {
         for (Nelio n : this.neliot) {
             n.alas();
         }
     }
 
+    /**
+     *
+     */
     public void liikuOikealle() {
         for (Nelio n : this.neliot) {
             n.oikealle();
         }
     }
 
+    /**
+     *
+     */
     public void liikuVasemmalle() {
         for (Nelio nelio : neliot) {
             nelio.vasemmalle();
@@ -105,6 +139,10 @@ public class Pala {
     }
 
     //TODO
-    public void rotaatio() {
+
+    /**
+     *
+     */
+        public void rotaatio() {
     }
 }
