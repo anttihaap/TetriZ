@@ -12,11 +12,6 @@ public class Kentta {
     private final int kentanLeveys;
     private Color[][] kordinaatisto;
 
-    /**
-     *
-     * @param kentanLeveys
-     * @param kentanKorkeus
-     */
     public Kentta(int kentanLeveys, int kentanKorkeus) {
         this.kentanLeveys = kentanLeveys;
         this.kentanKorkeus = kentanKorkeus;

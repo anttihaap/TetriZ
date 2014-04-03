@@ -25,22 +25,10 @@ public class Peli {
     boolean peliKaynnissa;
     Color[][] peliTilanne;
 
-    /**
-     *
-     * @param etenemisViiveMs
-     * @param kayttoliittyma
-     */
     public Peli(int etenemisViiveMs, ValiaikainenKayttoliittyma kayttoliittyma) {
         this(10, 20, etenemisViiveMs, kayttoliittyma);
     }
 
-    /**
-     *
-     * @param kentanLeveys
-     * @param kentanKorkeus
-     * @param etenemisViiveMs
-     * @param kayttoliittyma
-     */
     public Peli(int kentanLeveys, int kentanKorkeus, int etenemisViiveMs, ValiaikainenKayttoliittyma kayttoliittyma) {
         this.kentta = new Kentta(kentanLeveys, kentanKorkeus);
         this.etenemisViiveMs = etenemisViiveMs;
@@ -80,7 +68,7 @@ public class Peli {
     }
 
     /**
-     *
+     * Metodi yrittää liikuttaa palaa alas. Jos palaa ei voida liikuttaa, kutsutaan metodia seuraavaPala().
      */
     public void liikutaPalaaAlas() {
         if (palaLogiikka.voikoLiikuttaaAlas(pala, kentta)) {
@@ -92,7 +80,7 @@ public class Peli {
     }
 
     /**
-     *
+     * Metodi liikuttaa palaa oikealle.
      */
     public void liikutaPalaaOikealle() {
         if (palaLogiikka.voikoLiikuttaaOikealle(pala, kentta)) {
@@ -102,7 +90,7 @@ public class Peli {
     }
 
     /**
-     *
+     * Metodli liikuttaa palaa vasemmalle.
      */
     public void liikutaPalaaVasemmalle() {
         if (palaLogiikka.voikoLiikuttaaVasemmalle(pala, kentta)) {
@@ -132,7 +120,7 @@ public class Peli {
     }
 
     /**
-     *
+     * Pelin lopetus.
      */
     public void lopeta() {
         System.out.println("LOPPU");
@@ -156,7 +144,7 @@ public class Peli {
     }
     
     /**
-     *
+     * Metodi päivittää pelitilannetta.
      */
     public void paivitaPeliTilanne() {
         Color[][] tilanne = this.kentta.palautaKordinaatisto().clone();

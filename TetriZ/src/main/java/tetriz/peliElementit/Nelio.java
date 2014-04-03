@@ -28,7 +28,7 @@ public class Nelio {
     }
 
     /**
-     * Palauttaa nelion 
+     * Palauttaa nelion X-positioarvon.
      * @return
      */
     public int palautaX() {
@@ -36,7 +36,7 @@ public class Nelio {
     }
 
     /**
-     *
+     * Palauttaa nelion Y-positioarvon.
      * @return
      */
     public int palautaY() {
@@ -52,21 +52,21 @@ public class Nelio {
     }
 
     /**
-     * 
+     * Metodi kasvattaa Y:n arvoa yhdellä (liikkuu alas).
      */
     public void alas() {
         this.Y++;
     }
 
     /**
-     * Metodi kasvattaa X:n arvoa yhdellä.
+     * Metodi kasvattaa X:n arvoa yhdellä (liikkuu oikealle).
      */
     public void oikealle() {
         this.X++;
     }
 
     /**
-     * Metodi vähentää X:n arvoa yhdellä.
+     * Metodi vähentää X:n arvoa yhdellä (liikkuu vasemmalle).
      */
     public void vasemmalle() {
         this.X--;

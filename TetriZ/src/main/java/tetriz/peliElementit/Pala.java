@@ -89,18 +89,20 @@ public class Pala {
     }
 
     /**
+     * Palauttaa palan neliot.
      *
-     * @return
+     * @return palan neliot
      */
     public Nelio[] palautaPalanNeliot() {
         return this.neliot;
     }
 
     /**
+     * Palauttaa värin kordinaatiston kohdasta (x,y).
      *
      * @param x
      * @param y
-     * @return
+     * @return vari kordinaatiston kohdasta
      */
     public Color palautaVariKordinaatista(int x, int y) {
         for (Nelio nelio : neliot) {
@@ -112,7 +114,7 @@ public class Pala {
     }
 
     /**
-     *
+     * Metodi liikuttaa kaikkia palan nelioita alas.
      */
     public void liikuAlas() {
         for (Nelio n : this.neliot) {
@@ -121,7 +123,7 @@ public class Pala {
     }
 
     /**
-     *
+     * Metodi liikuttaa kaikkia palan nelioita oikealle.
      */
     public void liikuOikealle() {
         for (Nelio n : this.neliot) {
@@ -130,7 +132,7 @@ public class Pala {
     }
 
     /**
-     *
+     * Metodi liikuttaa kaikkia palan nelioita vasemmalle.
      */
     public void liikuVasemmalle() {
         for (Nelio nelio : neliot) {
@@ -139,10 +141,9 @@ public class Pala {
     }
 
     //TODO
-
     /**
      *
      */
-        public void rotaatio() {
+    public void rotaatio() {
     }
 }
