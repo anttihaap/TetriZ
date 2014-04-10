@@ -4,17 +4,18 @@ import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
 
-public class PalaLogiikka {
+public class Palalogiikka {
 
 
     /**
      * Metodi palauttaa totuusarvon siitä, että voiko kyseisen palan luoda kenttään.  
      * @param pala
+     * @param kentta
      * @return totuusarvo luonnista
      */
-    public boolean voidaankoLuoda(Pala pala, Kentta k) {
+    public boolean voidaankoLuoda(Pala pala, Kentta kentta) {
         for (Nelio n : pala.palautaPalanNeliot()) {
-            if (k.onkoVaria(n.palautaX(), n.palautaY())) {
+            if (kentta.onkoVaria(n.palautaX(), n.palautaY())) {
                 return false;
             }
         }
@@ -24,6 +25,7 @@ public class PalaLogiikka {
     /**
      * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa kentässä alaspäin. 
      * @param pala
+     * @param kentta
      * @return totuusarvo palan liikuttamisesta alas
      */
     public boolean voikoLiikuttaaAlas(Pala pala, Kentta kentta) {
@@ -41,6 +43,7 @@ public class PalaLogiikka {
     /**
      * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa kentässä oikealle. 
      * @param pala
+     * @param kentta
      * @return tootusarvo palan liikuttamisesta oikealle
      */
     public boolean voikoLiikuttaaOikealle(Pala pala, Kentta kentta) {
@@ -72,5 +75,4 @@ public class PalaLogiikka {
         }
         return true;
     }
-
 }

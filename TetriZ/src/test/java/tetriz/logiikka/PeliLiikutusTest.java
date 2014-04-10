@@ -22,6 +22,7 @@ import tetriz.peliElementit.Pala;
  */
 public class PeliLiikutusTest {
     
+    ValiaikainenKayttoliittyma kayttoliittyma;
     Peli peli;
     
     public PeliLiikutusTest() {
@@ -37,7 +38,10 @@ public class PeliLiikutusTest {
     
     @Before
     public void setUp() {
-        this.peli = new Peli(5, new ValiaikainenKayttoliittyma());
+        this.kayttoliittyma = new ValiaikainenKayttoliittyma();
+        this.kayttoliittyma.aloitaPeli();
+        this.peli = new Peli(4, kayttoliittyma);
+       
 
     }
     
@@ -45,16 +49,15 @@ public class PeliLiikutusTest {
     public void tearDown() {
     }
 
-    
     @Test
     public void palaLiikkuuAlas() {
         int[] palanYArvotEnnenLiikutusta = new int[4];
         
-        for (int i = 0; i < palanYArvotEnnenLiikutusta.length; i++) {
+        for (int i = 0; i < 4; i++) {
             palanYArvotEnnenLiikutusta[i] = this.peli.pala.palautaPalanNeliot()[i].palautaY();
         }
         
-        peli.liikutaPalaaAlas();
+        this.peli.liikutaPalaaAlas();
         
         for (int i = 0; i < 4; i++) {
             assertEquals(palanYArvotEnnenLiikutusta[i] + 1, this.peli.pala.palautaPalanNeliot()[i].palautaY());
@@ -65,7 +68,7 @@ public class PeliLiikutusTest {
     public void palaLiikkuuOikealle() {
         int[] palanXArvotEnnenLiikutusta = new int[4];
         
-        for (int i = 0; i < palanXArvotEnnenLiikutusta.length; i++) {
+        for (int i = 0; i < 4; i++) {
             palanXArvotEnnenLiikutusta[i] = this.peli.pala.palautaPalanNeliot()[i].palautaX();
         }
         
@@ -91,4 +94,5 @@ public class PeliLiikutusTest {
         }
     }
 
+    
 }

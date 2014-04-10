@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package tetriz.logiikka;
 
@@ -16,13 +11,10 @@ import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Pala;
 import tetriz.peliElementit.TetrisPalatyypit;
 
-/**
- *
- * @author Antti
- */
+
 public class PalaLogiikkaTest {
     
-    PalaLogiikka palaLogiikka;
+    Palalogiikka palaLogiikka;
     
     Kentta kentta;
     
@@ -41,7 +33,7 @@ public class PalaLogiikkaTest {
     @Before
     public void setUp() {
         kentta = new Kentta(10,20);
-        palaLogiikka = new PalaLogiikka();
+        palaLogiikka = new Palalogiikka();
     }
     
     @After
@@ -77,7 +69,7 @@ public class PalaLogiikkaTest {
     }
     
     @Test
-    public void palaaEiVoidaLuodaToisWanhaPalalle() {
+    public void eiVoidaLuodaToisenPalanPaalle() {
         Pala nelioPala = new Pala(kentta.palautaKentanLeveys() / 2, 0, TetrisPalatyypit.NELIOPALA);
         
         //Lisätään pala kenttään. Palaa ei voi luoda kentälle uudestaan.
@@ -85,12 +77,14 @@ public class PalaLogiikkaTest {
         assertFalse(palaLogiikka.voidaankoLuoda(nelioPala, kentta));
     }
 
+    
     @Test
     public void eiVoiLiikuttaaAlasYliRajojen() {
-        //Luodaan pala oikeaan reunaPala3       Pala3 pala = Pala.NELIOPALA;
-        Pala nelioPala = new Pala(kentta.palautaKentanLeveys() / 2, 18, TetrisPalatyypit.NELIOPALA);        
+        //Luodaan pala aivan kentän alarajalle ja yritetään liikuttaa sitä alas.
+        Pala nelioPala = new Pala(kentta.palautaKentanLeveys() / 2, 18, TetrisPalatyypit.NELIOPALA);  
         assertFalse(palaLogiikka.voikoLiikuttaaAlas(nelioPala, kentta));
     }
+    
     
     @Test 
     public void eiVoiLiikuttaaAlasJosEste() {

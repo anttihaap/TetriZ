@@ -18,10 +18,13 @@ public class KentanPiirto extends JPanel {
      */
     public KentanPiirto(Color[][] pelitilanne) {
         this.pelitilanne = pelitilanne;
+        setBounds(0, 0, 300, 630);
     }
          
     @Override
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 10; x++) {
                 if (pelitilanne[x][y] == null) {

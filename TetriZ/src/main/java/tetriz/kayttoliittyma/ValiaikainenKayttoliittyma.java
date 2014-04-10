@@ -3,21 +3,27 @@ package tetriz.kayttoliittyma;
 
 
 import java.awt.Color;
+import java.awt.Label;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import tetriz.logiikka.Peli;
 import tetriz.piirto.KentanPiirto;
+import tetriz.piirto.PistePirto;
 
 /**
  *
  * @author Antti
  */
-public class ValiaikainenKayttoliittyma extends JFrame implements KeyListener {
+public class ValiaikainenKayttoliittyma extends JFrame {
 
-    JPanel kenttaPiirto;
-    Peli peli;
+    JPanel kenttaPiirto;  
+    JPanel pisteidenPiirto;
+    
+
+    
+    public Peli peli;
     
     /**
      *
@@ -29,64 +35,49 @@ public class ValiaikainenKayttoliittyma extends JFrame implements KeyListener {
      */
     public ValiaikainenKayttoliittyma() {
         setTitle("TetriZ");
-        setSize(300, 600);
+        setSize(500, 630);
+        setLayout(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        addKeyListener(this);
+                  
     }
-
+    
     /**
      *
      */
-    public void aloitaPeli() {
-        peli = new Peli(10, 20, 200, this);
+    public void aloitaPeli() {      
+        peli = new Peli(10, 20, 500, this);  
+        
+        addKeyListener(new PelinNappaimistonKuuntelija(this)); 
+        
+        
         peli.aloita();
     }
-
-    /**
-     *
-     * @param pelitilanne
-     */
-    public void kaynnistaPiirto(Color[][] pelitilanne) 
-    {
-        this.peliTilanneKordinaatiosto = pelitilanne;
-        kenttaPiirto = new KentanPiirto(this.peliTilanneKordinaatiosto);
+    
+    public void kaynnistaPiirto() {
+                kenttaPiirto = new KentanPiirto(this.peli.peliTilanne);
         add(kenttaPiirto);
+        
+        pisteidenPiirto = new PistePirto(this.peli.palautaPisteet());
+        add(pisteidenPiirto);
     }
 
     /**
      *
      * @param peliTilanne
      */
-    public void piirraKentta(Color[][] peliTilanne) {
-        this.peliTilanneKordinaatiosto = peliTilanne;
-        
+    public void piirraKentta() {
+        remove(kenttaPiirto);
+        kenttaPiirto = new KentanPiirto(this.peli.peliTilanne);
+        add(kenttaPiirto);
         kenttaPiirto.repaint();
+
+
+    }
+    
+    public void lopetaPeli() {
+        System.out.println("loppu");
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            peli.liikutaPalaaVasemmalle();
-        }
-
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            peli.liikutaPalaaOikealle();
-        }
-        
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            peli.liikutaPalaaAlas();
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

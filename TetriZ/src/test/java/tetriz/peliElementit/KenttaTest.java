@@ -51,65 +51,49 @@ public class KenttaTest {
         kentta = new Kentta(leveys,korkeus);
     }
     
-    /**
-     *
-     */
     @After
     public void tearDown() {
     }
 
-    /**
-     *
-     */
     @Test
     public void kenttaLuoOikeanlaisenKentan() {
         assertEquals(kentta.palautaKentanKorkeus(), this.korkeus);
         assertEquals(kentta.palautaKentanLeveys(), this.leveys);
     }
     
-    /**
-     *
-     */
     @Test
-    public void onkoVariaKartassaKohdassaPalauttaaOikeanTotuusarvon() {
-        Color musta = Color.black;
-        kentta.lisaaVari(musta, 0, 0);
-        assertEquals(true, kentta.onkoVaria(0, 0));
-        assertEquals(false, kentta.onkoVaria(0, 1));
+    public void onkoVariaKartassaKohdassaPalauttaaTosiJosVari() {
+        kentta.lisaaVari(Color.black, 0, 0);
+        assertTrue(kentta.onkoVaria(0, 0));
     }
     
-    /**
-     *
-     */
+    @Test
+    public void onkoVariaKartassaKohdassaPalauttaaEpatosiJosEiVaria() {
+        assertFalse(kentta.onkoVaria(0,0));
+    }
+    
     @Test 
     public void variLisataanKenttaan() {
         Color musta = Color.black;       
         kentta.lisaaVari(musta, 0, 0);
         assertEquals(musta, kentta.palautaVari(0, 0));
     }
-    
-    /**
-     *
-     */
+
     @Test
-    public void palauttaaValkosenVarinJosTyhja() {
+    public void palauttaaValkosenVarinJosEiVaria() {
         assertEquals(Color.white, kentta.palautaVari(0, 0));
     }
     
-    /**
-     *
-     */
     @Test
     public void palaLisataanKenttaan() {
-        Pala pala = new Pala(kentta.palautaKentanLeveys() / 2, 0);
+        Pala nelioPala = new Pala(kentta.palautaKentanLeveys() / 2, 0);
         
-        kentta.lisaaPala(pala);
+        kentta.lisaaPala(nelioPala);
         
         //Palan nelion vari tulisi löytyä lisäkysen jälkeen kentästä
-        for (Nelio nelio : pala.palautaPalanNeliot()) {
-            assertEquals(kentta.palautaVari(nelio.palautaX(), nelio.palautaY()), pala.vari);
+        for (Nelio nelio : nelioPala.palautaPalanNeliot()) {
+            assertEquals(kentta.palautaVari(nelio.palautaX(), nelio.palautaY()), nelioPala.palautaVari());
         }       
     }
     
-
 }

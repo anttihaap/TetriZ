@@ -42,6 +42,14 @@ public class Nelio {
     public int palautaY() {
         return this.Y;
     }
+    
+    public void asetaX(int x) {
+        this.X = x;
+    }
+    
+    public void asetaY(int y) {
+        this.Y = y;
+    }
 
     /**
      * Palauttaa nelion värin.
@@ -51,24 +59,4 @@ public class Nelio {
         return this.vari;
     }
 
-    /**
-     * Metodi kasvattaa Y:n arvoa yhdellä (liikkuu alas).
-     */
-    public void alas() {
-        this.Y++;
-    }
-
-    /**
-     * Metodi kasvattaa X:n arvoa yhdellä (liikkuu oikealle).
-     */
-    public void oikealle() {
-        this.X++;
-    }
-
-    /**
-     * Metodi vähentää X:n arvoa yhdellä (liikkuu vasemmalle).
-     */
-    public void vasemmalle() {
-        this.X--;
-    }
 }

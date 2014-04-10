@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import tetriz.logiikka.Peli;
 
 /**
  *
@@ -21,38 +20,24 @@ public class PalaTest {
 
     Pala pala;
 
-    /**
-     *
-     */
+
     public PalaTest() {
 
     }
 
-    /**
-     *
-     */
     @BeforeClass
     public static void setUpClass() {
     }
 
-    /**
-     *
-     */
     @AfterClass
     public static void tearDownClass() {
     }
 
-    /**
-     *
-     */
     @Before
     public void setUp() {
-        // peli = new Peli(10, 20, 100);
+
     }
 
-    /**
-     *
-     */
     @After
     public void tearDown() {
     }

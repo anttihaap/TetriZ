@@ -27,39 +27,12 @@ public class NelioTest {
      */
     public NelioTest() {
     }
-    
-    /**
-     *
-     */
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    /**
-     *
-     */
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    /**
-     *
-     */
+
     @Before
     public void setUp() {
         nelio = new Nelio(0, 0, Color.white);
     }
     
-    /**
-     *
-     */
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     *
-     */
     @Test
     public void nelioLuodaanOikein() {
         assertEquals(Color.white, nelio.palautaVari());
@@ -67,31 +40,18 @@ public class NelioTest {
         assertEquals(0, nelio.palautaY());
     }
     
-    /**
-     *
-     */
-    @Test 
-    public void nelioPalauttaaOikeatArvot() {
-        assertEquals(Color.white, nelio.palautaVari());
-        assertEquals(0, nelio.palautaX());
-        assertEquals(0, nelio.palautaY());
+    @Test
+    public void asetaXToimii() {
+        nelio.asetaX(1242);
+        assertEquals(1242, nelio.palautaX());
     }
     
-    /**
-     *
-     */
     @Test
-    public void nelioLiikkuuOikeinJokaiseenSuuntaan() {
-        for (int i = 0; i < 10; i++) {
-            nelio.oikealle();
-            nelio.alas();
-        }
-        assertEquals(nelio.palautaX(), 10);
-        assertEquals(nelio.palautaY(), 10);
-        for (int i = 0; i < 10; i++) {
-            nelio.vasemmalle();
-        }
-        assertEquals(nelio.palautaX(), 0);
+    public void asetaYToimii() {
+        nelio.asetaY(12412);
+        assertEquals(12412, nelio.palautaY());
     }
+    
+
     
 }
