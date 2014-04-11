@@ -43,10 +43,18 @@ public class Nelio {
         return this.Y;
     }
     
+    /**
+     * Asettaa X:n arvon.
+     * @param x
+     */
     public void asetaX(int x) {
         this.X = x;
     }
     
+    /**
+     * Asettaa X:n arvon.
+     * @param y
+     */
     public void asetaY(int y) {
         this.Y = y;
     }

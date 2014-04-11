@@ -70,7 +70,7 @@ public class Pala implements Cloneable {
 
     /**
      * Metodi liikuttaa kaikkia palan nelioita alas kasvattamalla kaikkien
-     * neliöiden Y:n arvoa yhdellä.
+     * neliöiden Y-arvoa yhdellä.
      */
     public void liikuAlas() {
         for (Nelio n : this.neliot) {
@@ -80,7 +80,8 @@ public class Pala implements Cloneable {
     }
 
     /**
-     * Metodi liikuttaa kaikkia palan nelioita oikealle.
+     * Metodi liikuttaa kaikkia palan nelioita oikealle kasvattamalla
+     * kaikkien nelioiden X-arvoa yhdellä.
      */
     public void liikuOikealle() {
         for (Nelio n : this.neliot) {
@@ -89,7 +90,8 @@ public class Pala implements Cloneable {
     }
 
     /**
-     * Metodi liikuttaa kaikkia palan nelioita vasemmalle.
+     * Metodi liikuttaa kaikkia palan nelioita vasemmalle vähentämällä
+     * kaikkien nelioiden X-arvoa yhdellä.
      */
     public void liikuVasemmalle() {
         for (Nelio n : neliot) {
@@ -97,9 +99,8 @@ public class Pala implements Cloneable {
         }
     }
 
-    //TODO
     /**
-     *
+     * Kääntää palan 90-astetta oikealle.
      */
     public void kaannaOikealle() {
         /*

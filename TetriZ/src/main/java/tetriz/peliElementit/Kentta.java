@@ -3,7 +3,7 @@ package tetriz.peliElementit;
 import java.awt.Color;
 
 /**
- *
+ * Kentta sisältää kordinaatiston, joka pitää sisällään eri värejä.
  * @author Antti
  */
 public class Kentta {
@@ -65,7 +65,7 @@ public class Kentta {
     }
 
     /**
-     * Metodi palauttaa värin kordinaatiston pisteestä. Mikäli sitä ei ole metodi palauttaa värin valkoinen.
+     * Metodi palauttaa värin kordinaatiston pisteestä. Mikäli sitä ei ole metodi palauttaa valkoista.
      * @param x
      * @param y
      * @return kordinaatiston väri

@@ -23,7 +23,7 @@ public class PistePirto extends JPanel {
         this.pisteet = pisteet;
         setBackground(Color.GRAY);
         setBounds(300,0,200,630);       
-        String s = "EBIN! 5/5" + pisteet;
+        String s = "Pisteet: "+ pisteet;
         Label sl = new Label(s);
         sl.setBounds(5,5, 300, 10);
         add(sl);
