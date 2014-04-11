@@ -2,13 +2,14 @@ package tetriz.piirto;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 /**
  *
  * @author Antti
  */
-public class KentanPiirto extends JPanel {
+public class KentanPiirto extends JComponent {
 
     Color[][] pelitilanne;
 
@@ -21,6 +22,10 @@ public class KentanPiirto extends JPanel {
         setBounds(0, 0, 300, 630);
     }
          
+    public void uliuli(Color[][] p) {
+        this.pelitilanne = p;
+    }
+    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -35,6 +40,7 @@ public class KentanPiirto extends JPanel {
                 g.fillRect(x * 30, y * 30, 30, 30);
             }
         }
+              
     }
 
 }

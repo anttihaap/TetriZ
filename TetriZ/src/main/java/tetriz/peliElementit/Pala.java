@@ -1,13 +1,14 @@
 package tetriz.peliElementit;
 
 import java.awt.Color;
-import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Antti
  */
-public class Pala {
+public class Pala implements Cloneable {
 
     TetrisPalatyypit palaTyyppi;
     Color vari;
@@ -114,7 +115,36 @@ public class Pala {
     /**
      *
      */
-    public void rotaatio() {
+    public void kaannaOikealle() {
+        /*
+        Matriisilaskennan 90-asteen käännös:
+        [0 -1]
+        [1  0]
+        */
+        int kaantoKohtaX = neliot[2].palautaX();
+        int kaantoKohtaY = neliot[2].palautaY();
+        
+        for (Nelio nelio : neliot) {
+            int uusiX = (nelio.palautaX() - kaantoKohtaX);
+            nelio.asetaX(uusiX);
+            
+            int uusiY = (nelio.palautaY() - kaantoKohtaY);
+            nelio.asetaY(uusiY);          
+        }
 
+        
+        for (Nelio n : neliot) {
+            int x = n.palautaX();
+            int y = n.palautaY();
+            n.asetaX(x * 0 + -1 * y + kaantoKohtaX);
+            n.asetaY(1 * x + 0 * y  + kaantoKohtaY);
+        }
+        
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Pala clooni = (Pala)super.clone();
+        return clooni;
     }
 }

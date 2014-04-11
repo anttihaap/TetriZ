@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Label;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import tetriz.logiikka.Peli;
@@ -18,7 +19,7 @@ import tetriz.piirto.PistePirto;
  */
 public class ValiaikainenKayttoliittyma extends JFrame {
 
-    JPanel kenttaPiirto;  
+    JComponent kenttaPiirto;  
     JPanel pisteidenPiirto;
     
 
@@ -56,7 +57,7 @@ public class ValiaikainenKayttoliittyma extends JFrame {
     }
     
     public void kaynnistaPiirto() {
-                kenttaPiirto = new KentanPiirto(this.peli.peliTilanne);
+        kenttaPiirto = new KentanPiirto(this.peli.peliTilanne);
         add(kenttaPiirto);
         
         pisteidenPiirto = new PistePirto(this.peli.palautaPisteet());
@@ -73,6 +74,7 @@ public class ValiaikainenKayttoliittyma extends JFrame {
         add(kenttaPiirto);
         kenttaPiirto.repaint();
 
+        pisteidenPiirto.repaint();
 
     }
     

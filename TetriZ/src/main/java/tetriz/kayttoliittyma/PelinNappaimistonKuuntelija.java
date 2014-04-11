@@ -37,7 +37,7 @@ public class PelinNappaimistonKuuntelija implements KeyListener {
         }
         
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            kayttoliittyma.peli.rotaatio();
+            kayttoliittyma.peli.kaannaPalaaOikealle();
         }
     }
 

@@ -1,20 +1,28 @@
 package tetriz.logiikka;
 
+import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
 
 public class Palalogiikka {
 
-
     /**
-     * Metodi palauttaa totuusarvon siitä, että voiko kyseisen palan luoda kenttään.  
+     * Metodi palauttaa totuusarvon siitä, että voiko kyseisen palan luoda
+     * kenttään.
+     *
      * @param pala
      * @param kentta
      * @return totuusarvo luonnista
      */
     public boolean voidaankoLuoda(Pala pala, Kentta kentta) {
+
         for (Nelio n : pala.palautaPalanNeliot()) {
+            if (!kordinaattiOnKentanSisalla(n.palautaX(), n.palautaY(), kentta)) {
+                return false;
+            }
             if (kentta.onkoVaria(n.palautaX(), n.palautaY())) {
                 return false;
             }
@@ -23,7 +31,9 @@ public class Palalogiikka {
     }
 
     /**
-     * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa kentässä alaspäin. 
+     * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa
+     * kentässä alaspäin.
+     *
      * @param pala
      * @param kentta
      * @return totuusarvo palan liikuttamisesta alas
@@ -41,7 +51,9 @@ public class Palalogiikka {
     }
 
     /**
-     * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa kentässä oikealle. 
+     * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa
+     * kentässä oikealle.
+     *
      * @param pala
      * @param kentta
      * @return tootusarvo palan liikuttamisesta oikealle
@@ -59,7 +71,9 @@ public class Palalogiikka {
     }
 
     /**
-     * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa kentässä vasemmalle. 
+     * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa
+     * kentässä vasemmalle.
+     *
      * @param pala
      * @param kentta
      * @return totuusarvo palan liikuttamisesta vasemmalle
@@ -74,5 +88,21 @@ public class Palalogiikka {
             }
         }
         return true;
+    }
+
+    public boolean kordinaattiOnKentanSisalla(int x, int y, Kentta kentta) {
+        return x >= 0 && y >= 0 && x < kentta.palautaKentanLeveys() && y < kentta.palautaKentanKorkeus();
+    }
+
+    public boolean voikoKaantaa(Pala pala, Kentta kentta) {
+        Pala kaannettyPala = new Pala(0, 0);
+        
+        for (int i = 0; i < 4; i++) {
+            kaannettyPala.palautaPalanNeliot()[i] = new Nelio(pala.palautaPalanNeliot()[i].palautaX(), pala.palautaPalanNeliot()[i].palautaY(), pala.palautaVari());
+        }
+        
+        kaannettyPala.kaannaOikealle();
+        
+        return voidaankoLuoda(kaannettyPala, kentta);
     }
 }

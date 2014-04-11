@@ -9,12 +9,39 @@ import java.awt.Color;
  */
 public enum TetrisPalatyypit {
 
+    /**
+     *
+     */
     NELIOPALA(Color.pink),
+
+    /**
+     *
+     */
     SUORAPALA(Color.red),
+
+    /**
+     *
+     */
     KOLMIOPALA(Color.blue),
+
+    /**
+     *
+     */
     OIKEAVINO(Color.green),
+
+    /**
+     *
+     */
     VASENVINO(Color.black),
+
+    /**
+     *
+     */
     OIKEAL(Color.orange),
+
+    /**
+     *
+     */
     VASENL(Color.yellow);
 
     Color vari;
@@ -71,9 +98,6 @@ public enum TetrisPalatyypit {
                 this.neliot[3] = new Nelio(2, 1, vari);
                 break;
         }
-    } 
-     
-    public Nelio[] getNeliot() {
-        return this.neliot;
     }
+
 }

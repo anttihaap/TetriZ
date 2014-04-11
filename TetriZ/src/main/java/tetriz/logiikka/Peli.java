@@ -1,6 +1,9 @@
 package tetriz.logiikka;
 
 import java.awt.Color;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tetriz.kayttoliittyma.ValiaikainenKayttoliittyma;
 import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Nelio;
@@ -13,10 +16,10 @@ import tetriz.peliElementit.Pala;
 public class Peli {
 
     ValiaikainenKayttoliittyma kayttoliittyma;
-    
+
     Palalogiikka palaLogiikka;
 
-    Tilasto pisteet;
+    Tilasto tilasto;
 
     Kentta kentta;
     int etenemisViiveMs;
@@ -24,7 +27,7 @@ public class Peli {
     boolean peliKaynnissa;
 
     /**
-     *
+     * Kuvantaa pelin tilannetta.
      */
     public Color[][] peliTilanne;
 
@@ -41,19 +44,19 @@ public class Peli {
 
         this.pala = palautaUusiPala();
         this.peliTilanne = paivitaPeliTilanne();
-        this.pisteet = new Tilasto();
+        this.tilasto = new Tilasto();
     }
 
     /**
      * Metodi aloittaa pelin, jolloin peliKaynnissa totuusarvoksi asetetaan
-     * tosi. Peli etenee kunnes peliKaynnissa on tosi. Muulloin se
-     * kutsuu metodia lopeta().
+     * tosi. Peli etenee kunnes peliKaynnissa on tosi. Muulloin se kutsuu
+     * metodia lopeta().
      */
     public void aloita() {
         peliKaynnissa = true;
 
         this.kayttoliittyma.kaynnistaPiirto();
-        
+
         tulostaKentta();
 
         while (peliKaynnissa) {
@@ -105,34 +108,27 @@ public class Peli {
         }
     }
 
-    public void rotaatio() {
-        int keskiX = this.pala.palautaPalanNeliot()[2].palautaX();
-        int keskiY = this.pala.palautaPalanNeliot()[2].palautaY();
+    public void kaannaPalaaOikealle() {
         
-        for (int i = 0; i < 4; i++) {
-            if (i != 2) {
-                int vanhaX = this.pala.palautaPalanNeliot()[i].palautaX();
-                int vanhaY = this.pala.palautaPalanNeliot()[i].palautaY();
-                
-                this.pala.palautaPalanNeliot()[i].asetaX(vanhaY);
-                this.pala.palautaPalanNeliot()[i].asetaY(keskiY - (keskiX - vanhaX));
-                
-                System.out.println(keskiY - vanhaX);
-                System.out.println("-");
-            }
-        }
+        
+     if (palaLogiikka.voikoKaantaa(pala, kentta)) {
+         this.pala.kaannaOikealle();
+     }
+            
+            //this.pala.kaannaOikealle();
 
     }
 
     /**
-     * Metodi kiinnittää nykyisen palan kenttään ja luo uuden mikäli mahdollista. Jos
-     * uutta palaa ei voida luoda, peliKaynnissa-totuusarvo muuttuu epätodeksi.
+     * Metodi kiinnittää nykyisen palan kenttään ja luo uuden mikäli
+     * mahdollista. Jos uutta palaa ei voida luoda, peliKaynnissa-totuusarvo
+     * muuttuu epätodeksi.
      */
     private void seuraavaPala() {
         //Kiinnitetään nykyinen pala kentään:
         kentta.lisaaPala(pala);
 
-        this.pisteet.kasvataPistetta(1);
+        this.tilasto.kasvataPistetta(1);
 
         //Luodaan seuraava pala entisen tilalle:
         Pala seuraavaPala = palautaUusiPala();
@@ -190,6 +186,6 @@ public class Peli {
     }
 
     public int palautaPisteet() {
-        return this.pisteet.palautaPisteet();
+        return this.tilasto.palautaPisteet();
     }
 }
