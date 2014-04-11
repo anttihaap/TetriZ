@@ -3,7 +3,7 @@ package tetriz.peliElementit;
 import java.awt.Color;
 
 /**
- *
+ * Kuvastaa palan yhtä neliota. Ominaisuuksia: vari ja piste (x,y).
  * @author Antti
  */
 public class Nelio {

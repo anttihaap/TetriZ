@@ -109,13 +109,9 @@ public class Peli {
     }
 
     public void kaannaPalaaOikealle() {
-        
-        
-     if (palaLogiikka.voikoKaantaa(pala, kentta)) {
-         this.pala.kaannaOikealle();
-     }
-            
-            //this.pala.kaannaOikealle();
+        if (palaLogiikka.voikoKaantaa(pala, kentta)) {
+            this.pala.kaannaOikealle();
+        }
 
     }
 

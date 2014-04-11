@@ -1,11 +1,9 @@
 package tetriz.peliElementit;
 
 import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
+ * Pala (eli tetrispala), joka koostuu neljästä neliöstä. Tetrispalatyyppi määrittelee palan ominaisuudet.
  * @author Antti
  */
 public class Pala implements Cloneable {
@@ -32,8 +30,8 @@ public class Pala implements Cloneable {
     }
 
     /**
-     * Luo palan aloitusKordinaatteja käyttäen. TetrisPalaTyyppi luodaan
-     * satunnaisesti.
+     * Luo palan aloitusKordinaatteja käyttäen ja tetrispala-tyypin ominaisuuksien 
+     * mukaan. TetrisPalaTyyppi luodaan satunnaisesti.
      *
      * @param aloitusKordinaattiX
      * @param aloitusKordinaattiY
@@ -42,7 +40,7 @@ public class Pala implements Cloneable {
         this(aloitusKordinaattiX, aloitusKordinaattiY, TetrisPalatyypit.values()[(int) (Math.random() * TetrisPalatyypit.values().length)]);
     }
 
-    //Kyseinen toiminto enumille, mutta aloitusKordinaatit... (?)
+
     private void luoNeliot() {
         this.neliot = new Nelio[4];
         
@@ -62,24 +60,12 @@ public class Pala implements Cloneable {
         return this.neliot;
     }
 
+    /**
+     * Palauttaa palan värin.
+     * @return
+     */
     public Color palautaVari() {
         return this.vari;
-    }
-
-    /**
-     * Palauttaa värin kordinaatiston kohdasta (x,y).
-     *
-     * @param x
-     * @param y
-     * @return vari kordinaatiston kohdasta
-     */
-    public Color palautaVariKordinaatista(int x, int y) {
-        for (Nelio nelio : neliot) {
-            if (nelio.palautaX() == x && nelio.palautaY() == y) {
-                return nelio.palautaVari();
-            }
-        }
-        return null;
     }
 
     /**
@@ -117,7 +103,7 @@ public class Pala implements Cloneable {
      */
     public void kaannaOikealle() {
         /*
-        Matriisilaskennan 90-asteen käännös:
+        Matriisilaskennan 90-asteen käännös (jotakin sinnepäin ainakin yritetty):
         [0 -1]
         [1  0]
         */

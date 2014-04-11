@@ -95,6 +95,9 @@ public class Palalogiikka {
     }
 
     public boolean voikoKaantaa(Pala pala, Kentta kentta) {
+        // Pala pala = (Pala) pala.clone() 
+        // 
+        // ei toimi? käsin kopioitu:
         Pala kaannettyPala = new Pala(0, 0);
         
         for (int i = 0; i < 4; i++) {

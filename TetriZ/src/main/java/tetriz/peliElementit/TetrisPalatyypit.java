@@ -4,44 +4,17 @@ package tetriz.peliElementit;
 import java.awt.Color;
 
 /**
- *
+ * Määrittää palan ominaisuudet: väri ja nelioiden asetelma.
  * @author Antti
  */
 public enum TetrisPalatyypit {
 
-    /**
-     *
-     */
     NELIOPALA(Color.pink),
-
-    /**
-     *
-     */
     SUORAPALA(Color.red),
-
-    /**
-     *
-     */
     KOLMIOPALA(Color.blue),
-
-    /**
-     *
-     */
     OIKEAVINO(Color.green),
-
-    /**
-     *
-     */
     VASENVINO(Color.black),
-
-    /**
-     *
-     */
     OIKEAL(Color.orange),
-
-    /**
-     *
-     */
     VASENL(Color.yellow);
 
     Color vari;
