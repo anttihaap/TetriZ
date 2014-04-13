@@ -113,7 +113,7 @@ public class Peli {
     }
 
     public void kaannaPalaaOikealle() {
-        if (!this.pala.palautaTetrispalatyypinNimi().equals("NELIOPALA") && palaLogiikka.voikoKaantaa(pala, kentta)) {
+        if (palaLogiikka.voikoKaantaa(pala, kentta)) {
             this.pala.kaannaOikealle();
         } 
     }

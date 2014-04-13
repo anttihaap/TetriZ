@@ -4,7 +4,6 @@
 package tetriz.logiikka;
 
 import java.awt.Color;
-import java.awt.List;
 import java.util.ArrayList;
 
 /**

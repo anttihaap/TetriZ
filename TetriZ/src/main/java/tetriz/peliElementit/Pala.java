@@ -8,13 +8,11 @@ import java.awt.Color;
  */
 public class Pala implements Cloneable {
 
-    TetrisPalatyypit palaTyyppi;
-    Color vari;
-    Nelio[] neliot;
-
-    int aloitusKordinaattiX;
-    int aloitusKordinaattiY;
+    private final TetrisPalatyypit palaTyyppi;
+    private final Color vari;
     
+    private Nelio[] neliot;
+   
     /**
      *
      * @param aloitusKordinaattiX
@@ -22,12 +20,10 @@ public class Pala implements Cloneable {
      * @param tyyppi
      */
     public Pala(int aloitusKordinaattiX, int aloitusKordinaattiY, TetrisPalatyypit tyyppi) {
-        this.aloitusKordinaattiX = aloitusKordinaattiX;
-        this.aloitusKordinaattiY = aloitusKordinaattiY;
         this.palaTyyppi = tyyppi;
         this.vari = this.palaTyyppi.vari;
         
-        luoNeliot();
+        luoNeliot(aloitusKordinaattiX, aloitusKordinaattiY);
     }
 
     /**
@@ -42,12 +38,12 @@ public class Pala implements Cloneable {
     }
 
 
-    private void luoNeliot() {
+    private void luoNeliot(int aloitusKordinaattiX, int aloitusKordinaattiY) {
         this.neliot = new Nelio[4];
         
         int i = 0;
         for (Nelio n : this.palaTyyppi.neliot) {
-            this.neliot[i] = new Nelio(n.palautaX() + (this.aloitusKordinaattiX - 2), n.palautaY() + this.aloitusKordinaattiY, n.palautaVari());
+            this.neliot[i] = new Nelio(n.palautaX() + (aloitusKordinaattiX - 2), n.palautaY() + aloitusKordinaattiY, n.palautaVari());
             i++;
         }
     }
@@ -88,17 +84,22 @@ public class Pala implements Cloneable {
      */
     public void kaannaOikealle() {
         /*
-        90-asteen käännös:
+        90-asteen käännös kaantomatriisilla:
         [0 -1]
         [1  0]
         */
+        
+        //Neliopalaa ei kaanneta.
+        if (palaTyyppi != TetrisPalatyypit.NELIOPALA) {
+        
+        //Piste jonka ympärilta kaannetaan.
         int kaantokohtaX = neliot[2].palautaX();
         int kaantokohtaY = neliot[2].palautaY();
         
         //Vähenentään kääntökohtien arvot X- ja Y-arvoista:
-        for (Nelio nelio : neliot) {
-            nelio.asetaX(nelio.palautaX() - kaantokohtaX);           
-            nelio.asetaY(nelio.palautaY() - kaantokohtaY);          
+        for (Nelio n : neliot) {
+            n.asetaX(n.palautaX() - kaantokohtaX);           
+            n.asetaY(n.palautaY() - kaantokohtaY);          
         }
 
         //90-asteen käännös kääntökohdan ympärillä:
@@ -108,13 +109,8 @@ public class Pala implements Cloneable {
             n.asetaX(x * 0 + -1 * y + kaantokohtaX);
             n.asetaY(1 * x + 0 * y  + kaantokohtaY);
         }
+        }
         
-    }
-    
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        Pala clooni = (Pala)super.clone();
-        return clooni;
     }
     
      /**
@@ -136,5 +132,11 @@ public class Pala implements Cloneable {
     
     public String palautaTetrispalatyypinNimi() {
         return this.palaTyyppi.toString();
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Pala clooni = (Pala)super.clone();
+        return clooni;
     }
 }
