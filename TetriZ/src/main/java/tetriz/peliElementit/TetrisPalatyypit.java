@@ -48,8 +48,8 @@ public enum TetrisPalatyypit {
                 break;
             case "OIKEAVINO":
                 this.neliot[0] = new Nelio(0, 1, vari);
-                this.neliot[1] = new Nelio(1, 1, vari);
-                this.neliot[2] = new Nelio(1, 0, vari);
+                this.neliot[1] = new Nelio(1, 0, vari);
+                this.neliot[2] = new Nelio(1, 1, vari);
                 this.neliot[3] = new Nelio(2, 0, vari);
                 break;
             case "VASENVINO":

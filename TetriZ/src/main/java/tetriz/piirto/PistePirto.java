@@ -23,7 +23,7 @@ public class PistePirto extends JPanel {
         this.pisteet = pisteet;
         setBackground(Color.GRAY);
         setBounds(300,0,200,630);       
-        String s = "Pisteet: "+ pisteet;
+        String s = "TetriZ";
         Label sl = new Label(s);
         sl.setBounds(5,5, 300, 10);
         add(sl);
@@ -34,12 +34,5 @@ public class PistePirto extends JPanel {
     public void paint(Graphics g) {
         super.paintComponent(g);
         
- 
-        
-        g.setColor(Color.red);
-        //g.fillRect(0, 0, 10, 1000);
-        
-
-        g.setColor(Color.red);
     }
 }

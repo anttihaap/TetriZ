@@ -1,9 +1,6 @@
 package tetriz.logiikka;
 
 import java.awt.Color;
-import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import tetriz.kayttoliittyma.ValiaikainenKayttoliittyma;
 import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Nelio;
@@ -18,11 +15,15 @@ public class Peli {
     ValiaikainenKayttoliittyma kayttoliittyma;
 
     Palalogiikka palaLogiikka;
+    Kenttalogiikka kenttalogiikka;
 
     Tilasto tilasto;
 
     Kentta kentta;
     int etenemisViiveMs;
+    
+    private final int kiinteaetenemisviive;
+    
     Pala pala;
     boolean peliKaynnissa;
 
@@ -38,9 +39,12 @@ public class Peli {
     public Peli(int kentanLeveys, int kentanKorkeus, int etenemisViiveMs, ValiaikainenKayttoliittyma kayttoliittyma) {
         this.kentta = new Kentta(kentanLeveys, kentanKorkeus);
         this.etenemisViiveMs = etenemisViiveMs;
+        this.kiinteaetenemisviive = etenemisViiveMs;
 
         this.palaLogiikka = new Palalogiikka();
+        this.kenttalogiikka = new Kenttalogiikka();
         this.kayttoliittyma = kayttoliittyma;
+        
 
         this.pala = palautaUusiPala();
         this.peliTilanne = paivitaPeliTilanne();
@@ -80,10 +84,13 @@ public class Peli {
      * kutsutaan metodia seuraavaPala().
      */
     public void liikutaPalaaAlas() {
+        System.out.println("liliku");
         if (palaLogiikka.voikoLiikuttaaAlas(pala, kentta)) {
             this.pala.liikuAlas();
             tulostaKentta();
+            System.out.println("voi");
         } else {
+            System.out.println("eivoi");
             seuraavaPala();
         }
     }
@@ -109,10 +116,9 @@ public class Peli {
     }
 
     public void kaannaPalaaOikealle() {
-        if (palaLogiikka.voikoKaantaa(pala, kentta)) {
+        if (!this.pala.palautaTetrispalatyypinNimi().equals("NELIOPALA") && palaLogiikka.voikoKaantaa(pala, kentta)) {
             this.pala.kaannaOikealle();
-        }
-
+        } 
     }
 
     /**
@@ -123,6 +129,7 @@ public class Peli {
     private void seuraavaPala() {
         //Kiinnitetään nykyinen pala kentään:
         kentta.lisaaPala(pala);
+        havitaRivit();
 
         this.tilasto.kasvataPistetta(1);
 
@@ -162,6 +169,10 @@ public class Peli {
         Pala uusiPala = new Pala(this.kentta.palautaKentanLeveys() / 2, 0);
         return uusiPala;
     }
+    
+    private void havitaRivit() {
+        kenttalogiikka.poistaTaydetRivit(this.kentta.palautaKordinaatisto());
+    }
 
     /**
      * Metodi päivittää pelitilannetta.
@@ -183,5 +194,13 @@ public class Peli {
 
     public int palautaPisteet() {
         return this.tilasto.palautaPisteet();
+    }
+    
+    public void nopeutaPelia() {
+        this.etenemisViiveMs = 70;
+    }
+    
+    public void nopeusNormaaliksi() {
+        this.etenemisViiveMs = kiinteaetenemisviive;
     }
 }

@@ -22,6 +22,8 @@ public class ValiaikainenKayttoliittyma extends JFrame {
     JComponent kenttaPiirto;  
     JPanel pisteidenPiirto;
     
+    KeyListener nappaimistonKuuntelija;
+    
 
     
     public Peli peli;
@@ -41,7 +43,9 @@ public class ValiaikainenKayttoliittyma extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-                  
+        
+        
+        this.nappaimistonKuuntelija = new PelinNappaimistonKuuntelija(this);
     }
     
     /**
@@ -49,10 +53,8 @@ public class ValiaikainenKayttoliittyma extends JFrame {
      */
     public void aloitaPeli() {      
         peli = new Peli(10, 20, 500, this);  
-        
-        addKeyListener(new PelinNappaimistonKuuntelija(this)); 
-        
-        
+        addKeyListener(this.nappaimistonKuuntelija); 
+               
         peli.aloita();
     }
     
@@ -79,7 +81,10 @@ public class ValiaikainenKayttoliittyma extends JFrame {
     }
     
     public void lopetaPeli() {
-        System.out.println("loppu");
+        remove(kenttaPiirto);
+        remove(pisteidenPiirto);
+        removeKeyListener(this.nappaimistonKuuntelija);
+        aloitaPeli();
     }
 
 }

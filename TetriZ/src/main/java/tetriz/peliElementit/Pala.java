@@ -51,22 +51,6 @@ public class Pala implements Cloneable {
         }
     }
 
-    /**
-     * Palauttaa palan neliot.
-     *
-     * @return palan neliot
-     */
-    public Nelio[] palautaPalanNeliot() {
-        return this.neliot;
-    }
-
-    /**
-     * Palauttaa palan värin.
-     * @return
-     */
-    public Color palautaVari() {
-        return this.vari;
-    }
 
     /**
      * Metodi liikuttaa kaikkia palan nelioita alas kasvattamalla kaikkien
@@ -104,27 +88,25 @@ public class Pala implements Cloneable {
      */
     public void kaannaOikealle() {
         /*
-        Matriisilaskennan 90-asteen käännös (jotakin sinnepäin ainakin yritetty):
+        90-asteen käännös:
         [0 -1]
         [1  0]
         */
-        int kaantoKohtaX = neliot[2].palautaX();
-        int kaantoKohtaY = neliot[2].palautaY();
+        int kaantokohtaX = neliot[2].palautaX();
+        int kaantokohtaY = neliot[2].palautaY();
         
+        //Vähenentään kääntökohtien arvot X- ja Y-arvoista:
         for (Nelio nelio : neliot) {
-            int uusiX = (nelio.palautaX() - kaantoKohtaX);
-            nelio.asetaX(uusiX);
-            
-            int uusiY = (nelio.palautaY() - kaantoKohtaY);
-            nelio.asetaY(uusiY);          
+            nelio.asetaX(nelio.palautaX() - kaantokohtaX);           
+            nelio.asetaY(nelio.palautaY() - kaantokohtaY);          
         }
 
-        
+        //90-asteen käännös kääntökohdan ympärillä:
         for (Nelio n : neliot) {
             int x = n.palautaX();
             int y = n.palautaY();
-            n.asetaX(x * 0 + -1 * y + kaantoKohtaX);
-            n.asetaY(1 * x + 0 * y  + kaantoKohtaY);
+            n.asetaX(x * 0 + -1 * y + kaantokohtaX);
+            n.asetaY(1 * x + 0 * y  + kaantokohtaY);
         }
         
     }
@@ -133,5 +115,26 @@ public class Pala implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
         Pala clooni = (Pala)super.clone();
         return clooni;
+    }
+    
+     /**
+     * Palauttaa palan neliot.
+     *
+     * @return palan neliot
+     */
+    public Nelio[] palautaPalanNeliot() {
+        return this.neliot;
+    }
+
+    /**
+     * Palauttaa palan värin.
+     * @return
+     */
+    public Color palautaVari() {
+        return this.vari;
+    }
+    
+    public String palautaTetrispalatyypinNimi() {
+        return this.palaTyyppi.toString();
     }
 }
