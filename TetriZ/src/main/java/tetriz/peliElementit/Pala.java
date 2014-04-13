@@ -14,6 +14,7 @@ public class Pala implements Cloneable {
 
     int aloitusKordinaattiX;
     int aloitusKordinaattiY;
+    
     /**
      *
      * @param aloitusKordinaattiX
@@ -50,7 +51,6 @@ public class Pala implements Cloneable {
             i++;
         }
     }
-
 
     /**
      * Metodi liikuttaa kaikkia palan nelioita alas kasvattamalla kaikkien

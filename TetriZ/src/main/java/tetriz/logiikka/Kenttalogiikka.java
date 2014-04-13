@@ -17,13 +17,7 @@ public class Kenttalogiikka {
         ArrayList<Integer> taydetRivit = palautaTaydetRivit(kordinaatisto);
 
         for (int rivi : taydetRivit) {
-
-            //Poistetaan rivi:
-            for (int x = 0; x < kordinaatisto.length; x++) {
-                kordinaatisto[x][rivi] = null;
-            }
-
-            //Siirretaan jokainen yläpuolella oleva rivi 1 alas
+            //Siirretaan jokainen yläpuolella oleva rivi 1 alas poistettavan päälle
             for (int y = rivi; y > 0; y--) {
                 for (int x = 0; x < kordinaatisto.length; x++) {
                     kordinaatisto[x][y] = kordinaatisto[x][y - 1];

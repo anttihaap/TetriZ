@@ -84,13 +84,10 @@ public class Peli {
      * kutsutaan metodia seuraavaPala().
      */
     public void liikutaPalaaAlas() {
-        System.out.println("liliku");
         if (palaLogiikka.voikoLiikuttaaAlas(pala, kentta)) {
             this.pala.liikuAlas();
             tulostaKentta();
-            System.out.println("voi");
         } else {
-            System.out.println("eivoi");
             seuraavaPala();
         }
     }
