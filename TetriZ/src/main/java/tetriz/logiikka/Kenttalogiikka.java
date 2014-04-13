@@ -4,6 +4,8 @@
 package tetriz.logiikka;
 
 import java.awt.Color;
+import java.awt.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -12,7 +14,7 @@ import java.awt.Color;
 public class Kenttalogiikka {
 
     public void poistaTaydetRivit(Color[][] kordinaatisto) {
-        int[] taydetRivit = palautaTaydetRivit(kordinaatisto);
+        ArrayList<Integer> taydetRivit = palautaTaydetRivit(kordinaatisto);
 
         for (int rivi : taydetRivit) {
 
@@ -22,16 +24,16 @@ public class Kenttalogiikka {
             }
 
             //Siirretaan jokainen yläpuolella oleva rivi 1 alas
-            for (int i = rivi; i > 0; i--) {
+            for (int y = rivi; y > 0; y--) {
                 for (int x = 0; x < kordinaatisto.length; x++) {
-                    kordinaatisto[x][i] = kordinaatisto[x][i - 1];
+                    kordinaatisto[x][y] = kordinaatisto[x][y - 1];
                 }
             }          
         }
     }
 
-    public int[] palautaTaydetRivit(Color[][] kordinaatisto) {
-        int[] taydetRivit = new int[0];
+    public ArrayList<Integer> palautaTaydetRivit(Color[][] kordinaatisto) {
+        ArrayList<Integer> taydetrivit = new ArrayList<>();
 
         for (int y = 0; y < kordinaatisto[0].length; y++) {
             boolean riviTaysi = true;
@@ -41,15 +43,10 @@ public class Kenttalogiikka {
                 }
             }
             if (riviTaysi) {
-                taydetRivit = new int[taydetRivit.length + 1];
-                taydetRivit[taydetRivit.length - 1] = y;
+                taydetrivit.add(y);
             }
         }
 
-        for (int i : taydetRivit) {
-            System.out.println(i);
-        }
-        return taydetRivit;
+        return taydetrivit;
     }
-
 }

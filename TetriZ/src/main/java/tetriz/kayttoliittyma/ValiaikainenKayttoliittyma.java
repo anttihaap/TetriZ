@@ -3,8 +3,6 @@ package tetriz.kayttoliittyma;
 
 
 import java.awt.Color;
-import java.awt.Label;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -48,9 +46,6 @@ public class ValiaikainenKayttoliittyma extends JFrame {
         this.nappaimistonKuuntelija = new PelinNappaimistonKuuntelija(this);
     }
     
-    /**
-     *
-     */
     public void aloitaPeli() {      
         peli = new Peli(10, 20, 500, this);  
         addKeyListener(this.nappaimistonKuuntelija); 
@@ -66,10 +61,6 @@ public class ValiaikainenKayttoliittyma extends JFrame {
         add(pisteidenPiirto);
     }
 
-    /**
-     *
-     * @param peliTilanne
-     */
     public void piirraKentta() {
         remove(kenttaPiirto);
         kenttaPiirto = new KentanPiirto(this.peli.peliTilanne);
