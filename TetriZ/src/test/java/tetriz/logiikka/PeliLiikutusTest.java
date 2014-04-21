@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import tetriz.kayttoliittyma.ValiaikainenKayttoliittyma;
+import tetriz.kayttoliittyma.KentanPiirto;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
 
@@ -22,7 +22,7 @@ import tetriz.peliElementit.Pala;
  */
 public class PeliLiikutusTest {
     
-    ValiaikainenKayttoliittyma kayttoliittyma;
+    ValiaikPelinKayttoliittymaliittyma;
     Peli peli;
     
     public PeliLiikutusTest() {
@@ -38,8 +38,7 @@ public class PeliLiikutusTest {
     
     @Before
     public void setUp() {
-        this.kayttoliittyma = new ValiaikainenKayttoliittyma();
-        this.kayttoliittyma.aloitaPeli();
+        this.kayttoliittyma = new ValiaikainenKaPelinKayttoliittymais.kayttoliittyma.aloitaPeli();
         this.peli = new Peli(4, kayttoliittyma);
        
 

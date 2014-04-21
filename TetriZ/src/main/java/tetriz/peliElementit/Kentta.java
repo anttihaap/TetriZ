@@ -8,13 +8,9 @@ import java.awt.Color;
  */
 public class Kentta {
 
-    private final int kentanKorkeus;
-    private final int kentanLeveys;
     private Color[][] kordinaatisto;
 
     public Kentta(int kentanLeveys, int kentanKorkeus) {
-        this.kentanLeveys = kentanLeveys;
-        this.kentanKorkeus = kentanKorkeus;
         this.kordinaatisto = new Color[kentanLeveys][kentanKorkeus];
     }
 
@@ -53,7 +49,7 @@ public class Kentta {
      * @return kentän leveys
      */
     public int palautaKentanLeveys() {
-        return kentanLeveys;
+        return kordinaatisto.length;
     }
 
     /**
@@ -61,7 +57,7 @@ public class Kentta {
      * @return kentän korkeus
      */
     public int palautaKentanKorkeus() {
-        return kentanKorkeus;
+        return kordinaatisto[0].length;
     }
 
     /**

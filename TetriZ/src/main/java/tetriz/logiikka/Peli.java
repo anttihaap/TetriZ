@@ -1,7 +1,10 @@
 package tetriz.logiikka;
 
 import java.awt.Color;
-import tetriz.kayttoliittyma.ValiaikainenKayttoliittyma;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
@@ -11,8 +14,6 @@ import tetriz.peliElementit.Pala;
  * @author Antti
  */
 public class Peli {
-
-    ValiaikainenKayttoliittyma kayttoliittyma;
 
     Palalogiikka palaLogiikka;
     Kenttalogiikka kenttalogiikka;
@@ -25,30 +26,24 @@ public class Peli {
     private final int kiinteaetenemisviive;
     
     Pala pala;
-    boolean peliKaynnissa;
+    public boolean peliKaynnissa;
 
-    /**
-     * Kuvantaa pelin tilannetta.
-     */
-    public Color[][] peliTilanne;
 
-    public Peli(int etenemisViiveMs, ValiaikainenKayttoliittyma kayttoliittyma) {
-        this(10, 20, etenemisViiveMs, kayttoliittyma);
+    public Peli(int etenemisViiveMs) {
+        this(10, 20, etenemisViiveMs);
     }
 
-    public Peli(int kentanLeveys, int kentanKorkeus, int etenemisViiveMs, ValiaikainenKayttoliittyma kayttoliittyma) {
+    public Peli(int kentanLeveys, int kentanKorkeus, int etenemisViiveMs) {
         this.kentta = new Kentta(kentanLeveys, kentanKorkeus);
         this.etenemisViiveMs = etenemisViiveMs;
         this.kiinteaetenemisviive = etenemisViiveMs;
 
         this.palaLogiikka = new Palalogiikka();
         this.kenttalogiikka = new Kenttalogiikka();
-        this.kayttoliittyma = kayttoliittyma;
-        
 
         this.pala = palautaUusiPala();
-        this.peliTilanne = paivitaPeliTilanne();
         this.tilasto = new Tilasto();
+        peliKaynnissa = false;
     }
 
     /**
@@ -58,26 +53,9 @@ public class Peli {
      */
     public void aloita() {
         peliKaynnissa = true;
-
-        this.kayttoliittyma.kaynnistaPiirto();
-
-        tulostaKentta();
-
-        while (peliKaynnissa) {
-            etene();
-        }
-        lopeta();
     }
 
-    private void etene() {
-        viive(etenemisViiveMs);
-        liikutaPalaaAlas();
-    }
 
-    private void tulostaKentta() {
-        this.peliTilanne = paivitaPeliTilanne();
-        this.kayttoliittyma.piirraKentta();
-    }
 
     /**
      * Metodi yrittää liikuttaa palaa alas. Jos palaa ei voida liikuttaa,
@@ -86,7 +64,6 @@ public class Peli {
     public void liikutaPalaaAlas() {
         if (palaLogiikka.voikoLiikuttaaAlas(pala, kentta)) {
             this.pala.liikuAlas();
-            tulostaKentta();
         } else {
             seuraavaPala();
         }
@@ -98,7 +75,6 @@ public class Peli {
     public void liikutaPalaaOikealle() {
         if (palaLogiikka.voikoLiikuttaaOikealle(pala, kentta)) {
             this.pala.liikuOikealle();
-            tulostaKentta();
         }
     }
 
@@ -108,7 +84,6 @@ public class Peli {
     public void liikutaPalaaVasemmalle() {
         if (palaLogiikka.voikoLiikuttaaVasemmalle(pala, kentta)) {
             pala.liikuVasemmalle();
-            tulostaKentta();
         }
     }
 
@@ -138,27 +113,6 @@ public class Peli {
             peliKaynnissa = false;
         } else {
             this.pala = seuraavaPala;
-            tulostaKentta();
-        }
-    }
-
-    /**
-     * Pelin lopetus.
-     */
-    public void lopeta() {
-        this.kayttoliittyma.lopetaPeli();
-    }
-
-    /**
-     * Metodi pysäyttää pelin ms-muuttjan verran millisekuntteina.
-     *
-     * @param ms
-     */
-    private void viive(int ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (InterruptedException e) {
-
         }
     }
 
@@ -168,13 +122,17 @@ public class Peli {
     }
     
     private void havitaRivit() {
-        kenttalogiikka.poistaTaydetRivit(this.kentta.palautaKordinaatisto());
+        ArrayList<Integer> taydetRivit = kenttalogiikka.palautaTaydetRivit(paivitaPeliTilanne());
+        
+        //kayttoliittyma.valkytaRiveja(taydetRivit, 5);
+        
+        kenttalogiikka.poistaRivit(this.kentta.palautaKordinaatisto(), taydetRivit);
     }
 
     /**
      * Metodi päivittää pelitilannetta.
      */
-    private Color[][] paivitaPeliTilanne() {
+    public Color[][] paivitaPeliTilanne() {
         Color[][] kentanKordinaatiosto = this.kentta.palautaKordinaatisto().clone();
         Color[][] peliTilanneNyt = new Color[this.kentta.palautaKentanLeveys()][this.kentta.palautaKentanKorkeus()];
 

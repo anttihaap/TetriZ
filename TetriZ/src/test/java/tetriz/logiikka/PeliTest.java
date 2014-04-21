@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import tetriz.kayttoliittyma.ValiaikainenKayttoliittyma;
+import tetriz.kayttoliittyma.KentanPiirto;
 import tetriz.peliElementit.Kentta;
 
 /**
@@ -16,7 +16,7 @@ import tetriz.peliElementit.Kentta;
  */
 public class PeliTest {
     
-    ValiaikainenKayttoliittyma kayttoliittyma;
+    KentanPiirto kayttoliittyma;
     
     Peli peli;
     int kentanLeveys = 10;
@@ -48,7 +48,7 @@ public class PeliTest {
      */
     @Before
     public void setUp() {
-        kayttoliittyma = new ValiaikainenKayttoliittyma();
+        kayttoliittyma = new KentanPiirto();
 
     }
     

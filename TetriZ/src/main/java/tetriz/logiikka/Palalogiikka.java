@@ -7,6 +7,10 @@ import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
 
+/**
+ *
+ * @author Antti
+ */
 public class Palalogiikka {
 
     /**
@@ -90,10 +94,23 @@ public class Palalogiikka {
         return true;
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param kentta
+     * @return
+     */
     public boolean kordinaattiOnKentanSisalla(int x, int y, Kentta kentta) {
         return x >= 0 && y >= 0 && x < kentta.palautaKentanLeveys() && y < kentta.palautaKentanKorkeus();
     }
 
+    /**
+     *
+     * @param pala
+     * @param kentta
+     * @return
+     */
     public boolean voikoKaantaa(Pala pala, Kentta kentta) {
         // Pala pala = (Pala) pala.clone() 
         // 
