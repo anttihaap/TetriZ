@@ -1,4 +1,8 @@
 TetriZ
 ======
 
-Testaan Git Bashia.
+Tetris-klooni Ohjelmoinnin harjoitustyötä varten.
+
+*Ohjelma:* Antti Haapaniemi
+
+*Kuvat:* Mirnes Selimovic
