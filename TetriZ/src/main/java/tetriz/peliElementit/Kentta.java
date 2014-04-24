@@ -35,12 +35,12 @@ public class Kentta {
     }
 
     /**
-     * Metodi palauttaa totuusarvon siitä, että onko kordinaatistossa väriä kohdassa (x,y).
+     * Metodi palauttaa totuusarvon siitä, että onko kordinaatistossa kuvaa kohdassa (x,y).
      * @param x
      * @param y
      * @return totuuarvo: onko väriä kordinaatiston kohdassa
      */
-    public boolean onkoVaria(int x, int y) {
+    public boolean onkoKuvaa(int x, int y) {
         return this.kordinaatisto[x][y] != null;
     }
 

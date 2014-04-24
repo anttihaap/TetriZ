@@ -15,7 +15,6 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
 
 import tetriz.logiikka.Peli;
 import tetriz.peliElementit.Nelio;

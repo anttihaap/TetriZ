@@ -24,7 +24,7 @@ public class Palalogiikka {
             if (!kordinaattiOnKentanSisalla(n.palautaX(), n.palautaY(), kentta)) {
                 return false;
             }
-            if (kentta.onkoVaria(n.palautaX(), n.palautaY())) {
+            if (kentta.onkoKuvaa(n.palautaX(), n.palautaY())) {
                 return false;
             }
         }
@@ -49,7 +49,7 @@ public class Palalogiikka {
                 return false;
             }
             */
-            if (kentta.onkoVaria(n.palautaX(), n.palautaY() + 1)) {
+            if (kentta.onkoKuvaa(n.palautaX(), n.palautaY() + 1)) {
                 return false;
             }
         }
@@ -69,7 +69,7 @@ public class Palalogiikka {
             if (n.palautaX() + 1 >= kentta.palautaKentanLeveys()) {
                 return false;
             }
-            if (kentta.onkoVaria(n.palautaX() + 1, n.palautaY())) {
+            if (kentta.onkoKuvaa(n.palautaX() + 1, n.palautaY())) {
                 return false;
             }
         }
@@ -89,7 +89,7 @@ public class Palalogiikka {
             if (n.palautaX() - 1 < 0) {
                 return false;
             }
-            if (kentta.onkoVaria(n.palautaX() - 1, n.palautaY())) {
+            if (kentta.onkoKuvaa(n.palautaX() - 1, n.palautaY())) {
                 return false;
             }
         }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package tetriz.logiikka;
 
 import org.junit.After;
@@ -15,34 +14,26 @@ import static org.junit.Assert.*;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
 
-/**
- *
- * @author Antti
- */
 public class PeliLiikutusTest {
-    /*
-    ValiaikPelinKayttoliittymaliittyma;
+
     Peli peli;
-    
+
     public PeliLiikutusTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
-        this.kayttoliittyma = new ValiaikainenKaPelinKayttoliittymais.kayttoliittyma.aloitaPeli();
-        this.peli = new Peli(4, kayttoliittyma);
-       
-
+        this.peli = new Peli(10, 20);
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -50,47 +41,45 @@ public class PeliLiikutusTest {
     @Test
     public void palaLiikkuuAlas() {
         int[] palanYArvotEnnenLiikutusta = new int[4];
-        
+
         for (int i = 0; i < 4; i++) {
-            palanYArvotEnnenLiikutusta[i] = this.peli.pala.palautaPalanNeliot()[i].palautaY();
+            palanYArvotEnnenLiikutusta[i] = this.peli.liikutettavaPala.palautaPalanNeliot()[i].palautaY();
         }
-        
+
         this.peli.liikutaPalaaAlas();
-        
+
         for (int i = 0; i < 4; i++) {
-            assertEquals(palanYArvotEnnenLiikutusta[i] + 1, this.peli.pala.palautaPalanNeliot()[i].palautaY());
+            assertEquals(palanYArvotEnnenLiikutusta[i] + 1, this.peli.liikutettavaPala.palautaPalanNeliot()[i].palautaY());
         }
     }
-    
+
     @Test
     public void palaLiikkuuOikealle() {
         int[] palanXArvotEnnenLiikutusta = new int[4];
-        
+
         for (int i = 0; i < 4; i++) {
-            palanXArvotEnnenLiikutusta[i] = this.peli.pala.palautaPalanNeliot()[i].palautaX();
+            palanXArvotEnnenLiikutusta[i] = this.peli.liikutettavaPala.palautaPalanNeliot()[i].palautaX();
         }
-        
+
         peli.liikutaPalaaOikealle();
-        
+
         for (int i = 0; i < 4; i++) {
-            assertEquals(palanXArvotEnnenLiikutusta[i] + 1, this.peli.pala.palautaPalanNeliot()[i].palautaX());
+            assertEquals(palanXArvotEnnenLiikutusta[i] + 1, this.peli.liikutettavaPala.palautaPalanNeliot()[i].palautaX());
         }
     }
-    
-        @Test
+
+    @Test
     public void palaLiikkuuVasemmalle() {
         int[] palanXArvotEnnenLiikutusta = new int[4];
-        
+
         for (int i = 0; i < palanXArvotEnnenLiikutusta.length; i++) {
-            palanXArvotEnnenLiikutusta[i] = this.peli.pala.palautaPalanNeliot()[i].palautaX();
+            palanXArvotEnnenLiikutusta[i] = this.peli.liikutettavaPala.palautaPalanNeliot()[i].palautaX();
         }
-        
+
         peli.liikutaPalaaVasemmalle();
-        
+
         for (int i = 0; i < 4; i++) {
-            assertEquals(palanXArvotEnnenLiikutusta[i] - 1, this.peli.pala.palautaPalanNeliot()[i].palautaX());
+            assertEquals(palanXArvotEnnenLiikutusta[i] - 1, this.peli.liikutettavaPala.palautaPalanNeliot()[i].palautaX());
         }
     }
-*/
-    
 }

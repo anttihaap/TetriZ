@@ -129,4 +129,18 @@ public class PalaLogiikkaTest {
         assertFalse(palaLogiikka.voikoLiikuttaaVasemmalle(pala, kentta));
     }
     
+    @Test
+    public void kentanSisallaToimiiKunArvotOikein() {
+        for (int x = 0; x < 10; x++) {
+            for (int y = 0; y < 20; y++) {
+                assertTrue(palaLogiikka.kordinaattiOnKentanSisalla(x, y, kentta));
+            }
+        }           
+    }
+    
+    @Test
+    public void kentanSisallaToimiiKunArvotVaarat() {
+        assertFalse(palaLogiikka.kordinaattiOnKentanSisalla(-1, -1, kentta));
+        assertFalse(palaLogiikka.kordinaattiOnKentanSisalla(10, 20, kentta));
+    }
 }

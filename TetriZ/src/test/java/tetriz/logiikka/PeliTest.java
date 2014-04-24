@@ -14,81 +14,43 @@ import static org.junit.Assert.*;
  */
 public class PeliTest {
     
-    /*
-    KentanPiirto kayttoliittyma;
-    
     Peli peli;
     int kentanLeveys = 10;
     int kentanKorkeus = 20;
     int etenemisViiveMs = 250;
-    
-    /**
-     *
-     */
-    
-    /*
+
     public PeliTest() {
     }
     
-    /**
-     *
-     */
     @BeforeClass
     public static void setUpClass() {
     }
-    
-    /**
-     *
-     */
+
     @AfterClass
     public static void tearDownClass() {
     }
     
-    /**
-     *
-     */
-    
-    /*
     @Before
     public void setUp() {
-        kayttoliittyma = new KentanPiirto();
 
     }
     
-    /**
-     *
-     */
-    
-    /*
+
     @After
     public void tearDown() {
     }
     
-    
     @Test
     public void lyhyempiKonstruktoriAsettaaArvotOikein() {
-        this.peli = new Peli(2, kayttoliittyma);
-                             
-        assertEquals(this.peli.kentta.palautaKentanLeveys(), 10);
-        assertEquals(this.peli.kentta.palautaKentanKorkeus(), 20);
-        
-        assertEquals(this.peli.etenemisViiveMs, 2);   
-        assertEquals(this.peli.kayttoliittyma, kayttoliittyma);
-    } 
-   
+        peli = new Peli();
+        assertEquals(peli.kentta.palautaKentanLeveys(), 10);
+        assertEquals(peli.kentta.palautaKentanKorkeus(), 20);        
+    }
+       
     @Test
     public void pidempiKonstruktoriAsettaaArvotOikein() {
-        this.peli = new Peli(30, 20, 4, kayttoliittyma);
-        assertEquals(this.peli.kentta.palautaKentanLeveys(), 30);
-        assertEquals(this.peli.kentta.palautaKentanKorkeus(), 20);
-        
-        assertEquals(this.peli.etenemisViiveMs, 4);   
-        assertEquals(this.peli.kayttoliittyma, kayttoliittyma);
+        this.peli = new Peli(41, 23);
+        assertEquals(this.peli.kentta.palautaKentanLeveys(), 41);
+        assertEquals(this.peli.kentta.palautaKentanKorkeus(), 23);
     }
-    
-    @Test
-    public void luoSatunnaisenPalan() {
-
-    }
-    */
 }
