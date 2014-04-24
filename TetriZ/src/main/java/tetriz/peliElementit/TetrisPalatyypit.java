@@ -1,7 +1,9 @@
 
 package tetriz.peliElementit;
 
-import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * Määrittää palan ominaisuudet: väri ja nelioiden asetelma.
@@ -9,66 +11,76 @@ import java.awt.Color;
  */
 public enum TetrisPalatyypit {
 
-    NELIOPALA(Color.pink),
-    SUORAPALA(Color.red),
-    KOLMIOPALA(Color.blue),
-    OIKEAVINO(Color.green),
-    VASENVINO(Color.black),
-    OIKEAL(Color.orange),
-    VASENL(Color.yellow);
+    NELIOPALA("NELIOPALA"),
+    SUORAPALA("SUORAPALA"),
+    KOLMIOPALA("KOLMIOPALA"),
+    OIKEAVINO("OIKEAVINO"),
+    VASENVINO("VASENVINO"),
+    OIKEAL("OIKEAL"),
+    VASENL("VASENL");
 
-    Color vari;
+    String palatyyppi;
+    public BufferedImage kuva;
+    
     Nelio[] neliot;
     
-    TetrisPalatyypit(Color vari) {
-        this.vari = vari;
+    
+    TetrisPalatyypit(String palatyyppi) {
+        this.palatyyppi = palatyyppi;
         this.neliot = new Nelio[4];
+        
+        this.kuva = null;
+        try {
+            this.kuva = ImageIO.read(getClass().getResource("/kuvat/" + this.toString() + ".jpg"));
+        } catch (IOException e ) {
+            
+        }
         
         luoNeliot();
     }
     
      private void luoNeliot() {
-        switch (this.toString()) {
+        switch (palatyyppi) {
             case "NELIOPALA":
-                this.neliot[0] = new Nelio(1, 0, vari);
-                this.neliot[1] = new Nelio(1, 1, vari);
-                this.neliot[2] = new Nelio(2, 0, vari);
-                this.neliot[3] = new Nelio(2, 1, vari);
+                this.neliot[0] = new Nelio(1, 0, kuva);
+                this.neliot[1] = new Nelio(1, 1, kuva);
+                this.neliot[2] = new Nelio(2, 0, kuva);
+                this.neliot[3] = new Nelio(2, 1, kuva);
                 break;
             case "SUORAPALA":
                 for (int i = 0; i < 4; i++) {
-                    this.neliot[i] = new Nelio(i, 0, vari);
+                    this.neliot[i] = new Nelio(i, 0, kuva);
                 }
                 break;
             case "KOLMIOPALA":
-                this.neliot[0] = new Nelio(1, 0, vari);
-                this.neliot[1] = new Nelio(0, 1, vari);
-                this.neliot[2] = new Nelio(1, 1, vari);
-                this.neliot[3] = new Nelio(2, 1, vari);
+                this.neliot[0] = new Nelio(1, 0,kuva);
+                this.neliot[1] = new Nelio(0, 1, kuva);
+                this.neliot[2] = new Nelio(1, 1, kuva);
+                this.neliot[3] = new Nelio(2, 1, kuva);
                 break;
             case "OIKEAVINO":
-                this.neliot[0] = new Nelio(0, 1, vari);
-                this.neliot[1] = new Nelio(1, 0, vari);
-                this.neliot[2] = new Nelio(1, 1, vari);
-                this.neliot[3] = new Nelio(2, 0, vari);
+                this.neliot[0] = new Nelio(0, 1, kuva);
+                this.neliot[1] = new Nelio(1, 0, kuva);
+                this.neliot[2] = new Nelio(1, 1, kuva);
+                this.neliot[3] = new Nelio(2, 0, kuva);
                 break;
             case "VASENVINO":
-                this.neliot[0] = new Nelio(0, 0, vari);
-                this.neliot[1] = new Nelio(1, 0, vari);
-                this.neliot[2] = new Nelio(1, 1, vari);
-                this.neliot[3] = new Nelio(2, 1, vari);
+                this.neliot[0] = new Nelio(0, 0, kuva);
+                this.neliot[1] = new Nelio(1, 0, kuva);
+                this.neliot[2] = new Nelio(1, 1, kuva);
+                this.neliot[3] = new Nelio(2, 1, kuva);
                 break;
             case "OIKEAL":
-                this.neliot[0] = new Nelio(0, 0, vari);
-                this.neliot[1] = new Nelio(0, 1, vari);
-                this.neliot[2] = new Nelio(1, 1, vari);
-                this.neliot[3] = new Nelio(2, 1, vari);
+                this.neliot[0] = new Nelio(0, 0, kuva);
+                this.neliot[1] = new Nelio(0, 1, kuva);
+                this.neliot[2] = new Nelio(1, 1, kuva);
+                this.neliot[3] = new Nelio(2, 1, kuva);
                 break;
             case "VASENL":
-                this.neliot[0] = new Nelio(2, 0, vari);
-                this.neliot[1] = new Nelio(0, 1, vari);
-                this.neliot[2] = new Nelio(1, 1, vari);
-                this.neliot[3] = new Nelio(2, 1, vari);
+                this.neliot[0] = new Nelio(2, 0, kuva);
+                this.neliot[1] = new Nelio(0, 1, kuva);
+                this.neliot[2] = new Nelio(1, 1, kuva);
+                this.neliot[3] = new Nelio(2, 1, kuva);
                 break;
         }
     }

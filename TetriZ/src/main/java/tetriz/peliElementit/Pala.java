@@ -1,6 +1,6 @@
 package tetriz.peliElementit;
 
-import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 /**
  * Pala (eli tetrispala), joka koostuu neljästä neliöstä. Tetrispalatyyppi
@@ -10,8 +10,7 @@ import java.awt.Color;
  */
 public class Pala implements Cloneable {
 
-    private final TetrisPalatyypit palaTyyppi;
-    private final Color vari;
+    private final TetrisPalatyypit palatyyppi;
 
     private Nelio[] neliot;
 
@@ -22,9 +21,7 @@ public class Pala implements Cloneable {
      * @param tyyppi
      */
     public Pala(int aloitusKordinaattiX, int aloitusKordinaattiY, TetrisPalatyypit tyyppi) {
-        this.palaTyyppi = tyyppi;
-        this.vari = this.palaTyyppi.vari;
-
+        this.palatyyppi = tyyppi;
         luoNeliot(aloitusKordinaattiX, aloitusKordinaattiY);
     }
 
@@ -43,8 +40,8 @@ public class Pala implements Cloneable {
         this.neliot = new Nelio[4];
 
         int i = 0;
-        for (Nelio n : this.palaTyyppi.neliot) {
-            this.neliot[i] = new Nelio(n.palautaX() + (aloitusKordinaattiX - 2), n.palautaY() + aloitusKordinaattiY, n.palautaVari());
+        for (Nelio n : this.palatyyppi.neliot) {
+            this.neliot[i] = new Nelio(n.palautaX() + (aloitusKordinaattiX - 2), n.palautaY() + aloitusKordinaattiY, n.palautaKuva());
             i++;
         }
     }
@@ -56,7 +53,6 @@ public class Pala implements Cloneable {
     public void liikuAlas() {
         for (Nelio n : this.neliot) {
             n.asetaY(n.palautaY() + 1);
-            //n.alas();
         }
     }
 
@@ -91,7 +87,7 @@ public class Pala implements Cloneable {
          */
 
         //Neliopalaa ei käännetä.
-        if (palaTyyppi != TetrisPalatyypit.NELIOPALA) {
+        if (palatyyppi != TetrisPalatyypit.NELIOPALA) {
             //Piste jonka ympärilta kaannetaan.
             int kaantokohtaX = neliot[2].palautaX();
             int kaantokohtaY = neliot[2].palautaY();
@@ -127,13 +123,23 @@ public class Pala implements Cloneable {
      *
      * @return
      */
-    public Color palautaVari() {
-        return this.vari;
+    public BufferedImage palautaKuva() {
+        return palatyyppi.kuva;
     }
-
+    
+    public TetrisPalatyypit palautaTetrispalatyyppi() {
+        return palatyyppi;
+    }    
+    
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        Pala clooni = (Pala) super.clone();
-        return clooni;
+    public Pala clone() throws CloneNotSupportedException {
+        Pala klooni = null;
+        try {
+            klooni = (Pala) super.clone();
+            
+        } catch (CloneNotSupportedException e) {
+            
+        }
+        return klooni;
     }
 }

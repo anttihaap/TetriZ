@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import tetriz.kayttoliittyma.KentanPiirto;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
 
@@ -21,7 +20,7 @@ import tetriz.peliElementit.Pala;
  * @author Antti
  */
 public class PeliLiikutusTest {
-    
+    /*
     ValiaikPelinKayttoliittymaliittyma;
     Peli peli;
     
@@ -92,6 +91,6 @@ public class PeliLiikutusTest {
             assertEquals(palanXArvotEnnenLiikutusta[i] - 1, this.peli.pala.palautaPalanNeliot()[i].palautaX());
         }
     }
-
+*/
     
 }

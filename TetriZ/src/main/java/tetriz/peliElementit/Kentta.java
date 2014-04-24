@@ -1,27 +1,27 @@
 package tetriz.peliElementit;
 
-import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 /**
- * Kentta sisältää kordinaatiston, joka pitää sisällään eri värejä.
+ * Kentta sisältää kordinaatiston, joka pitää sisällään kuvia.
  * @author Antti
  */
 public class Kentta {
 
-    private Color[][] kordinaatisto;
+    private BufferedImage[][] kordinaatisto;
 
     public Kentta(int kentanLeveys, int kentanKorkeus) {
-        this.kordinaatisto = new Color[kentanLeveys][kentanKorkeus];
+        this.kordinaatisto = new BufferedImage[kentanLeveys][kentanKorkeus];
     }
 
     /**
      * Metodi lisää värin kordinaatistoon käyttäen x ja y parametreja, jotka vastaa paikkaa kordinaatistossa.
-     * @param vari
+     * @param kvua
      * @param x
      * @param y
      */
-    public void lisaaVari(Color vari, int x, int y) {
-        this.kordinaatisto[x][y] = vari;
+    public void lisaaKuva(BufferedImage kvua, int x, int y) {
+        this.kordinaatisto[x][y] = kvua;
     }
 
     /**
@@ -30,7 +30,7 @@ public class Kentta {
      */
     public void lisaaPala(Pala pala) {
         for (Nelio n : pala.palautaPalanNeliot()) {
-            lisaaVari(n.palautaVari(), n.palautaX(), n.palautaY());
+            lisaaKuva(n.palautaKuva(), n.palautaX(), n.palautaY());
         }
     }
 
@@ -60,17 +60,17 @@ public class Kentta {
         return kordinaatisto[0].length;
     }
 
-    /**
+    /** TARKISTA!!!
      * Metodi palauttaa värin kordinaatiston pisteestä. Mikäli sitä ei ole metodi palauttaa valkoista.
      * @param x
      * @param y
      * @return kordinaatiston väri
      */
-    public Color palautaVari(int x, int y) {
+    public BufferedImage palautaVari(int x, int y) {
         if (this.kordinaatisto[x][y] != null) {
             return this.kordinaatisto[x][y];
         } else {
-            return Color.white;
+            return null;
         }
     }
     
@@ -78,7 +78,7 @@ public class Kentta {
      * Metodi palauttaa kordinaatiston.
      * @return kordinaatisto
      */
-    public Color[][] palautaKordinaatisto() {
+    public BufferedImage[][] palautaKordinaatisto() {
         return kordinaatisto;
     }
 }

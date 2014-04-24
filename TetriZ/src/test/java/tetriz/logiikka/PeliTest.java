@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import tetriz.kayttoliittyma.KentanPiirto;
-import tetriz.peliElementit.Kentta;
 
 /**
  *
@@ -16,6 +14,7 @@ import tetriz.peliElementit.Kentta;
  */
 public class PeliTest {
     
+    /*
     KentanPiirto kayttoliittyma;
     
     Peli peli;
@@ -26,6 +25,8 @@ public class PeliTest {
     /**
      *
      */
+    
+    /*
     public PeliTest() {
     }
     
@@ -46,6 +47,8 @@ public class PeliTest {
     /**
      *
      */
+    
+    /*
     @Before
     public void setUp() {
         kayttoliittyma = new KentanPiirto();
@@ -55,6 +58,8 @@ public class PeliTest {
     /**
      *
      */
+    
+    /*
     @After
     public void tearDown() {
     }
@@ -85,4 +90,5 @@ public class PeliTest {
     public void luoSatunnaisenPalan() {
 
     }
+    */
 }

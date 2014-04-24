@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  */
 public class TilastoTest {
     
-    Tilasto tilasto;
+    PelinTilasto tilasto;
     
     public TilastoTest() {
         
@@ -35,7 +35,7 @@ public class TilastoTest {
     
     @Before
     public void setUp() {
-        tilasto = new Tilasto();
+        tilasto = new PelinTilasto();
     }
     
     @After

@@ -55,6 +55,7 @@ public class KenttaTest {
     public void tearDown() {
     }
 
+    /*
     @Test
     public void kenttaLuoOikeanlaisenKentan() {
         assertEquals(kentta.palautaKentanKorkeus(), this.korkeus);
@@ -95,5 +96,5 @@ public class KenttaTest {
             assertEquals(kentta.palautaVari(nelio.palautaX(), nelio.palautaY()), nelioPala.palautaVari());
         }       
     }
-    
+    */
 }

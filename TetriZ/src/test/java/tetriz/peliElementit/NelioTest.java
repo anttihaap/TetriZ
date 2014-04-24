@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
  */
 public class NelioTest {
     
+    /*
     Nelio nelio;
     
     /**
@@ -28,6 +29,7 @@ public class NelioTest {
     public NelioTest() {
     }
 
+    /*
     @Before
     public void setUp() {
         nelio = new Nelio(0, 0, Color.white);
@@ -52,6 +54,7 @@ public class NelioTest {
         assertEquals(12412, nelio.palautaY());
     }
     
+    */
 
     
 }

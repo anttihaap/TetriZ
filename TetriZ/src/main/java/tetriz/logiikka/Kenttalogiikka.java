@@ -2,6 +2,7 @@
 package tetriz.logiikka;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +16,7 @@ public class Kenttalogiikka {
      * @param kordinaatisto
      * @param poisetttavatRivit
      */
-    public void poistaRivit(Color[][] kordinaatisto, ArrayList<Integer> poisetttavatRivit) {
+    public void poistaRivit(BufferedImage[][] kordinaatisto, ArrayList<Integer> poisetttavatRivit) {
         ArrayList<Integer> taydetRivit = poisetttavatRivit;
 
         for (int rivi : taydetRivit) {
@@ -33,7 +34,7 @@ public class Kenttalogiikka {
      * @param kordinaatisto
      * @return
      */
-    public ArrayList<Integer> palautaTaydetRivit(Color[][] kordinaatisto) {
+    public ArrayList<Integer> palautaTaydetRivit(BufferedImage[][] kordinaatisto) {
         ArrayList<Integer> taydetrivit = new ArrayList<>();
 
         for (int y = 0; y < kordinaatisto[0].length; y++) {
@@ -50,4 +51,6 @@ public class Kenttalogiikka {
 
         return taydetrivit;
     }
+    
+
 }

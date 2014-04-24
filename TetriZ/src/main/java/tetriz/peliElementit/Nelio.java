@@ -1,9 +1,10 @@
 package tetriz.peliElementit;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 /**
- * Kuvastaa palan yhtä neliota. Ominaisuuksia: vari ja piste (x,y).
+ * Kuvastaa palan yhtä neliota. Ominaisuuksia: kuva ja piste (x,y).
  * @author Antti
  */
 public class Nelio {
@@ -12,19 +13,18 @@ public class Nelio {
     private int X;
     private int Y;
     
-    //Nelion vari:
-    private final Color vari;
+    //Nelion kuva
+    private final BufferedImage kuva;
 
     /**
-     *
      * @param x
      * @param y
-     * @param vari
+     * @param palatyyppi
      */
-    public Nelio(int x, int y, Color vari) {
-        this.X = x;
-        this.Y = y;
-        this.vari = vari;
+    public Nelio(int x, int y, BufferedImage palatyyppi) {
+        X = x;
+        Y = y;
+        this.kuva = palatyyppi;
     }
 
     /**
@@ -32,7 +32,7 @@ public class Nelio {
      * @return
      */
     public int palautaX() {
-        return this.X;
+        return X;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Nelio {
      * @return
      */
     public int palautaY() {
-        return this.Y;
+        return Y;
     }
     
     /**
@@ -60,11 +60,13 @@ public class Nelio {
     }
 
     /**
-     * Palauttaa nelion värin.
+     * Palauttaa nelion kuvan.
      * @return
      */
-    public Color palautaVari() {
-        return this.vari;
+    public BufferedImage palautaKuva() {
+        return kuva;
     }
+    
+
 
 }

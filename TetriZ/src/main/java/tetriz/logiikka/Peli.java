@@ -1,10 +1,7 @@
 package tetriz.logiikka;
 
-import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
@@ -15,44 +12,33 @@ import tetriz.peliElementit.Pala;
  */
 public class Peli {
 
-    Palalogiikka palaLogiikka;
-    Kenttalogiikka kenttalogiikka;
+    public Palalogiikka palaLogiikka;
+    public Kenttalogiikka kenttalogiikka;
 
-    Tilasto tilasto;
+    public PelinTilasto tilasto;
 
-    Kentta kentta;
-    int etenemisViiveMs;
+    public Kentta kentta;
     
-    private final int kiinteaetenemisviive;
+    Pala liikutettavaPala;
+    Pala seuraavaPala;
     
-    Pala pala;
     public boolean peliKaynnissa;
 
 
-    public Peli(int etenemisViiveMs) {
-        this(10, 20, etenemisViiveMs);
+    public Peli() {
+        this(10, 20);
     }
 
-    public Peli(int kentanLeveys, int kentanKorkeus, int etenemisViiveMs) {
+    public Peli(int kentanLeveys, int kentanKorkeus) {
         this.kentta = new Kentta(kentanLeveys, kentanKorkeus);
-        this.etenemisViiveMs = etenemisViiveMs;
-        this.kiinteaetenemisviive = etenemisViiveMs;
 
         this.palaLogiikka = new Palalogiikka();
         this.kenttalogiikka = new Kenttalogiikka();
 
-        this.pala = palautaUusiPala();
-        this.tilasto = new Tilasto();
+        this.liikutettavaPala = palautaUusiPala();
+        this.seuraavaPala = palautaUusiPala();
+        this.tilasto = new PelinTilasto();
         peliKaynnissa = false;
-    }
-
-    /**
-     * Metodi aloittaa pelin, jolloin peliKaynnissa totuusarvoksi asetetaan
-     * tosi. Peli etenee kunnes peliKaynnissa on tosi. Muulloin se kutsuu
-     * metodia lopeta().
-     */
-    public void aloita() {
-        peliKaynnissa = true;
     }
 
 
@@ -62,8 +48,8 @@ public class Peli {
      * kutsutaan metodia seuraavaPala().
      */
     public void liikutaPalaaAlas() {
-        if (palaLogiikka.voikoLiikuttaaAlas(pala, kentta)) {
-            this.pala.liikuAlas();
+        if (palaLogiikka.voikoLiikuttaaAlas(liikutettavaPala, kentta)) {
+            this.liikutettavaPala.liikuAlas();
         } else {
             seuraavaPala();
         }
@@ -73,8 +59,8 @@ public class Peli {
      * Metodi liikuttaa palaa oikealle.
      */
     public void liikutaPalaaOikealle() {
-        if (palaLogiikka.voikoLiikuttaaOikealle(pala, kentta)) {
-            this.pala.liikuOikealle();
+        if (palaLogiikka.voikoLiikuttaaOikealle(liikutettavaPala, kentta)) {
+            this.liikutettavaPala.liikuOikealle();
         }
     }
 
@@ -82,17 +68,24 @@ public class Peli {
      * Metodi liikuttaa palaa vasemmalle.
      */
     public void liikutaPalaaVasemmalle() {
-        if (palaLogiikka.voikoLiikuttaaVasemmalle(pala, kentta)) {
-            pala.liikuVasemmalle();
+        if (palaLogiikka.voikoLiikuttaaVasemmalle(liikutettavaPala, kentta)) {
+            liikutettavaPala.liikuVasemmalle();
         }
     }
 
     public void kaannaPalaaOikealle() {
-        if (palaLogiikka.voikoKaantaa(pala, kentta)) {
-            this.pala.kaannaOikealle();
+        if (palaLogiikka.voikoKaantaa(liikutettavaPala, kentta)) {
+            this.liikutettavaPala.kaannaOikealle();
         } 
     }
 
+    public void liikutaPalaKentanAlalaitaan() {
+        while(palaLogiikka.voikoLiikuttaaAlas(liikutettavaPala, kentta)) {
+            liikutettavaPala.liikuAlas();
+        }
+        
+}
+    
     /**
      * Metodi kiinnittää nykyisen palan kenttään ja luo uuden mikäli
      * mahdollista. Jos uutta palaa ei voida luoda, peliKaynnissa-totuusarvo
@@ -100,19 +93,20 @@ public class Peli {
      */
     private void seuraavaPala() {
         //Kiinnitetään nykyinen pala kentään:
-        kentta.lisaaPala(pala);
+        kentta.lisaaPala(liikutettavaPala);
         havitaRivit();
 
         this.tilasto.kasvataPistetta(1);
 
         //Luodaan seuraava pala entisen tilalle:
-        Pala seuraavaPala = palautaUusiPala();
 
         //Jos uutta palaa ei voida luoda, peli päättyy
         if (!palaLogiikka.voidaankoLuoda(seuraavaPala, kentta)) {
             peliKaynnissa = false;
-        } else {
-            this.pala = seuraavaPala;
+        } else {            
+            this.liikutettavaPala = seuraavaPala;
+            this.seuraavaPala = palautaUusiPala();
+            tilasto.palaLuotu();
         }
     }
 
@@ -125,6 +119,7 @@ public class Peli {
         ArrayList<Integer> taydetRivit = kenttalogiikka.palautaTaydetRivit(paivitaPeliTilanne());
         
         //kayttoliittyma.valkytaRiveja(taydetRivit, 5);
+        tilasto.kasvataRivejaTuhottu(taydetRivit.size());
         
         kenttalogiikka.poistaRivit(this.kentta.palautaKordinaatisto(), taydetRivit);
     }
@@ -132,30 +127,44 @@ public class Peli {
     /**
      * Metodi päivittää pelitilannetta.
      */
-    public Color[][] paivitaPeliTilanne() {
-        Color[][] kentanKordinaatiosto = this.kentta.palautaKordinaatisto().clone();
-        Color[][] peliTilanneNyt = new Color[this.kentta.palautaKentanLeveys()][this.kentta.palautaKentanKorkeus()];
+    public BufferedImage[][] paivitaPeliTilanne() {
+        BufferedImage[][] kentanKordinaatiosto = kentta.palautaKordinaatisto().clone();
+        BufferedImage[][] peliTilanneNyt = new BufferedImage[this.kentta.palautaKentanLeveys()][this.kentta.palautaKentanKorkeus()];
 
         for (int i = 0; i < kentanKordinaatiosto.length; i++) {
             System.arraycopy(kentanKordinaatiosto[i], 0, peliTilanneNyt[i], 0, kentanKordinaatiosto[i].length);
         }
 
-        for (Nelio n : this.pala.palautaPalanNeliot()) {
-            peliTilanneNyt[n.palautaX()][n.palautaY()] = n.palautaVari();
+        for (Nelio n : this.liikutettavaPala.palautaPalanNeliot()) {
+            if(palaLogiikka.kordinaattiOnKentanSisalla(n.palautaX(), n.palautaY(), kentta)) {
+                
+            
+            peliTilanneNyt[n.palautaX()][n.palautaY()] = n.palautaKuva();
+            } else {
+                return new BufferedImage[kentta.palautaKentanLeveys()][kentta.palautaKentanKorkeus()];
+            }
         }
 
         return peliTilanneNyt;
     }
+    
+    public Pala palautaVarjoPala() {
+        Pala varjoPala = new Pala(this.kentta.palautaKentanLeveys() / 2, 0, liikutettavaPala.palautaTetrispalatyyppi());
+        Nelio[] neliot = liikutettavaPala.palautaPalanNeliot();
 
-    public int palautaPisteet() {
-        return this.tilasto.palautaPisteet();
+        int i = 0;
+        for (Nelio n: varjoPala.palautaPalanNeliot()) {
+            n.asetaX(neliot[i].palautaX());
+            n.asetaY(neliot[i].palautaY());        
+            i++;
+        }
+
+        
+        while(palaLogiikka.voikoLiikuttaaAlas(varjoPala, kentta)) {
+            varjoPala.liikuAlas();
+        }
+        
+        return varjoPala;
     }
     
-    public void nopeutaPelia() {
-        this.etenemisViiveMs = 70;
-    }
-    
-    public void nopeusNormaaliksi() {
-        this.etenemisViiveMs = kiinteaetenemisviive;
-    }
 }

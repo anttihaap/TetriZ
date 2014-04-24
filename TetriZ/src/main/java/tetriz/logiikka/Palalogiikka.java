@@ -1,8 +1,5 @@
 package tetriz.logiikka;
 
-import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
@@ -44,9 +41,14 @@ public class Palalogiikka {
      */
     public boolean voikoLiikuttaaAlas(Pala pala, Kentta kentta) {
         for (Nelio n : pala.palautaPalanNeliot()) {
+            if (!kordinaattiOnKentanSisalla(n.palautaX(), n.palautaY() + 1, kentta)) {
+                return false;
+            }
+            /*
             if (n.palautaY() + 1 >= kentta.palautaKentanKorkeus()) {
                 return false;
             }
+            */
             if (kentta.onkoVaria(n.palautaX(), n.palautaY() + 1)) {
                 return false;
             }
@@ -118,7 +120,7 @@ public class Palalogiikka {
         Pala kaannettyPala = new Pala(0, 0);
         
         for (int i = 0; i < 4; i++) {
-            kaannettyPala.palautaPalanNeliot()[i] = new Nelio(pala.palautaPalanNeliot()[i].palautaX(), pala.palautaPalanNeliot()[i].palautaY(), pala.palautaVari());
+            kaannettyPala.palautaPalanNeliot()[i] = new Nelio(pala.palautaPalanNeliot()[i].palautaX(), pala.palautaPalanNeliot()[i].palautaY(), pala.palautaKuva());
         }
         
         kaannettyPala.kaannaOikealle();

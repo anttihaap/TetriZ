@@ -7,16 +7,18 @@ package tetriz.kayttoliittyma;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import javax.swing.Timer;
+import javax.swing.SwingUtilities;
 
 import tetriz.logiikka.Peli;
+import tetriz.peliElementit.Nelio;
 
 /**
  *
@@ -24,84 +26,135 @@ import tetriz.logiikka.Peli;
  */
 public class Pelipaneeli extends JPanel implements Runnable {
 
+    final BufferedImage tyhjaKohta;
+    final BufferedImage varjoPala;
+
     Peli peli;
-    PelipaneeliSyote syote;
+
+    Thread pelisaie;
 
     //Syote
-    InputMap im;
-    ActionMap am;
-
-    final boolean voikoNappiaPainaa = true;
+    PelipaneeliSyote syote;
+    InputMap syoteKartta;
+    ActionMap toimntoKartta;
 
     public Pelipaneeli() {
+        setSize(500, 630);
         setVisible(true);
-        setFocusable(true);
         setBackground(Color.black);
 
-        im = getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
-        am = getActionMap();
-        luoSyotteet();
+        //Syote:
+        syoteKartta = getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
+        toimntoKartta = getActionMap();
+        lisaaSyotteet();
 
+        //Ladataan tyhja- ja varjokuvat olioimuuttujiin:
+        tyhjaKohta = palautaKuva("/kuvat/NULL.jpg");
+        varjoPala = palautaKuva("/kuvat/VARJO.jpg");
+
+        peli = new Peli();
+
+        pelisaie = new Thread(this);
+        pelisaie.start();
     }
 
     @Override
     public void run() {
-        System.out.println("run");
-        peli = new Peli(500);
-        peli.aloita();
-
-        this.repaint();
-
-        Timer ajastin;
-        ajastin = new Timer(500, new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (peli.peliKaynnissa) {
-                    peli.liikutaPalaaAlas();
-                    repaint();
-                } else {
-                    
-                }
-            }
-
-        });
-
-        ajastin.start();
-
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        super.paintComponent(g);
-
-        for (int y = 0; y < 20; y++) {
-            for (int x = 0; x < 10; x++) {
-                if (peli.paivitaPeliTilanne()[x][y] == null) {
-                    g.setColor(Color.white);
-                } else {
-                    g.setColor(peli.paivitaPeliTilanne()[x][y]);
-                }
-                g.fillRect(x * 30, y * 30, 30, 30);
-            }
+        while (true) {
+            aloitaPeli(500);
         }
     }
 
-    private void luoSyotteet() {
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "Ylos");
-        am.put("Ylos", new PelipaneeliSyote("Ylos", this));
+    public void aloitaPeli(int viive) {
+        peli = new Peli();
+        peli.peliKaynnissa = true;
+        repaint();
 
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "Alas");
-        am.put("Alas", new PelipaneeliSyote("Alas", this));
-
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "Oikealle");
-        am.put("Oikealle", new PelipaneeliSyote("Oikealle", this));
-
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "Vasemmalle");
-        am.put("Vasemmalle", new PelipaneeliSyote("Vasemmalle", this));
-
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "Ylos");
-        am.put("Ylos", new PelipaneeliSyote("Ylos", this));
+        while (peli.peliKaynnissa) {
+            System.out.println("loop");
+            viive(viive);
+            peli.liikutaPalaaAlas();
+            repaint();
+        }
     }
 
+    private void viive(int viive) {
+        try {
+            Thread.sleep(viive);
+        } catch (InterruptedException e) {
+        }
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        piirraKentta(g);
+        piirraVarjopala(g);
+    }
+
+    private void piirraKentta(Graphics g) {
+        /*
+         * Kordinaatiston piirto:
+         * (Jos kuvaa ei löydy, piirretään tyhjaKohta-kuva.)
+         */
+        BufferedImage[][] pelitilanne = peli.paivitaPeliTilanne();
+        for (int y = 0; y < 20; y++) {
+            for (int x = 0; x < 10; x++) {
+                if (pelitilanne[x][y] != null) {
+                    g.drawImage(pelitilanne[x][y], x * 30, y * 30, null);
+                } else {
+                    g.drawImage(tyhjaKohta, x * 30, y * 30, null);
+                }
+            }
+        }
+    }
+    
+    private void piirraVarjopala(Graphics g) {
+        /*
+         * Varjopalan piirtaminen. Piirretaan, jos peliTilanteen-kordinaatiston kohta on tyhja. 
+         */
+        for (Nelio n : peli.palautaVarjoPala().palautaPalanNeliot()) {
+            if (peli.palaLogiikka.kordinaattiOnKentanSisalla(n.palautaX(), n.palautaY(), peli.kentta)) {
+                if (peli.paivitaPeliTilanne()[n.palautaX()][n.palautaY()] == null) {
+                    g.drawImage(varjoPala, n.palautaX() * 30, n.palautaY() * 30, null);
+                }
+            }
+        }
+
+        //Pisteet:
+        g.setColor(Color.white);
+        g.drawString("Pisteet: " + peli.tilasto.palautaPisteet(), 300, 10);
+
+        //Luotujen palojen maara:
+        g.setColor(Color.white);
+        g.drawString("PalojaLuotu: " + peli.tilasto.palautaPalojaLuotu(), 300, 20);
+
+        //Riveja tuhottu:
+        g.setColor(Color.white);
+        g.drawString("Riveja tuhottu: " + peli.tilasto.palautaRivejaTuhottu(), 300, 30);
+
+    }
+
+    private void lisaaSyotteet() {
+        lisaaSyote(KeyEvent.VK_UP, "Ylos");
+        lisaaSyote(KeyEvent.VK_DOWN, "Alas");
+        lisaaSyote(KeyEvent.VK_RIGHT, "Oikealle");
+        lisaaSyote(KeyEvent.VK_LEFT, "Vasemmalle");
+        lisaaSyote(KeyEvent.VK_SPACE, "Pohjaan");
+    }
+
+    private void lisaaSyote(int key, String syote) {
+        syoteKartta.put(KeyStroke.getKeyStroke(key, 0), syote);
+        toimntoKartta.put(syote, new PelipaneeliSyote(syote, this));
+    }
+
+    private BufferedImage palautaKuva(String hakemisto) {
+        BufferedImage kuva = null;
+        try {
+            kuva = ImageIO.read(getClass().getResource(hakemisto));
+        } catch (IOException e) {
+            System.out.println("kuva ei lataudu");
+        }
+        return kuva;
+    }
 }

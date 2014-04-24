@@ -13,28 +13,34 @@ public class PelipaneeliSyote extends AbstractAction {
     private final String syote;
     public Pelipaneeli paneeli;
 
-    public PelipaneeliSyote(String nappi, Pelipaneeli pelipaneeli) {
-        this.syote = nappi;
+    public PelipaneeliSyote(String syote, Pelipaneeli pelipaneeli) {
+        this.syote = syote;
         this.paneeli = pelipaneeli;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (syote.equals("Ylos")) {
-            paneeli.peli.kaannaPalaaOikealle();
-            paneeli.repaint();
-        }
-        if (syote.equals("Alas")) {
-            paneeli.peli.liikutaPalaaAlas();
-            paneeli.repaint();
-        }
-        if (syote.equals("Oikealle")) {
-            paneeli.peli.liikutaPalaaOikealle();
-            paneeli.repaint();
-        }
-        if (syote.equals("Vasemmalle")) {
-            paneeli.peli.liikutaPalaaVasemmalle();
-            paneeli.repaint();
+        if (paneeli.peli.peliKaynnissa) {
+            if (syote.equals("Ylos")) {
+                paneeli.peli.kaannaPalaaOikealle();
+                paneeli.repaint();
+            }
+            if (syote.equals("Alas")) {
+                paneeli.peli.liikutaPalaaAlas();
+                paneeli.repaint();
+            }
+            if (syote.equals("Oikealle")) {
+                paneeli.peli.liikutaPalaaOikealle();
+                paneeli.repaint();
+            }
+            if (syote.equals("Vasemmalle")) {
+                paneeli.peli.liikutaPalaaVasemmalle();
+                paneeli.repaint();
+            }
+            if (syote.equals("Pohjaan")) {
+                paneeli.peli.liikutaPalaKentanAlalaitaan();
+                paneeli.repaint();
+            }
         }
     }
 
