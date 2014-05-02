@@ -1,4 +1,6 @@
 TetriZ
 ======
 
-Testaan Git Bashia.
+Tetris-klooni Ohjelmoinnin harjoitustyötä varten.
+
+HUOM!!! Javadoc kansiossa dokumentointi.
