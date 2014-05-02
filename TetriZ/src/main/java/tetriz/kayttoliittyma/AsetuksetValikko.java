@@ -13,7 +13,7 @@ public class AsetuksetValikko extends Valikko {
     Paaikkuna valikko;
 
     /**
-     *
+     * Luo asetukset valikon ja lisää paaikkunan, jota kutsutan tarvittaessa.
      * @param ikkuna
      */
     public AsetuksetValikko(Paaikkuna ikkuna) {
@@ -24,6 +24,9 @@ public class AsetuksetValikko extends Valikko {
         luoNapit();
     }
 
+    /**
+     * Luo napit valikkoon.
+     */
     private void luoNapit() {       
         napit = new JLabel[4];
         akviivinenNappi = 0;
@@ -38,7 +41,7 @@ public class AsetuksetValikko extends Valikko {
     }
 
     /**
-     *
+     * Tekee tietyn komennon riippuen siitä, mikä napeista on valittuna.
      * @param aktiivinenNappi
      */
     @Override

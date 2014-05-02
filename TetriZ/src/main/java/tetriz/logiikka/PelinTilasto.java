@@ -34,22 +34,22 @@ public class PelinTilasto {
     }
     
     /**
-     * Kasvattaa pisteita maaran: verran.
-     * @param rivit
+     * Kasvattaa pistettä riipuen tuhottujen rivien määrästä.
+     * @param tuhotutRivit tuhotut rivit
      */
-    public void kasvataPistetta(int rivit) {
+    public void kasvataPistetta(int tuhotutRivit) {
         int taydetRivit;
         
         //Rivikerroin toimii vain välillä rivien määrällä 1-5.
         // >5 suuremmat rivin määrät eivät nostata kerrointa.
-        if (rivit == 0) {
+        if (tuhotutRivit == 0) {
             pisteet += 3;
             return;
         }
-        else if (rivit >= 5) {
+        else if (tuhotutRivit >= 5) {
             taydetRivit = 5;
         } else {
-            taydetRivit = rivit;
+            taydetRivit = tuhotutRivit;
         }
         int riviKerroin = rivinTuhoamisKerroin[taydetRivit - 1];
         
@@ -58,15 +58,15 @@ public class PelinTilasto {
     }
     
     /**
-     *
+     * Lisaa luotujen palojen maaraa yhdellä.
      */
-    public void palaLuotu() {
+    public void lisaaPalojaLuotuYhdella() {
         palojaLuotu++;
     }
     
     /**
      * Kasvattaa rivejaTuhottu maaran verran.
-     * @param maara
+     * @param maara ruhottujen rivien maara
      */
     public void kasvataRivejaTuhottu(int maara) {
         rivejaTuhottu += maara;
@@ -81,24 +81,24 @@ public class PelinTilasto {
     }
     
     /**
-     * Palauttaa 
-     * @return
+     * Palauttaa luotujen palojen maaran. 
+     * @return luodut palat
      */
     public int palautaPalojaLuotu() {
         return palojaLuotu;
     }
     
     /**
-     *
-     * @return
+     * Palauttaa tuhottujen rivien maaran.
+     * @return tuhotut rivit
      */
     public int palautaRivejaTuhottu() {
         return rivejaTuhottu;
     }
     
     /**
-     *
-     * @return
+     * Palauttaa vaikeustason.
+     * @return vaikeustaso
      */
     public int palautaVaikeustaso() {
         return vaikeustaso;

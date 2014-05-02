@@ -6,12 +6,16 @@ Aiheena totetuttaa hävytön klooni tetris-pelistä.
 
 Pala liikkuu alas kentässä automaattisesti tietyn aikavälein riippuen vaikeustasosta. Korkeampi vaikeustaso liikuttaa palaa nopeammin tehden pelistä vaikeamman.
  
+Varjopala, eli alin kohta johon liikutettava pala liikkuu, seuraava pala ja pisteytys näkyy pelipaneelin oikealla puolella.
+
 * Palan liikkuminen:
   * Tetrispalaa ohjataan sivuttaissuunnassa nuolinäppäimillä.
   * Palaa voi kääntää 90-astetta oikealle painamalla nuolinäppäintä ylös.
   * Alas nuolinäppäin nopeuttaa palan liikkumista alaspäin. 
   * SPACE-näppäimellä pala siirtyy heti niin alas kuin mahdollista.
   * Varjopala näyttää mihin pala siirtyy, jos SPACE-nappainta painaa.
+
+
 
 **Kentan toiminnallisuus:**
 

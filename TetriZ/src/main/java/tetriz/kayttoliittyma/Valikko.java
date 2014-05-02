@@ -28,8 +28,8 @@ public class Valikko extends JPanel implements KeyListener {
     final private Color napinVari = Color.white;;
 
     /**
-     *
-     * @param paavalikko
+     * Luo valikoko rungon. Parametrinä ikkuna, jota kutsutaan tarvittaessa valikossa.
+     * @param ikkuna
      */
     public Valikko(Paaikkuna ikkuna) {
 
@@ -38,10 +38,24 @@ public class Valikko extends JPanel implements KeyListener {
         setBackground(Color.black);
     }
 
+    /**
+     *
+     * @param teksti
+     * @return
+     */
     public JLabel luoValikkoTeksti(String teksti) {
         return luoValikkoteksti(teksti, WIDTH, WIDTH, WIDTH, napinVari);
     }
 
+    /**
+     *
+     * @param teksti
+     * @param x
+     * @param y
+     * @param fontKoko
+     * @param vari
+     * @return
+     */
     public JLabel luoValikkoteksti(String teksti, int x, int y, int fontKoko, Color vari) {
         JLabel labelTeksti = new JLabel(teksti);
         labelTeksti.setHorizontalAlignment(x);
@@ -53,12 +67,19 @@ public class Valikko extends JPanel implements KeyListener {
         return labelTeksti;
     }
 
+    /**
+     * Lisää napit JPaneliin.
+     * @param napit napit
+     */
     public void lisaaNapit(JLabel[] napit) {
         for (JLabel jLabel : napit) {
             add(jLabel);
         }
     }
 
+    /**
+     * Liikkuu alas valikossa, jos ja vain jos valikon aktiivinenNappi ei ole alin.
+     */
     public void liikuAlasValikossa() {
         if (akviivinenNappi <= nappienMaara - 2) {
             napit[akviivinenNappi].setForeground(napinVari);
@@ -67,6 +88,9 @@ public class Valikko extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Liikkuu ylös valikossa, jos ja vain jos valikon aktiivinenNappi ei ole ylin.
+     */
     public void liikuYlosValikossa() {
         if (akviivinenNappi >= 1) {
             napit[akviivinenNappi].setForeground(napinVari);
@@ -75,7 +99,11 @@ public class Valikko extends JPanel implements KeyListener {
         }
     }
 
-    public void teeKomento(int komento) {
+    /**
+     * Teke komennon rippuen siitä, mikä nappi on valittu. 
+     * @param nappi
+     */
+    public void teeKomento(int nappi) {
         
     }
 

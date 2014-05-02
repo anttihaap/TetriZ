@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
-import tetriz.peliElementit.Tetrispalatyypit;
+import tetriz.peliElementit.TetrisPalatyypit;
 
 public class PeliLiikutusTest {
 
@@ -84,7 +84,7 @@ public class PeliLiikutusTest {
 
     @Test
     public void palaLiikkuuKentanAlalaitaan() {
-        peli.liikutettavaPala = new Pala(kentanLeveys / 2, 0, Tetrispalatyypit.KOLMIOPALA);
+        peli.liikutettavaPala = new Pala(kentanLeveys / 2, 0, TetrisPalatyypit.KOLMIOPALA);
         int[] palanYArvotEnnenLiikutusta = new int[4];
 
         for (int i = 0; i < 4; i++) {
@@ -100,8 +100,8 @@ public class PeliLiikutusTest {
 
     @Test
     public void palaLiikkuuKaantyy() {
-        peli.liikutettavaPala = new Pala(kentanLeveys / 2, 3, Tetrispalatyypit.OIKEAL);
-        Pala kaannettavaPala = new Pala(kentanLeveys / 2, 3, Tetrispalatyypit.OIKEAL);
+        peli.liikutettavaPala = new Pala(kentanLeveys / 2, 3, TetrisPalatyypit.OIKEAL);
+        Pala kaannettavaPala = new Pala(kentanLeveys / 2, 3, TetrisPalatyypit.OIKEAL);
 
         peli.kaannaPalaaOikealle();
         kaannettavaPala.kaannaOikealle();

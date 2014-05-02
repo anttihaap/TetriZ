@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  */
 public class TetrispalatyypitLuontiTest {
     
-    Tetrispalatyypit palatyyppi;
+    TetrisPalatyypit palatyyppi;
     
     public TetrispalatyypitLuontiTest() {
     }
@@ -42,7 +42,7 @@ public class TetrispalatyypitLuontiTest {
 
     @Test
     public void NeliopalaLuodaanOikein() {
-        palatyyppi = Tetrispalatyypit.NELIOPALA;
+        palatyyppi = TetrisPalatyypit.NELIOPALA;
         
         Nelio[] palatyypinNeliot = palatyyppi.neliot;
         
@@ -61,7 +61,7 @@ public class TetrispalatyypitLuontiTest {
     
     @Test
     public void SuorapalaLuodaanOikein() {
-        palatyyppi = Tetrispalatyypit.SUORAPALA;
+        palatyyppi = TetrisPalatyypit.SUORAPALA;
         
         Nelio[] palatyypinNeliot = palatyyppi.neliot;
         

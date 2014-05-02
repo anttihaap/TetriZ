@@ -3,7 +3,7 @@ package tetriz.logiikka;
 import tetriz.peliElementit.Kentta;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
-import tetriz.peliElementit.Tetrispalatyypit;
+import tetriz.peliElementit.TetrisPalatyypit;
 
 /**
  * Luokka päättää voiko paloja liikuttaa tai kääntää kentän sisällä. 
@@ -74,8 +74,8 @@ public class Palalogiikka {
      * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa
      * kentässä vasemmalle.
      *
-     * @param pala
-     * @param kentta
+     * @param pala liikutettava pala
+     * @param kentta kenttä
      * @return totuusarvo palan liikuttamisesta vasemmalle
      */
     public boolean voikoLiikuttaaVasemmalle(Pala pala, Kentta kentta) {
@@ -94,8 +94,8 @@ public class Palalogiikka {
     /**
      * Metodi tarkistaa, että pala on kentän kordinaattien sisällä.
      * 
-     * @param pala 
-     * @param kentta
+     * @param pala pala
+     * @param kentta kenttä
      * @return Onko pala kentän kordinaattien sisällä.
      */
     public boolean palaOnKordinaattisenSisalla(Pala pala, Kentta kentta) {
@@ -109,14 +109,14 @@ public class Palalogiikka {
 
     /**
      * Tarkistaa, että palaa voi kääntää kentän sisällä.
-     * @param pala Pala jota käännetään.
+     * @param pala käännettävä pala
      * @param kentta Kenttä, jossa pala käännetään.
      * @return Voiko palaa kääntää kentässä.
      */
     public boolean voikoKaantaa(Pala pala, Kentta kentta) {
         
         //Neliopalaa ei käännetä.
-        if (pala.palautaTetrispalatyyppi() == Tetrispalatyypit.NELIOPALA) {
+        if (pala.palautaTetrispalatyyppi() == TetrisPalatyypit.NELIOPALA) {
             return false;
         }
         // Pala pala = (Pala) pala.clone() 

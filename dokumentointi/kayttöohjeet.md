@@ -16,4 +16,4 @@ Voit vaihtaa vaikeustasoa, päättää piirretäänkö varjopalaa tai näytetäänkö seura
 
 Pelissä ideana on täyttää rivejä liikuttamalla ja kääntämällä tetris-paloja. Pala liikkuu automaattisesti tietyn ajan jakson välein riippuen pelin vaikeustasosta. Vaikeustasoa nostattamalla palat liikkuvat nopeammin alas ja rivien tuhoamisesta saa enemmän pisteitä. Rivit tuhoutuvat, kun ne ovat täysiä, ja mitä enemmän rivejä tuhotaan kerralla, sitä enemmän pisteitä saa. Peli loppuu, kun kenttä on niin täynnä ettei uutta palaa voida luoda.
 
-*Liikkuminen:* Voit liikuttaa palaa sivuttaissuunnassa nuolinäppäimillä. Ylöspäin-nuolinäppäimellä pala kääntyy 90-astetta oikealle. Alaspäin-nuolinäppäimellä pala siirtyy alas, jolloin pelin etenemistä ei tarvitse odottaa. SPACE-nappaimella pala siirtyy heti niin alas kuin mahdollista.
+* *Liikkuminen:* Voit liikuttaa palaa sivuttaissuunnassa nuolinäppäimillä. Ylöspäin-nuolinäppäimellä pala kääntyy 90-astetta oikealle. Alaspäin-nuolinäppäimellä pala siirtyy alas, jolloin pelin etenemistä ei tarvitse odottaa. SPACE-nappaimella pala siirtyy heti niin alas kuin mahdollista.

@@ -7,7 +7,7 @@ import tetriz.tyokalut.Kuvanlataaja;
 /**
  * Luokka määrittää palan ominaisuudet: kuvan ja nelioasetelman.
  */
-public enum Tetrispalatyypit {
+public enum TetrisPalatyypit {
 
     /**
      *
@@ -54,7 +54,7 @@ public enum Tetrispalatyypit {
     public Nelio[] neliot;
     
     
-    Tetrispalatyypit(String palatyyppi) {
+    TetrisPalatyypit(String palatyyppi) {
         this.palatyyppi = palatyyppi;
         neliot = new Nelio[4];
         kuva = Kuvanlataaja.palautaKuva("/kuvat/" + this.toString() + ".jpg");

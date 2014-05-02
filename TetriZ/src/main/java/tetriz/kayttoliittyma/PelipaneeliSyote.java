@@ -8,11 +8,20 @@ package tetriz.kayttoliittyma;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
+/**
+ *
+ * @author Antti
+ */
 public class PelipaneeliSyote extends AbstractAction {
 
     private final String syote;
-    private Pelipaneeli paneeli;
+    private final Pelipaneeli paneeli;
 
+    /**
+     * Luo kuuntelijan tietylle syötteelle.
+     * @param syote
+     * @param pelipaneeli
+     */
     public PelipaneeliSyote(String syote, Pelipaneeli pelipaneeli) {
         this.syote = syote;
         this.paneeli = pelipaneeli;

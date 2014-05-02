@@ -10,11 +10,20 @@
 * **22.03.2014:** 2h - Lisää ohjelman rakenteen muutoksia.
 * **23.03.2014:** 1h - Lisaa ohjelman rakenteen muutoksia.
 * **24.03.2014:** 2h - Testailua.
-* **26.03.2014:** 3h 
-* **27.03.2014:** 5h
-* **01.03.2014:** 2h
+* **26.03.2014:** 3h - Satunnaista säätämistä.
+* **27.03.2014:** 5h - Satunnaista säätämistä.
+* **01.03.2014:** 2h - Satunnaista säätämistä.
 * **03.03.2014:** 3h - Java doc + testailua.
 * **05.03.2014:** 4h - Satunnaisia juttuja.
 * **07.04.2014:** 3h - Tetrispalatyypin ja palan nelioihin liittyvat muutokset.
 * **10.04.2014:** 2h - Käyttöliittymän hiomista.
 * **11.04.2014:** 1h - Sekvenssikaaviot.
+* **13.04.2014:** 4h - Käyttöliittymän tekeminen + logiikan erottaminen käyttöliittymästä täysin.
+* **14.04.2014:** 2h - Värit kuviksi: käyttöliittymän ja ohjelmarakenteen muuttaminen kuvia varten.
+* **16.04.2014:** 5h - Käyttöliittymän päivittelyä: valikkon tekeminen + muuta pientä.
+* **17.04.2014:** 1h - Käyttöliittymän ja valikon tekoa/päivittelyä/säätöä.
+* **19.04.2014:** 2h - Testien päivittäminen värit kuviksi -muutoksen johdosta.
+* **20.04.2014:** 3h - Käyttöliittymän päivittelyä.
+* **28.04.2014:** 4h - Javadoci:n päivittelyä + testailua + pieniä rakenteellisia muutoksia.
+* **29.04.2014:** 4h - Testailua, käyttöliittymän hiomista, javadocin päivittelyä.
+

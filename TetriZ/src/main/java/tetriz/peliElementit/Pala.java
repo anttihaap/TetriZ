@@ -9,7 +9,7 @@ package tetriz.peliElementit;
  */
 public class Pala {
 
-    private final Tetrispalatyypit palatyyppi;
+    private final TetrisPalatyypit palatyyppi;
 
     private Nelio[] neliot;
 
@@ -19,7 +19,7 @@ public class Pala {
      * @param aloitusKordinaattiY
      * @param tyyppi
      */
-    public Pala(int aloitusKordinaattiX, int aloitusKordinaattiY, Tetrispalatyypit tyyppi) {
+    public Pala(int aloitusKordinaattiX, int aloitusKordinaattiY, TetrisPalatyypit tyyppi) {
         this.palatyyppi = tyyppi;
         siirraNeliot(aloitusKordinaattiX, aloitusKordinaattiY);
     }
@@ -32,7 +32,7 @@ public class Pala {
      * @param aloitusKordinaattiY
      */
     public Pala(int aloitusKordinaattiX, int aloitusKordinaattiY) {
-        this(aloitusKordinaattiX, aloitusKordinaattiY, Tetrispalatyypit.values()[(int) (Math.random() * Tetrispalatyypit.values().length)]);
+        this(aloitusKordinaattiX, aloitusKordinaattiY, TetrisPalatyypit.values()[(int) (Math.random() * TetrisPalatyypit.values().length)]);
     }
 
     private void siirraNeliot(int aloitusKordinaattiX, int aloitusKordinaattiY) {
@@ -126,7 +126,7 @@ public class Pala {
      *
      * @return tetrispalatyyppi
      */
-    public Tetrispalatyypit palautaTetrispalatyyppi() {
+    public TetrisPalatyypit palautaTetrispalatyyppi() {
         return palatyyppi;
     }
 }

@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
-import tetriz.peliElementit.Tetrispalatyypit;
+import tetriz.peliElementit.TetrisPalatyypit;
 
 public class PeliTest {
     
@@ -60,7 +60,7 @@ public class PeliTest {
     @Test
     public void varjoPalaOnKentanAlalaidalla() {
         peli = new Peli(1,10,20);
-        peli.liikutettavaPala = new Pala(kentanLeveys/2, 0,Tetrispalatyypit.NELIOPALA);
+        peli.liikutettavaPala = new Pala(kentanLeveys/2, 0,TetrisPalatyypit.NELIOPALA);
         Nelio[] palanNeliot = peli.liikutettavaPala.palautaPalanNeliot();
         Nelio[] varjopalanNeliot = peli.palautaVarjopala().palautaPalanNeliot();
         
@@ -86,10 +86,10 @@ public class PeliTest {
     public void tarkistaRivitTuhoaaRivitJaTilastoi() {
         peli = new Peli(1,10,20);
         for (int i = 1; i <= 7; i += 2) {
-            Pala pala = new Pala(i, 18,Tetrispalatyypit.NELIOPALA);
+            Pala pala = new Pala(i, 18,TetrisPalatyypit.NELIOPALA);
             peli.kentta.lisaaPala(pala);
         }
-        peli.liikutettavaPala = new Pala(9,18,Tetrispalatyypit.NELIOPALA);
+        peli.liikutettavaPala = new Pala(9,18,TetrisPalatyypit.NELIOPALA);
         peli.liikutaPalaaAlas();
         assertEquals(peli.tilasto.palautaRivejaTuhottu(), 2);
     }
@@ -97,10 +97,10 @@ public class PeliTest {
     @Test
     public void palauttaaSeuraavanPalanTetrispalatyypinNeliot() {
         peli = new Peli(1,10,20);
-        Pala seuraavaPala = new Pala(0, 0, Tetrispalatyypit.NELIOPALA);
+        Pala seuraavaPala = new Pala(0, 0, TetrisPalatyypit.NELIOPALA);
         peli.seuraavaPala = seuraavaPala;
         
-        assertArrayEquals(peli.palautaSeuraavanPalanTetrispalatyypinNeliot(), Tetrispalatyypit.NELIOPALA.neliot);
+        assertArrayEquals(peli.palautaSeuraavanPalanTetrispalatyypinNeliot(), TetrisPalatyypit.NELIOPALA.neliot);
     }
     
 }

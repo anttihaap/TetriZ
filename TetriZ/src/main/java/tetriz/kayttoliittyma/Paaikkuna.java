@@ -7,21 +7,20 @@ import javax.swing.JFrame;
 /**
  * Käyttöliittymän pääikkuna, joka hallitsee paneeleita.
  */
-public class Paaikkuna extends JFrame {
+public final class Paaikkuna extends JFrame {
 
-    private final Valikko kirjautumisvalikko;
-    private final Valikko paavalikko;
-    private final Valikko asetuksetValikko;
+    private Valikko paavalikko;
+    private Valikko asetuksetValikko;
 
     /**
-     *
+     * Pitää sisällään pelin asetukset.
      */
     public PelinAsetukset pelinAsetukset;
 
     private Pelipaneeli paneeli;
 
     /**
-     *
+     * Pääikkuna toimii ikkunana, eli runkona kaikille käyttöliittymän JPaneeleille, ja hallitsee valikkoja ja pelipaneeleja.
      */
     public Paaikkuna() {
         //JFramen ominaisuudet:
@@ -30,16 +29,10 @@ public class Paaikkuna extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 630);
         
-
-        kirjautumisvalikko = new KirjautumisValikko(this);
         asetuksetValikko = new AsetuksetValikko(this);
         paavalikko = new Paavalikko(this);
         pelinAsetukset = new PelinAsetukset();
 
-        /*
-        getContentPane().add(kirjautumisvalikko);
-        addKeyListener(kirjautumisvalikko);
-        */
         kaynnistaPaavalikko();
         setVisible(true);
     }
@@ -70,6 +63,7 @@ public class Paaikkuna extends JFrame {
         getContentPane().add(asetuksetValikko);
         addKeyListener(asetuksetValikko);
         setVisible(true);
+        repaint();
     }
 
     /**

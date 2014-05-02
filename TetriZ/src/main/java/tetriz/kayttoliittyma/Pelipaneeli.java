@@ -17,8 +17,7 @@ import tetriz.logiikka.Peli;
 import tetriz.peliElementit.Nelio;
 
 /**
- *
- * @author Antti
+ * Pelipaneeli pitää sisällään pelin pääsäijeen ja kuvantaa peliä.
  */
 public class Pelipaneeli extends JPanel implements Runnable {
 
@@ -72,7 +71,7 @@ public class Pelipaneeli extends JPanel implements Runnable {
      * Metodi luo uuden uuden pelin ja aloittaa pelin pääloopin.
      * Peli liikuttaa palaa alas ja kutsuu repaint()-metodia kunnes
      * peliKaynnissa-totuusarvo muuttuu epätodeksi.
-     * @param viive
+     * @param viive viive
      */
     public void aloitaPeli(int viive) {
         peli = new Peli(paaikkuna.pelinAsetukset.palautaVaikeustaso());
@@ -110,7 +109,7 @@ public class Pelipaneeli extends JPanel implements Runnable {
         piirraPisteet(g);
     }
 
-    /*
+    /**
      * Metodi käy pelitilanne-kordinaatiston läpi ja piirtää kohdan palan,
      * mutta kuvaa ei löydy piirretään tyhjaKohta-kuva.
      */
@@ -127,8 +126,9 @@ public class Pelipaneeli extends JPanel implements Runnable {
         }
     }
 
-    /*
+    /**
      * Varjopalan piirtaminen. Piirretaan, jos peliTilanteen-kordinaatiston kohta on tyhja. 
+     * @param g graffikka johon piirretään
      */
     private void piirraVarjopala(Graphics g) {
         for (Nelio n : peli.palautaVarjopala().palautaPalanNeliot()) {
@@ -139,8 +139,12 @@ public class Pelipaneeli extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Piirtää seuraavan palan paneeliin.
+     * @param g graffikka johon piirretään
+     */
     private void piirraSeuraavaPala(Graphics g) {
-        int alkuY = 30;
+        int alkuY = 50;
         int alkuX = 30 * 11;
         Nelio[] seuraavaPala = peli.palautaSeuraavanPalanTetrispalatyypinNeliot();
 
@@ -150,20 +154,27 @@ public class Pelipaneeli extends JPanel implements Runnable {
 
     }
 
+    /**
+     * Piirtää pisteet paneeliin.
+     * @param g graffikka johon piirretään
+     */
     private void piirraPisteet(Graphics g) {
         //Pisteet:
         g.setColor(Color.white);
-        g.drawString("Pisteet: " + peli.tilasto.palautaPisteet(), 300, 10);
+        g.drawString("Pisteet: " + peli.tilasto.palautaPisteet(), 305, 20);
 
         //Luotujen palojen maara:
         g.setColor(Color.white);
-        g.drawString("PalojaLuotu: " + peli.tilasto.palautaPalojaLuotu(), 300, 20);
+        g.drawString("PalojaLuotu: " + peli.tilasto.palautaPalojaLuotu(), 305, 30);
 
         //Riveja tuhottu:
         g.setColor(Color.white);
-        g.drawString("Riveja tuhottu: " + peli.tilasto.palautaRivejaTuhottu(), 300, 30);
+        g.drawString("Riveja tuhottu: " + peli.tilasto.palautaRivejaTuhottu(), 305, 40);
     }
 
+    /**
+     * Lisää tarvittavat näppäimistön syötteet peliä varten.
+     */
     private void lisaaSyotteet() {
         syoteKartta = getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
         toimntoKartta = getActionMap();
@@ -175,6 +186,11 @@ public class Pelipaneeli extends JPanel implements Runnable {
         lisaaSyote(KeyEvent.VK_SPACE, "Pohjaan");
     }
 
+    /**
+     * Lisää yksittäisen syötteen syötekarttaan käyttäen PelipaneeliSyöte-luokkaa.
+     * @param key näppäin
+     * @param syote syötteen tunnistemerkkijono
+     */
     private void lisaaSyote(int key, String syote) {
         syoteKartta.put(KeyStroke.getKeyStroke(key, 0), syote);
         toimntoKartta.put(syote, new PelipaneeliSyote(syote, this));

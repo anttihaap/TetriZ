@@ -7,8 +7,8 @@ import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
 
 /**
- *
- * @author Antti
+ * Sialtaa pelin toiminnallisuuden.
+ * 
  */
 public class Peli {
 
@@ -18,31 +18,44 @@ public class Peli {
 
     private Kenttalogiikka kenttalogiikka;
 
-
+    /**
+     * Tilastoi peliä.
+     */
     public PelinTilasto tilasto;
 
+    /**
+     * Pelin kenttä.
+     */
     public Kentta kentta;
     
+    /**
+     * Pala jota pelaaja liikuttaa.
+     */
     public Pala liikutettavaPala;
+
+    /**
+     * Pala, joka ludaan seuraavaksi.
+     */
     public Pala seuraavaPala;
     
     /**
-     *
+     * Totuusarvo siitä onko peli käynnissä.
      */
     public boolean peliKaynnissa;
 
     /**
      * Luo uuden pelin käyttäen parametrin vaikeustasoa.
+     * @param vaikeustaso pelin vaikeustaso
      */
     public Peli(int vaikeustaso) {
         this(vaikeustaso, 10, 20);
     }
 
     /**
-     *
-     * @param vaikeustaso
-     * @param kentanLeveys
-     * @param kentanKorkeus
+     * Luo uuden pelin käyttäen asetettua vaikeusastetta, kentän leveyttä ja kentän korkeutta.
+     * @param vaikeustaso vaikeustaso
+     * @param kentanLeveys kentän leveys
+     * @param kentanKorkeus kentän korkeus
      */
     public Peli(int vaikeustaso, int kentanLeveys, int kentanKorkeus) {
         this.kentta = new Kentta(kentanLeveys, kentanKorkeus);
@@ -124,15 +137,22 @@ public class Peli {
         } else {            
             this.liikutettavaPala = seuraavaPala;
             this.seuraavaPala = palautaUusiPala();
-            tilasto.palaLuotu();
+            tilasto.lisaaPalojaLuotuYhdella();
         }
     }
 
+    /**
+     * Luo uuden palan käyttäen 
+     * @return pala
+     */
     private Pala palautaUusiPala() {
         Pala uusiPala = new Pala(this.kentta.palautaKentanLeveys() / 2, 0);
         return uusiPala;
     }
     
+    /**
+     * Tarkistaa täydet rivit, lisää pisteytystä tilasto-luokan mukaisesti ja poistaa täydet rivit kentästä.
+     */
     private void tarkistaRivit() {
         ArrayList<Integer> taydetRivit = kenttalogiikka.palautaTaydetRivit(palautaPeliTilanne());
         
@@ -149,7 +169,7 @@ public class Peli {
 
     /**
      * Metodi palauttaa kordinaatiston, joka kuvaa nykyistä pelitilannetta.
-     * Kordinaatisto sisältää kentan kordinaatiston ja siihen lisätyn palan.
+     * Kordinaatisto sisältää kentan kordinaatiston ja siihen lisätyn liikutettavan palan.
      * @return pelitilanne
      */
     public BufferedImage[][] palautaPeliTilanne() {
@@ -199,6 +219,5 @@ public class Peli {
      */
     public Nelio[] palautaSeuraavanPalanTetrispalatyypinNeliot() {
         return seuraavaPala.palautaTetrisPalatyypinNeliot();
-    }
-    
+    }    
 }

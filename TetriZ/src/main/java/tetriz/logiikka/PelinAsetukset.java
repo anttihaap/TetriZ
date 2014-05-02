@@ -12,7 +12,7 @@ public class PelinAsetukset {
     private boolean seuraavaPalaPiirretaan;
     
     /**
-     * Konstruktori asettaa oletusasetukset:
+     * Konstruktori asettaa oletusasetukset: varjopala piirretään, seuraava pala piirretään ja vaikeustaso: 1.
      */
     public PelinAsetukset() {
         varjopalaPiirretaan = true;
@@ -33,7 +33,7 @@ public class PelinAsetukset {
     
     /**
      * Palauttaa totuusarvon varjopalan piirtämisestä.
-     * @return
+     * @return piirretäänkö varjopala
      */
     public boolean palautaVarjoPalapiirretaan() {
         return varjopalaPiirretaan;
