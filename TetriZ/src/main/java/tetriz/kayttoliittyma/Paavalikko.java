@@ -6,70 +6,55 @@
 package tetriz.kayttoliittyma;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
- *
- * @author Antti
+ * Päävalikko, josta voi aloittaa pelin, siirtyä 
+ * asetusket-valikkoon ja poistua ohjelmasta.
  */
-public class Paavalikko extends JPanel {
+public class Paavalikko extends Valikko {
 
-    Paaikkuna paneeli;
+    Paaikkuna valikko;
 
-    JLabel[] napit;
-    int akviivinenNappi;
-    final int nappienMaara = 2;
+    /**
+     *
+     */
+    public Paavalikko(Paaikkuna ikkuna) {
+        super(ikkuna);
+        this.valikko = ikkuna;
 
-    public Paavalikko() {
-        setLayout(new GridLayout(3, 1));
-        setBackground(Color.black);
-        luoJaLisaaNapit();
+        setLayout(new GridLayout(4, 1));
+        luoNapit();
     }
 
-    private void luoJaLisaaNapit() {
-        napit = new JLabel[2];
-        akviivinenNappi = 0;
+    private void luoNapit() {
+        napit = new JLabel[3];
+        //akviivinenNappi = 0;
+        nappienMaara = 3;
 
-        JLabel otsikko = luoPaavalikkoTeksti("TetriZ", JLabel.CENTER, JLabel.TOP, 60, Color.white);
+        int ylaraja = 30;
+        int alaraja = 30;
+
+        JLabel otsikko = luoValikkoteksti("TetriZ", JLabel.CENTER, JLabel.CENTER, 60, Color.white);
         add(otsikko);
-        napit[0] = luoPaavalikkoTeksti("Start Game", JLabel.CENTER, JLabel.CENTER, 30, Color.yellow);
-        napit[1] = luoPaavalikkoTeksti("Exit", JLabel.CENTER, JLabel.BOTTOM, 30, Color.white);
+        napit[0] = luoValikkoteksti("Aloita peli", JLabel.CENTER, JLabel.CENTER, 30, Color.yellow);
+        napit[1] = luoValikkoteksti("Asetukset", JLabel.CENTER, JLabel.CENTER, 30, Color.white);
+        napit[2] = luoValikkoteksti("Poistu", JLabel.CENTER, JLabel.CENTER, 30, Color.white);
 
-        for (JLabel jLabel : napit) {
-            add(jLabel);
-        }
+        lisaaNapit(napit);
     }
 
-    public void liikuAlas() {
-        if (akviivinenNappi <= nappienMaara - 2) {
-            System.out.println("true");
-            napit[akviivinenNappi].setForeground(Color.white);
-            akviivinenNappi++;
-            napit[akviivinenNappi].setForeground(Color.yellow);
+    @Override
+    public void teeKomento(int aktiivinenNappi) {
+        if (aktiivinenNappi == 0) {
+            valikko.aloitaPeli();
         }
-    }
-
-    public void liikuYlos() {
-        System.out.println(akviivinenNappi);
-        if (akviivinenNappi >= 1) {
-            System.out.println(akviivinenNappi);
-            napit[akviivinenNappi].setForeground(Color.white);
-            akviivinenNappi--;
-            napit[akviivinenNappi].setForeground(Color.yellow);
+        if (aktiivinenNappi == 1) {
+            valikko.kaynnistaAsetuksetValikko();
         }
-    }
-
-    private JLabel luoPaavalikkoTeksti(String teksti, int x, int y, int fontKoko, Color vari) {
-        JLabel labelTeksti = new JLabel(teksti);
-        labelTeksti.setHorizontalAlignment(x);
-        labelTeksti.setVerticalAlignment(y);
-
-        labelTeksti.setFont(new Font(getFont().getName(), Font.PLAIN, fontKoko));
-        labelTeksti.setForeground(vari);
-
-        return labelTeksti;
+        if (aktiivinenNappi == 2) {
+            System.exit(0);
+        }
     }
 }

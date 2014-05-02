@@ -2,45 +2,67 @@
 package tetriz.peliElementit;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import tetriz.tyokalut.Kuvanlataaja;
 
 /**
- * Määrittää palan ominaisuudet: väri ja nelioiden asetelma.
- * @author Antti
+ * Luokka määrittää palan ominaisuudet: kuvan ja nelioasetelman.
  */
-public enum TetrisPalatyypit {
+public enum Tetrispalatyypit {
 
+    /**
+     *
+     */
     NELIOPALA("NELIOPALA"),
+
+    /**
+     *
+     */
     SUORAPALA("SUORAPALA"),
+
+    /**
+     *
+     */
     KOLMIOPALA("KOLMIOPALA"),
+
+    /**
+     *
+     */
     OIKEAVINO("OIKEAVINO"),
+
+    /**
+     *
+     */
     VASENVINO("VASENVINO"),
+
+    /**
+     *
+     */
     OIKEAL("OIKEAL"),
+
+    /**
+     *
+     */
     VASENL("VASENL");
 
     String palatyyppi;
+
+    /**
+     *
+     */
     public BufferedImage kuva;
     
-    Nelio[] neliot;
+    public Nelio[] neliot;
     
     
-    TetrisPalatyypit(String palatyyppi) {
+    Tetrispalatyypit(String palatyyppi) {
         this.palatyyppi = palatyyppi;
-        this.neliot = new Nelio[4];
-        
-        this.kuva = null;
-        try {
-            this.kuva = ImageIO.read(getClass().getResource("/kuvat/" + this.toString() + ".jpg"));
-        } catch (IOException e ) {
-            
-        }
-        
+        neliot = new Nelio[4];
+        kuva = Kuvanlataaja.palautaKuva("/kuvat/" + this.toString() + ".jpg");
         luoNeliot();
     }
     
      private void luoNeliot() {
-        switch (palatyyppi) {
+        switch (palatyyppi.toString()) {
             case "NELIOPALA":
                 this.neliot[0] = new Nelio(1, 0, kuva);
                 this.neliot[1] = new Nelio(1, 1, kuva);
@@ -84,5 +106,4 @@ public enum TetrisPalatyypit {
                 break;
         }
     }
-
 }

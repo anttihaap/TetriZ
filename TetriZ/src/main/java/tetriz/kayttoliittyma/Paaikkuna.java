@@ -1,88 +1,94 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tetriz.kayttoliittyma;
 
-import java.awt.BorderLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import tetriz.logiikka.PelinAsetukset;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import sun.awt.windows.ThemeReader;
 
 /**
- *
- * @author Antti
+ * Käyttöliittymän pääikkuna, joka hallitsee paneeleita.
  */
-public class Paaikkuna extends JFrame implements KeyListener {
-    private Paavalikko valikko;
-    
+public class Paaikkuna extends JFrame {
+
+    private final Valikko kirjautumisvalikko;
+    private final Valikko paavalikko;
+    private final Valikko asetuksetValikko;
+
+    /**
+     *
+     */
+    public PelinAsetukset pelinAsetukset;
+
     private Pelipaneeli paneeli;
 
-    public Paaikkuna() {       
+    /**
+     *
+     */
+    public Paaikkuna() {
+        //JFramen ominaisuudet:
         setTitle("Tetriz");
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout(3, 1));
         setSize(500, 630);
+        
+
+        kirjautumisvalikko = new KirjautumisValikko(this);
+        asetuksetValikko = new AsetuksetValikko(this);
+        paavalikko = new Paavalikko(this);
+        pelinAsetukset = new PelinAsetukset();
+
+        /*
+        getContentPane().add(kirjautumisvalikko);
+        addKeyListener(kirjautumisvalikko);
+        */
+        kaynnistaPaavalikko();
         setVisible(true);
-        
-        kaynnistaValikko();
-    }
-        
-    private void kaynnistaValikko() {
-        valikko = new Paavalikko();
-        getContentPane().add(valikko);
-        addKeyListener(this);
     }
 
-    private void aloitaPeli(int viive) {
-            System.out.println("täällä");
-            getContentPane().remove(valikko);
-            removeKeyListener(this);
-            invalidate(); validate();
-            getContentPane().removeAll();
-            repaint();            
-            paneeli = new Pelipaneeli();
-            getContentPane().add(paneeli);
-            setVisible(true);
-    }
-    
-    public void teeKomento(int komento) {
-        if (komento == 0) {
-            aloitaPeli(100);            
-        }
-        if (komento == 1) {
-            System.exit(0);
-        }
-    }
-    
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            teeKomento(valikko.akviivinenNappi);
-        }
+    /**
+     * Käynnistää päävalikkon.
+     */
+    public void kaynnistaPaavalikko() {
+        //Poistetaa asetukset valikon ominaisuudet:
+        getContentPane().remove(asetuksetValikko);
+        removeKeyListener(asetuksetValikko);
 
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
-            valikko.liikuYlos();
-        }
-
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            valikko.liikuAlas();
-        }
+        //Lisätään päävalikon ominaisuudet
+        getContentPane().add(paavalikko);
+        addKeyListener(paavalikko);
+        paavalikko.repaint();
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
+    /**
+     * Käynnistää asetukset-valikon.
+     */
+    public void kaynnistaAsetuksetValikko() {
+        //Poistetaan päävalikon ominaisuudet:
+        removeKeyListener(paavalikko);
+        getContentPane().remove(paavalikko);
 
+        //Lisätään asetuksetValikon ominaisuudet:
+        getContentPane().add(asetuksetValikko);
+        addKeyListener(asetuksetValikko);
+        setVisible(true);
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-
+    /**
+     * Aloittaa uuden pelin käynnistämällä pelipaneelin.
+     */
+    public void aloitaPeli() {
+        //Paavalikko pois, keylistener pois, uusipaneeli ja sen lisäys.
+        getContentPane().removeAll();
+        removeKeyListener(paavalikko);
+        paneeli = new Pelipaneeli(this);
+        getContentPane().add(paneeli);
     }
 
-
+    /**
+     *
+     */
+    public void lopetaPeli() {
+        //Poistetaan pelipaneeli ja käynnistetään päävalikko.
+        getContentPane().remove(paneeli);
+        kaynnistaPaavalikko();
+    }
 }

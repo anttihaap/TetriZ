@@ -1,16 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Luokka piirtää peliä ja pitää sisällään pelin pää loopin.
  */
 package tetriz.kayttoliittyma;
 
+import tetriz.tyokalut.Kuvanlataaja;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JPanel;
@@ -25,8 +22,8 @@ import tetriz.peliElementit.Nelio;
  */
 public class Pelipaneeli extends JPanel implements Runnable {
 
-    final BufferedImage tyhjaKohta;
-    final BufferedImage varjoPala;
+    final BufferedImage tyhjaPala = Kuvanlataaja.palautaKuva("/kuvat/NULL.jpg");
+    final BufferedImage varjoPala = Kuvanlataaja.palautaKuva("/kuvat/VARJO.jpg");
 
     Peli peli;
 
@@ -37,40 +34,51 @@ public class Pelipaneeli extends JPanel implements Runnable {
     InputMap syoteKartta;
     ActionMap toimntoKartta;
 
-    public Pelipaneeli() {
+    Paaikkuna paaikkuna;
+
+    /**
+     *
+     * @param ikkuna
+     */
+    public Pelipaneeli(Paaikkuna ikkuna) {
+        this.paaikkuna = ikkuna;
+
+        //JPanelin ominaisuudet:
         setSize(500, 630);
-        setVisible(true);
         setBackground(Color.black);
 
         //Syote:
-        syoteKartta = getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
-        toimntoKartta = getActionMap();
         lisaaSyotteet();
 
-        //Ladataan tyhja- ja varjokuvat olioimuuttujiin:
-        tyhjaKohta = palautaKuva("/kuvat/NULL.jpg");
-        varjoPala = palautaKuva("/kuvat/VARJO.jpg");
+        peli = new Peli(ikkuna.pelinAsetukset.palautaVaikeustaso());
 
-        peli = new Peli();
-
+        //Pelinsäie:
         pelisaie = new Thread(this);
         pelisaie.start();
     }
 
     @Override
     public void run() {
-        while (true) {
-            aloitaPeli(500);
-        }
+        //Aloittaa uuden pelin pelin asetuksen mukella viiveellä.
+        aloitaPeli(paaikkuna.pelinAsetukset.palautaPelinNopeus());
+        
+        viive(1000);
+        
+        //Pelin loputtua kutustaan pääikkunan lopetaPeli-metodia.
+        paaikkuna.lopetaPeli();
     }
 
+    /**
+     * Metodi luo uuden uuden pelin ja aloittaa pelin pääloopin.
+     * Peli liikuttaa palaa alas ja kutsuu repaint()-metodia kunnes
+     * peliKaynnissa-totuusarvo muuttuu epätodeksi.
+     * @param viive
+     */
     public void aloitaPeli(int viive) {
-        peli = new Peli();
-        peli.peliKaynnissa = true;
+        peli = new Peli(paaikkuna.pelinAsetukset.palautaVaikeustaso());
         repaint();
 
         while (peli.peliKaynnissa) {
-            System.out.println("loop");
             viive(viive);
             peli.liikutaPalaaAlas();
             repaint();
@@ -88,38 +96,61 @@ public class Pelipaneeli extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         piirraKentta(g);
-        piirraVarjopala(g);
+
+        //Varjopala piirretään riippuen pelin asetuksista.
+        if (paaikkuna.pelinAsetukset.palautaVarjoPalapiirretaan()) {
+            piirraVarjopala(g);
+        }
+
+        //Seuraava pala piirretään riippuen pelin asetuksista.
+        if (paaikkuna.pelinAsetukset.palautaSeuraavapalaPiirretaan()) {
+            piirraSeuraavaPala(g);
+        }
+
+        piirraPisteet(g);
     }
 
+    /*
+     * Metodi käy pelitilanne-kordinaatiston läpi ja piirtää kohdan palan,
+     * mutta kuvaa ei löydy piirretään tyhjaKohta-kuva.
+     */
     private void piirraKentta(Graphics g) {
-        /*
-         * Kordinaatiston piirto:
-         * (Jos kuvaa ei löydy, piirretään tyhjaKohta-kuva.)
-         */
-        BufferedImage[][] pelitilanne = peli.paivitaPeliTilanne();
+        BufferedImage[][] pelitilanne = peli.palautaPeliTilanne();
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 10; x++) {
                 if (pelitilanne[x][y] != null) {
                     g.drawImage(pelitilanne[x][y], x * 30, y * 30, null);
                 } else {
-                    g.drawImage(tyhjaKohta, x * 30, y * 30, null);
+                    g.drawImage(tyhjaPala, x * 30, y * 30, null);
                 }
             }
         }
     }
-    
+
+    /*
+     * Varjopalan piirtaminen. Piirretaan, jos peliTilanteen-kordinaatiston kohta on tyhja. 
+     */
     private void piirraVarjopala(Graphics g) {
-        /*
-         * Varjopalan piirtaminen. Piirretaan, jos peliTilanteen-kordinaatiston kohta on tyhja. 
-         */
-        for (Nelio n : peli.palautaVarjoPala().palautaPalanNeliot()) {
-            if (peli.palaLogiikka.kordinaattiOnKentanSisalla(n.palautaX(), n.palautaY(), peli.kentta)) {
-                if (peli.paivitaPeliTilanne()[n.palautaX()][n.palautaY()] == null) {
-                    g.drawImage(varjoPala, n.palautaX() * 30, n.palautaY() * 30, null);
-                }
+        for (Nelio n : peli.palautaVarjopala().palautaPalanNeliot()) {
+            if (peli.palautaPeliTilanne()[n.palautaX()][n.palautaY()] == null) {
+                g.drawImage(varjoPala, n.palautaX() * 30, n.palautaY() * 30, null);
             }
+
+        }
+    }
+
+    private void piirraSeuraavaPala(Graphics g) {
+        int alkuY = 30;
+        int alkuX = 30 * 11;
+        Nelio[] seuraavaPala = peli.palautaSeuraavanPalanTetrispalatyypinNeliot();
+
+        for (Nelio nelio : seuraavaPala) {
+            g.drawImage(varjoPala, alkuX + (nelio.palautaX() * 30), alkuY + (nelio.palautaY() * 30), null);
         }
 
+    }
+
+    private void piirraPisteet(Graphics g) {
         //Pisteet:
         g.setColor(Color.white);
         g.drawString("Pisteet: " + peli.tilasto.palautaPisteet(), 300, 10);
@@ -131,10 +162,12 @@ public class Pelipaneeli extends JPanel implements Runnable {
         //Riveja tuhottu:
         g.setColor(Color.white);
         g.drawString("Riveja tuhottu: " + peli.tilasto.palautaRivejaTuhottu(), 300, 30);
-
     }
 
     private void lisaaSyotteet() {
+        syoteKartta = getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
+        toimntoKartta = getActionMap();
+
         lisaaSyote(KeyEvent.VK_UP, "Ylos");
         lisaaSyote(KeyEvent.VK_DOWN, "Alas");
         lisaaSyote(KeyEvent.VK_RIGHT, "Oikealle");
@@ -145,15 +178,5 @@ public class Pelipaneeli extends JPanel implements Runnable {
     private void lisaaSyote(int key, String syote) {
         syoteKartta.put(KeyStroke.getKeyStroke(key, 0), syote);
         toimntoKartta.put(syote, new PelipaneeliSyote(syote, this));
-    }
-
-    private BufferedImage palautaKuva(String hakemisto) {
-        BufferedImage kuva = null;
-        try {
-            kuva = ImageIO.read(getClass().getResource(hakemisto));
-        } catch (IOException e) {
-            System.out.println("kuva ei lataudu");
-        }
-        return kuva;
     }
 }

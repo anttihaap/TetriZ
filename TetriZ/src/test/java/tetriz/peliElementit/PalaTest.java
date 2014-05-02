@@ -44,7 +44,7 @@ public class PalaTest {
 
     @Test
     public void palaLiikkuuAlas() {
-        this.pala = new Pala(0, 0, TetrisPalatyypit.NELIOPALA);
+        this.pala = new Pala(0, 0, Tetrispalatyypit.NELIOPALA);
         int[] yArvotEnnenLiikutusta = new int[4];
 
         for (int i = 0; i < 4; i++) {
@@ -60,7 +60,7 @@ public class PalaTest {
     
     @Test
     public void palaLiikkuuOikealle() {
-        this.pala = new Pala(0, 0, TetrisPalatyypit.NELIOPALA);
+        this.pala = new Pala(0, 0, Tetrispalatyypit.NELIOPALA);
         int[] xArvotEnnenLiikutusta = new int[4];
 
         for (int i = 0; i < 4; i++) {
@@ -76,7 +76,7 @@ public class PalaTest {
     
     @Test
     public void palaLiikkuuVasemmalle() {
-        this.pala = new Pala(0, 0, TetrisPalatyypit.NELIOPALA);
+        this.pala = new Pala(0, 0, Tetrispalatyypit.NELIOPALA);
         int[] xArvotEnnenLiikutusta = new int[4];
 
         for (int i = 0; i < 4; i++) {
@@ -88,6 +88,21 @@ public class PalaTest {
         for (int i = 0; i < 4; i++) {
             assertEquals(xArvotEnnenLiikutusta[i] - 1, this.pala.palautaPalanNeliot()[i].palautaX());
         }
+    }
+    
+    @Test
+    public void palautaTetrispalatyyppiPalauttaaPalatyypin() {
+        Tetrispalatyypit tyyppi = Tetrispalatyypit.NELIOPALA;
+        pala = new Pala(0, 0, tyyppi);
+        assertEquals(pala.palautaTetrispalatyyppi(), tyyppi);
+    }  
+    
+    @Test
+    public void palauttaaTetrispalatyypinNeliot() {
+        Tetrispalatyypit palatyyppi = Tetrispalatyypit.OIKEAL;
+        
+        pala = new Pala(0,0,palatyyppi);
+        assertArrayEquals(pala.palautaTetrisPalatyypinNeliot(), palatyyppi.neliot);
     }
 
 }

@@ -1,16 +1,15 @@
 package tetriz.peliElementit;
 
-import java.awt.image.BufferedImage;
 
 /**
- * Pala (eli tetrispala), joka koostuu neljästä neliöstä. Tetrispalatyyppi
- * määrittelee palan ominaisuudet.
+ * Pala (eli tetrispala) koostuu neljästä neliöstä. Tetrispalatyyppi
+ * määrittelee palan ominaisuudet (nelioasetelman ja nelioiden kuvan).
  *
  * @author Antti
  */
-public class Pala implements Cloneable {
+public class Pala {
 
-    private final TetrisPalatyypit palatyyppi;
+    private final Tetrispalatyypit palatyyppi;
 
     private Nelio[] neliot;
 
@@ -20,9 +19,9 @@ public class Pala implements Cloneable {
      * @param aloitusKordinaattiY
      * @param tyyppi
      */
-    public Pala(int aloitusKordinaattiX, int aloitusKordinaattiY, TetrisPalatyypit tyyppi) {
+    public Pala(int aloitusKordinaattiX, int aloitusKordinaattiY, Tetrispalatyypit tyyppi) {
         this.palatyyppi = tyyppi;
-        luoNeliot(aloitusKordinaattiX, aloitusKordinaattiY);
+        siirraNeliot(aloitusKordinaattiX, aloitusKordinaattiY);
     }
 
     /**
@@ -33,10 +32,10 @@ public class Pala implements Cloneable {
      * @param aloitusKordinaattiY
      */
     public Pala(int aloitusKordinaattiX, int aloitusKordinaattiY) {
-        this(aloitusKordinaattiX, aloitusKordinaattiY, TetrisPalatyypit.values()[(int) (Math.random() * TetrisPalatyypit.values().length)]);
+        this(aloitusKordinaattiX, aloitusKordinaattiY, Tetrispalatyypit.values()[(int) (Math.random() * Tetrispalatyypit.values().length)]);
     }
 
-    private void luoNeliot(int aloitusKordinaattiX, int aloitusKordinaattiY) {
+    private void siirraNeliot(int aloitusKordinaattiX, int aloitusKordinaattiY) {
         this.neliot = new Nelio[4];
 
         int i = 0;
@@ -85,32 +84,27 @@ public class Pala implements Cloneable {
          [0 -1]
          [1  0]
          */
+        //Piste jonka ympärilta kaannetaan.
+        int kaantokohtaX = neliot[2].palautaX();
+        int kaantokohtaY = neliot[2].palautaY();
 
-        //Neliopalaa ei käännetä.
-        if (palatyyppi != TetrisPalatyypit.NELIOPALA) {
-            //Piste jonka ympärilta kaannetaan.
-            int kaantokohtaX = neliot[2].palautaX();
-            int kaantokohtaY = neliot[2].palautaY();
-
-            //Vähenentään kääntökohtien arvot X- ja Y-arvoista:
-            for (Nelio n : neliot) {
-                n.asetaX(n.palautaX() - kaantokohtaX);
-                n.asetaY(n.palautaY() - kaantokohtaY);
-            }
-
-            //90-asteen käännös kääntökohdan ympärillä:
-            for (Nelio n : neliot) {
-                int x = n.palautaX();
-                int y = n.palautaY();
-                n.asetaX(x * 0 + -1 * y + kaantokohtaX);
-                n.asetaY(1 * x + 0 * y + kaantokohtaY);
-            }
+        //Vähenentään kääntökohtien arvot X- ja Y-arvoista:
+        for (Nelio n : neliot) {
+            n.asetaX(n.palautaX() - kaantokohtaX);
+            n.asetaY(n.palautaY() - kaantokohtaY);
         }
 
+        //90-asteen käännös kääntökohdan ympärillä:
+        for (Nelio n : neliot) {
+            int x = n.palautaX();
+            int y = n.palautaY();
+            n.asetaX(x * 0 + -1 * y + kaantokohtaX);
+            n.asetaY(1 * x + 0 * y + kaantokohtaY);
+        }
     }
 
     /**
-     * Palauttaa palan neliot.
+     * Palauttaa palan neliöt.
      *
      * @return palan neliot
      */
@@ -119,27 +113,20 @@ public class Pala implements Cloneable {
     }
 
     /**
-     * Palauttaa palan värin.
-     *
-     * @return
+     * Palauttaa palan tetrispalatyypin neliöt.
+     * 
+     * @return palan tetrispalatyypin neliöt
      */
-    public BufferedImage palautaKuva() {
-        return palatyyppi.kuva;
+    public Nelio[] palautaTetrisPalatyypinNeliot() {
+        return palatyyppi.neliot;
     }
-    
-    public TetrisPalatyypit palautaTetrispalatyyppi() {
+
+    /**
+     * Palauttaa palan tetrispalatyypin.
+     *
+     * @return tetrispalatyyppi
+     */
+    public Tetrispalatyypit palautaTetrispalatyyppi() {
         return palatyyppi;
-    }    
-    
-    @Override
-    public Pala clone() throws CloneNotSupportedException {
-        Pala klooni = null;
-        try {
-            klooni = (Pala) super.clone();
-            
-        } catch (CloneNotSupportedException e) {
-            
-        }
-        return klooni;
     }
 }

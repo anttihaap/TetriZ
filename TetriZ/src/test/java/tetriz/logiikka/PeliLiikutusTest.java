@@ -13,10 +13,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import tetriz.peliElementit.Nelio;
 import tetriz.peliElementit.Pala;
+import tetriz.peliElementit.Tetrispalatyypit;
 
 public class PeliLiikutusTest {
 
     Peli peli;
+
+    final int kentanLeveys = 10;
+    final int kentanKorkeus = 20;
 
     public PeliLiikutusTest() {
     }
@@ -31,7 +35,7 @@ public class PeliLiikutusTest {
 
     @Before
     public void setUp() {
-        this.peli = new Peli(10, 20);
+        peli = new Peli(1, kentanLeveys, kentanKorkeus);
     }
 
     @After
@@ -58,7 +62,7 @@ public class PeliLiikutusTest {
         int[] palanXArvotEnnenLiikutusta = new int[4];
 
         for (int i = 0; i < 4; i++) {
-            palanXArvotEnnenLiikutusta[i] = this.peli.liikutettavaPala.palautaPalanNeliot()[i].palautaX();
+            palanXArvotEnnenLiikutusta[i] = peli.liikutettavaPala.palautaPalanNeliot()[i].palautaX();
         }
 
         peli.liikutaPalaaOikealle();
@@ -73,13 +77,48 @@ public class PeliLiikutusTest {
         int[] palanXArvotEnnenLiikutusta = new int[4];
 
         for (int i = 0; i < palanXArvotEnnenLiikutusta.length; i++) {
-            palanXArvotEnnenLiikutusta[i] = this.peli.liikutettavaPala.palautaPalanNeliot()[i].palautaX();
+            palanXArvotEnnenLiikutusta[i] = peli.liikutettavaPala.palautaPalanNeliot()[i].palautaX();
         }
 
         peli.liikutaPalaaVasemmalle();
 
         for (int i = 0; i < 4; i++) {
-            assertEquals(palanXArvotEnnenLiikutusta[i] - 1, this.peli.liikutettavaPala.palautaPalanNeliot()[i].palautaX());
+            assertEquals(palanXArvotEnnenLiikutusta[i] - 1, peli.liikutettavaPala.palautaPalanNeliot()[i].palautaX());
         }
+    }
+
+    @Test
+    public void palaLiikkuuKentanAlalaitaan() {
+        int[] palanYArvotEnnenLiikutusta = new int[4];
+
+        for (int i = 0; i < 4; i++) {
+            palanYArvotEnnenLiikutusta[i] = this.peli.liikutettavaPala.palautaPalanNeliot()[i].palautaY();
+        }
+
+        this.peli.liikutaPalaKentanAlalaitaan();
+
+        for (int i = 0; i < 4; i++) {
+            assertEquals(palanYArvotEnnenLiikutusta[i] + 18, this.peli.liikutettavaPala.palautaPalanNeliot()[i].palautaY());
+        }
+    }
+
+    @Test
+    public void palaLiikkuuKaantyy() {
+
+        peli.liikutettavaPala = new Pala(kentanLeveys / 2, 3, Tetrispalatyypit.OIKEAL);
+        Pala kaannettavaPala = new Pala(kentanLeveys / 2, 3, Tetrispalatyypit.OIKEAL);
+
+        peli.kaannaPalaaOikealle();
+        kaannettavaPala.kaannaOikealle();
+
+        Nelio[] pelipalanNeliot = peli.liikutettavaPala.palautaPalanNeliot();
+        Nelio[] kannettavanPalanNeliot = kaannettavaPala.palautaPalanNeliot();
+
+        for (int i = 0; i < 4; i++) {
+            assertEquals(pelipalanNeliot[i].palautaX(), kannettavanPalanNeliot[i].palautaX());
+            assertEquals(pelipalanNeliot[i].palautaY(), kannettavanPalanNeliot[i].palautaY());
+        }
+
+        //assertArrayEquals(peli.liikutettavaPala.palautaPalanNeliot(), kaannettavaPala.palautaPalanNeliot());
     }
 }

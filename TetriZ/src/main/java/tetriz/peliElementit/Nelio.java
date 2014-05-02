@@ -1,6 +1,5 @@
 package tetriz.peliElementit;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 /**
@@ -17,14 +16,15 @@ public class Nelio {
     private final BufferedImage kuva;
 
     /**
+     * Konstruktori luo uuden nelion käyttäen sille annettuja ominaisuuksia.
      * @param x
      * @param y
-     * @param palatyyppi
+     * @param kuva
      */
-    public Nelio(int x, int y, BufferedImage palatyyppi) {
+    public Nelio(int x, int y, BufferedImage kuva) {
         X = x;
         Y = y;
-        this.kuva = palatyyppi;
+        this.kuva = kuva;
     }
 
     /**
@@ -66,7 +66,4 @@ public class Nelio {
     public BufferedImage palautaKuva() {
         return kuva;
     }
-    
-
-
 }

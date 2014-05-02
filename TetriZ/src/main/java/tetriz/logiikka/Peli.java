@@ -12,24 +12,39 @@ import tetriz.peliElementit.Pala;
  */
 public class Peli {
 
-    public Palalogiikka palaLogiikka;
-    public Kenttalogiikka kenttalogiikka;
+
+    private Palalogiikka palaLogiikka;
+
+
+    private Kenttalogiikka kenttalogiikka;
+
 
     public PelinTilasto tilasto;
 
     public Kentta kentta;
     
-    Pala liikutettavaPala;
-    Pala seuraavaPala;
+    public Pala liikutettavaPala;
+    public Pala seuraavaPala;
     
+    /**
+     *
+     */
     public boolean peliKaynnissa;
 
-
-    public Peli() {
-        this(10, 20);
+    /**
+     * Luo uuden pelin käyttäen parametrin vaikeustasoa.
+     */
+    public Peli(int vaikeustaso) {
+        this(vaikeustaso, 10, 20);
     }
 
-    public Peli(int kentanLeveys, int kentanKorkeus) {
+    /**
+     *
+     * @param vaikeustaso
+     * @param kentanLeveys
+     * @param kentanKorkeus
+     */
+    public Peli(int vaikeustaso, int kentanLeveys, int kentanKorkeus) {
         this.kentta = new Kentta(kentanLeveys, kentanKorkeus);
 
         this.palaLogiikka = new Palalogiikka();
@@ -37,8 +52,8 @@ public class Peli {
 
         this.liikutettavaPala = palautaUusiPala();
         this.seuraavaPala = palautaUusiPala();
-        this.tilasto = new PelinTilasto();
-        peliKaynnissa = false;
+        this.tilasto = new PelinTilasto(vaikeustaso);
+        peliKaynnissa = true;
     }
 
 
@@ -49,23 +64,23 @@ public class Peli {
      */
     public void liikutaPalaaAlas() {
         if (palaLogiikka.voikoLiikuttaaAlas(liikutettavaPala, kentta)) {
-            this.liikutettavaPala.liikuAlas();
+            liikutettavaPala.liikuAlas();
         } else {
             seuraavaPala();
         }
     }
 
     /**
-     * Metodi liikuttaa palaa oikealle.
+     * Metodi liikuttaa palaa yhden oikealle, jos palaLogiikka antaa luvan.
      */
     public void liikutaPalaaOikealle() {
         if (palaLogiikka.voikoLiikuttaaOikealle(liikutettavaPala, kentta)) {
-            this.liikutettavaPala.liikuOikealle();
+            liikutettavaPala.liikuOikealle();
         }
     }
 
     /**
-     * Metodi liikuttaa palaa vasemmalle.
+     * Metodi liikuttaa palaa yhden vasemmalle, jos palaLogiikka antaa luvan.
      */
     public void liikutaPalaaVasemmalle() {
         if (palaLogiikka.voikoLiikuttaaVasemmalle(liikutettavaPala, kentta)) {
@@ -73,17 +88,22 @@ public class Peli {
         }
     }
 
+    /**
+     * Metodi kääntää palaa oikealle, jos palaLogiikka antaa luvan.
+     */
     public void kaannaPalaaOikealle() {
         if (palaLogiikka.voikoKaantaa(liikutettavaPala, kentta)) {
-            this.liikutettavaPala.kaannaOikealle();
+            liikutettavaPala.kaannaOikealle();
         } 
     }
 
+    /**
+     * Metodi liikuttaa palan niin alas kuin mahdollista.
+     */
     public void liikutaPalaKentanAlalaitaan() {
         while(palaLogiikka.voikoLiikuttaaAlas(liikutettavaPala, kentta)) {
             liikutettavaPala.liikuAlas();
-        }
-        
+        }      
 }
     
     /**
@@ -94,11 +114,9 @@ public class Peli {
     private void seuraavaPala() {
         //Kiinnitetään nykyinen pala kentään:
         kentta.lisaaPala(liikutettavaPala);
-        havitaRivit();
-
-        this.tilasto.kasvataPistetta(1);
-
-        //Luodaan seuraava pala entisen tilalle:
+        
+        //Tarkistetaan rivien tilanne:
+        tarkistaRivit();
 
         //Jos uutta palaa ei voida luoda, peli päättyy
         if (!palaLogiikka.voidaankoLuoda(seuraavaPala, kentta)) {
@@ -115,40 +133,48 @@ public class Peli {
         return uusiPala;
     }
     
-    private void havitaRivit() {
-        ArrayList<Integer> taydetRivit = kenttalogiikka.palautaTaydetRivit(paivitaPeliTilanne());
+    private void tarkistaRivit() {
+        ArrayList<Integer> taydetRivit = kenttalogiikka.palautaTaydetRivit(palautaPeliTilanne());
         
-        //kayttoliittyma.valkytaRiveja(taydetRivit, 5);
-        tilasto.kasvataRivejaTuhottu(taydetRivit.size());
+        //Tuhottujen rivien määrä on listan koko.
+        int rivejaTuhottu = taydetRivit.size();
         
+        //Pisteytys:
+        tilasto.kasvataRivejaTuhottu(rivejaTuhottu);
+        tilasto.kasvataPistetta(rivejaTuhottu);
+        
+        //Poistetaan täydet rivit:
         kenttalogiikka.poistaRivit(this.kentta.palautaKordinaatisto(), taydetRivit);
     }
 
     /**
-     * Metodi päivittää pelitilannetta.
+     * Metodi palauttaa kordinaatiston, joka kuvaa nykyistä pelitilannetta.
+     * Kordinaatisto sisältää kentan kordinaatiston ja siihen lisätyn palan.
+     * @return pelitilanne
      */
-    public BufferedImage[][] paivitaPeliTilanne() {
+    public BufferedImage[][] palautaPeliTilanne() {
         BufferedImage[][] kentanKordinaatiosto = kentta.palautaKordinaatisto().clone();
         BufferedImage[][] peliTilanneNyt = new BufferedImage[this.kentta.palautaKentanLeveys()][this.kentta.palautaKentanKorkeus()];
-
+              
+        //Kentankordinaatiston kopiointi System.arraycopya käyttäen:
         for (int i = 0; i < kentanKordinaatiosto.length; i++) {
             System.arraycopy(kentanKordinaatiosto[i], 0, peliTilanneNyt[i], 0, kentanKordinaatiosto[i].length);
         }
-
-        for (Nelio n : this.liikutettavaPala.palautaPalanNeliot()) {
-            if(palaLogiikka.kordinaattiOnKentanSisalla(n.palautaX(), n.palautaY(), kentta)) {
-                
-            
+        
+        //Liikutettavan palan neliöiden lisäys kordinaatistoon:
+        for (Nelio n : liikutettavaPala.palautaPalanNeliot()) {
             peliTilanneNyt[n.palautaX()][n.palautaY()] = n.palautaKuva();
-            } else {
-                return new BufferedImage[kentta.palautaKentanLeveys()][kentta.palautaKentanKorkeus()];
-            }
+ 
         }
 
         return peliTilanneNyt;
     }
     
-    public Pala palautaVarjoPala() {
+    /**
+     * Metodi palauttaa sen luoman liikutettavanPalan varjopalan.
+     * @return varjopala
+     */
+    public Pala palautaVarjopala() {
         Pala varjoPala = new Pala(this.kentta.palautaKentanLeveys() / 2, 0, liikutettavaPala.palautaTetrispalatyyppi());
         Nelio[] neliot = liikutettavaPala.palautaPalanNeliot();
 
@@ -165,6 +191,14 @@ public class Peli {
         }
         
         return varjoPala;
+    }
+    
+    /**
+     * Palauttaa seuraavan palan tetrispalatyypin neliot.
+     * @return seuraavan palan tetrispalatyypin neliot
+     */
+    public Nelio[] palautaSeuraavanPalanTetrispalatyypinNeliot() {
+        return seuraavaPala.palautaTetrisPalatyypinNeliot();
     }
     
 }

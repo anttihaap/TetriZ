@@ -7,12 +7,14 @@
 package tetriz.peliElementit;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import tetriz.tyokalut.Kuvanlataaja;
 
 /**
  *
@@ -20,24 +22,21 @@ import static org.junit.Assert.*;
  */
 public class NelioTest {
     
-    /*
-    Nelio nelio;
     
-    /**
-     *
-     */
+    Nelio nelio;
+    BufferedImage testikuva = Kuvanlataaja.palautaKuva("/kuvat/NULL.jpg");
     public NelioTest() {
     }
 
-    /*
+    
     @Before
     public void setUp() {
-        nelio = new Nelio(0, 0, Color.white);
+        nelio = new Nelio(0, 0, testikuva);
     }
     
     @Test
     public void nelioLuodaanOikein() {
-        assertEquals(Color.white, nelio.palautaVari());
+        assertEquals(testikuva, nelio.palautaKuva());
         assertEquals(0, nelio.palautaX());
         assertEquals(0, nelio.palautaY());
     }
@@ -54,7 +53,7 @@ public class NelioTest {
         assertEquals(12412, nelio.palautaY());
     }
     
-    */
+    
 
     
 }

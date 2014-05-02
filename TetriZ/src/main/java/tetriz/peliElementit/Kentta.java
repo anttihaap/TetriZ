@@ -4,29 +4,34 @@ import java.awt.image.BufferedImage;
 
 /**
  * Kentta sisältää kordinaatiston, joka pitää sisällään kuvia.
- * @author Antti
  */
 public class Kentta {
 
-    private BufferedImage[][] kordinaatisto;
+    private final BufferedImage[][] kordinaatisto;
 
+    /**
+     * Konstuktori luo kordinaatiston käyttäen leveyttä ja korkeutta.
+     * @param kentanLeveys leveys
+     * @param kentanKorkeus korkeus
+     */
     public Kentta(int kentanLeveys, int kentanKorkeus) {
         this.kordinaatisto = new BufferedImage[kentanLeveys][kentanKorkeus];
     }
 
     /**
-     * Metodi lisää värin kordinaatistoon käyttäen x ja y parametreja, jotka vastaa paikkaa kordinaatistossa.
-     * @param kvua
-     * @param x
-     * @param y
+     * Metodi lisää värin kordinaatistoon käyttäen x ja y parametreja, 
+     * jotka vastaavat paikkaa kordinaatistossa.
+     * @param kuva lisattava kuva
+     * @param x x-kordinaatti
+     * @param y y-kordinaatti
      */
-    public void lisaaKuva(BufferedImage kvua, int x, int y) {
-        this.kordinaatisto[x][y] = kvua;
+    public void lisaaKuva(BufferedImage kuva, int x, int y) {
+        this.kordinaatisto[x][y] = kuva;
     }
 
     /**
-     * Metodi lisää palan värit kentään käymällä palan neliot läpi ja lisäämällä ne lisaaVari() -metodia käyttäen.
-     * @param pala
+     * Metodi lisää palan kuvat kenttään käymällä palan neliot läpi. 
+     * @param pala lisattava pala
      */
     public void lisaaPala(Pala pala) {
         for (Nelio n : pala.palautaPalanNeliot()) {
@@ -45,7 +50,7 @@ public class Kentta {
     }
 
     /**
-     * Metodi palauttaa kentän leveyden.
+     * Palauttaa kentän leveyden.
      * @return kentän leveys
      */
     public int palautaKentanLeveys() {
@@ -53,29 +58,25 @@ public class Kentta {
     }
 
     /**
-     * Metodi palauttaa kentän korkeuden.
+     * Palauttaa kentän korkeuden.
      * @return kentän korkeus
      */
     public int palautaKentanKorkeus() {
         return kordinaatisto[0].length;
     }
 
-    /** TARKISTA!!!
-     * Metodi palauttaa värin kordinaatiston pisteestä. Mikäli sitä ei ole metodi palauttaa valkoista.
+    /**
+     * Palauttaa kuvan kordinaatiston pisteestä. Mikäli sitä ei ole metodi palauttaa valkoista.
      * @param x
      * @param y
-     * @return kordinaatiston väri
+     * @return kordinaatiston kuva
      */
-    public BufferedImage palautaVari(int x, int y) {
-        if (this.kordinaatisto[x][y] != null) {
-            return this.kordinaatisto[x][y];
-        } else {
-            return null;
-        }
+    public BufferedImage palautaKuva(int x, int y) {
+        return this.kordinaatisto[x][y];
     }
     
     /**
-     * Metodi palauttaa kordinaatiston.
+     * Metodi keätän palauttaa kordinaatiston.
      * @return kordinaatisto
      */
     public BufferedImage[][] palautaKordinaatisto() {

@@ -5,61 +5,39 @@
  */
 package tetriz.peliElementit;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import tetriz.tyokalut.Kuvanlataaja;
 
-/**
- *
- * @author Antti
- */
 public class KenttaTest {
 
     private Kentta kentta;
-    private final int korkeus = 20;
-    private final int leveys = 10;
+    private final int kentanKorkeus = 20;
+    private final int kentanLeveys = 10;
 
     private BufferedImage testiKuva;
 
-    /**
-     *
-     */
     public KenttaTest() {
     }
 
-    /**
-     *
-     */
     @BeforeClass
     public static void setUpClass() {
     }
 
-    /**
-     *
-     */
     @AfterClass
     public static void tearDownClass() {
     }
 
-    /**
-     *
-     */
     @Before
     public void setUp() {
-        kentta = new Kentta(leveys, korkeus);
+        kentta = new Kentta(kentanLeveys, kentanKorkeus);
 
-        try {
-            testiKuva = ImageIO.read(getClass().getResource("/kuvat/NELIOPALA.jpg"));
-        } catch (IOException e) {
-            System.out.println("kuva ei lataudu");
-        }
+        testiKuva = Kuvanlataaja.palautaKuva("/kuvat/NELIOPALA.jpg");
     }
 
     @After
@@ -68,8 +46,8 @@ public class KenttaTest {
 
     @Test
     public void kenttaLuoOikeanlaisenKentan() {
-        assertEquals(kentta.palautaKentanKorkeus(), this.korkeus);
-        assertEquals(kentta.palautaKentanLeveys(), this.leveys);
+        assertEquals(kentta.palautaKentanKorkeus(), this.kentanKorkeus);
+        assertEquals(kentta.palautaKentanLeveys(), this.kentanLeveys);
     }
 
     @Test
@@ -85,7 +63,7 @@ public class KenttaTest {
 
     @Test
     public void palauttaaNulJosEiKuvaa() {
-        assertNull(kentta.palautaVari(0, 0));
+        assertNull(kentta.palautaKuva(0, 0));
     }
     
     @Test 
@@ -105,8 +83,7 @@ public class KenttaTest {
             int x = n.palautaX();
             int y = n.palautaY();
             assertTrue(kentta.onkoKuvaa(x, y));
-            assertNotNull(kentta.palautaVari(x, y));
+            assertNotNull(kentta.palautaKuva(x, y));
         }
     }
-
 }

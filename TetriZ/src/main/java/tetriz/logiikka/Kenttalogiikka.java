@@ -1,18 +1,17 @@
-
 package tetriz.logiikka;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
- *
- * @author Antti
+ * Kenttalogiikka-luokka käsittelee kenttää: poistaa rivejä ja palauttaa rivejä, jotka ovat täynnä.
  */
 public class Kenttalogiikka {
 
     /**
-     * Metodi poistaa annetut rivit listan poistetavarRivit mukaan kordinaatistosta. 
+     * Metodi poistaa annetut rivit kordinaatistosta listan poistetavarRivit
+     * mukaan.
+     *
      * @param kordinaatisto
      * @param poisetttavatRivit
      */
@@ -20,37 +19,45 @@ public class Kenttalogiikka {
         ArrayList<Integer> taydetRivit = poisetttavatRivit;
 
         for (int rivi : taydetRivit) {
-            //Siirretaan jokainen yläpuolella oleva rivi 1 alas poistettavan päälle
-            for (int y = rivi; y > 0; y--) {
+            //Siirretaan jokainen yläpuolella oleva rivi 1 alas poistettavan päälle.
+            //Paitsi ylinrivi tyhjennetään.
+            for (int y = rivi; y >= 0; y--) {
                 for (int x = 0; x < kordinaatisto.length; x++) {
-                    kordinaatisto[x][y] = kordinaatisto[x][y - 1];
+                    
+                    //Jos ylin rivi on täynnä, muutetaan kaikki rivin kohdat tyhjiksi.
+                    //Muulloin siirretään ylin rivi alas.
+                    if (y == 0) {
+                        kordinaatisto[x][y] = null;
+                    } else {
+                        kordinaatisto[x][y] = kordinaatisto[x][y - 1];
+                    }
                 }
-            }          
+            }
         }
     }
 
     /**
      * Palauttaa listan kordinaatiston riveistä, jotka ovat täynnä.
+     *
      * @param kordinaatisto
-     * @return
+     * @return taydetRivit taydet rivit
      */
     public ArrayList<Integer> palautaTaydetRivit(BufferedImage[][] kordinaatisto) {
-        ArrayList<Integer> taydetrivit = new ArrayList<>();
+        ArrayList<Integer> taydetRivit = new ArrayList<>();
 
         for (int y = 0; y < kordinaatisto[0].length; y++) {
             boolean riviTaysi = true;
             for (int x = 0; x < kordinaatisto.length; x++) {
                 if (kordinaatisto[x][y] == null) {
                     riviTaysi = false;
+                    break;
                 }
             }
             if (riviTaysi) {
-                taydetrivit.add(y);
+                taydetRivit.add(y);
             }
         }
 
-        return taydetrivit;
+        return taydetRivit;
     }
-    
-
 }
