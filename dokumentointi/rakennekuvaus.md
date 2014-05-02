@@ -2,19 +2,37 @@
 
 ## Pelielementit:
 
-*Nelio:* Nelio pit‰‰ sis‰ll‰‰n kordinaatit (X ja Y) ja kuvan.
+**Nelio:** Nelio pit‰‰ sis‰ll‰‰n kordinaatit (X ja Y) ja kuvan. Nelioita voi siirtaa k‰ytt‰m‰ll‰ sen asetaX() ja asetaY()
+metodeja. Nelio myˆs palauttaa kuvan palautaKuva()-metodilla.
 
-*Pala:* Pala on kokonaisuus, joka sis‰lt‰‰ 4 neliˆt‰. Palalla on myˆs luokka TetrisPalatyyppi, joka m‰‰rittelee
-Pala-luokan neliˆit‰. TetrisPalatyyppi voidaan p‰‰tt‰‰ palalle konstruktorissa tai arpoa Palalle. Palan neliˆt
+**Pala:** Pala on kokonaisuus, joka sis‰lt‰‰ 4 neliˆt‰. Palalla on myˆs luokka TetrisPalatyyppi, jonka avulla luodaan
+palan nelioiden asetelma ja kuva. TetrisPalatyyppi voidaan p‰‰tt‰‰ palalle konstruktorissa tai se voidaan arpoa Palalle. Palan neliˆt
 luodaan TetrisPalatyypin mukaisesti, mutta niit‰ siirret‰‰n palan aloituskordinaattien mukaan.
 Palaa liikuttaessa tai k‰‰nnett‰ess‰ kaikki sen neliˆt
 siirtyv‰t kent‰ss‰ kyseisen sunnan mukaisesti. 
 
-*TetrisPalatyyppit:* TetrisPalatyypit on luokka pit‰‰ sis‰ll‰‰n m‰‰ritelm‰t Pala-luokalle (Tetrispalalle).
+**TetrisPalatyyppit:** TetrisPalatyypit on luokka pit‰‰ sis‰ll‰‰n m‰‰ritelm‰t Pala-luokalle (Tetrispalalle).
 TetrisPalatyyppi pit‰‰ sis‰ll‰‰n m‰‰ritelm‰t neliˆiden asetelmalle ja neliˆiden kuville. Tetrispalatyyppej‰ on
 7 kuten perinteisess‰ tetriksess‰kin.
 
-*Kentta:* Kentta pit‰‰ sis‰ll‰‰n kordinaatiston, joka koostuu kuvista. Kentt‰‰n voidaan liitt‰‰ paloja.
+**Kentta:** Kentta pit‰‰ sis‰ll‰‰n kordinaatiston, joka koostuu kuvista. Kentt‰‰n voidaan liitt‰‰ paloja.
 
 ## Logiikka
 
+**Peli:** Peli pit‰‰ sis‰ll‰‰n kaikki pelin toiminnallisuuden kannalta t‰rke‰t asiat: nykyisen liikutettavan palan
+, seuraavan palan, palojen liikuttamisen ja pisteytyksen. Peli palauttaa
+myˆs pelitilannetta kordinaatiston muodossa. 
+
+Luokka tuntee Palalogiikan, joka p‰‰tt‰‰ palojen liikutuksen, ja Kentt‰logiikan, joka hoitaa selvitt‰‰ t‰ydet rivit ja 
+tuhoaa t‰ydet rivit.
+
+Peli-luokka tuntee PelinTilasto luokan, joka hoitaa pisteytyksen.
+
+**Palalogiikka:** Luokka p‰‰tt‰‰ voiko tietty‰ palaa liikuttaa kent‰ss‰ (oikealle, vasemmalle, alas) tai k‰‰nt‰‰ kent‰ss‰.
+Luokka myˆs tarkistaa, ett‰ onko pala k‰‰nt‰ess‰ kent‰n kordinaattien sis‰ll‰.
+
+**Kenttalogiikka:** Luokka palauttaa t‰ydet rivit ja poistaa rivej‰ kent‰st‰.
+
+## Tyokalut
+
+**Kuvanlataaja:** Kuvanlataajalla ladataan kuvia.
