@@ -78,7 +78,7 @@ public final class Paaikkuna extends JFrame {
     }
 
     /**
-     *
+     * Lopettaa pelin tuhoamalla pelipaneelin ja käynnistämällä päävalikon.
      */
     public void lopetaPeli() {
         //Poistetaan pelipaneeli ja käynnistetään päävalikko.

@@ -8,6 +8,8 @@ Pala liikkuu alas kentässä automaattisesti tietyn aikavälein riippuen vaikeustas
  
 Varjopala, eli alin kohta johon liikutettava pala liikkuu, seuraava pala ja pisteytys näkyy pelipaneelin oikealla puolella.
 
+Käyttäjä liikuttaa palaa nuolinäppäimiä käyttäen:
+
 * Palan liikkuminen:
   * Tetrispalaa ohjataan sivuttaissuunnassa nuolinäppäimillä.
   * Palaa voi kääntää 90-astetta oikealle painamalla nuolinäppäintä ylös.

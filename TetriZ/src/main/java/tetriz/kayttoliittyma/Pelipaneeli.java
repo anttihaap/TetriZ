@@ -1,6 +1,4 @@
-/*
- * Luokka piirtää peliä ja pitää sisällään pelin pää loopin.
- */
+
 package tetriz.kayttoliittyma;
 
 import tetriz.tyokalut.Kuvanlataaja;
@@ -17,7 +15,7 @@ import tetriz.logiikka.Peli;
 import tetriz.peliElementit.Nelio;
 
 /**
- * Pelipaneeli pitää sisällään pelin pääsäijeen ja kuvantaa peliä.
+ * Pelipaneeli pitää sisällään pelin pääsäijeen ja piirtää peliä.
  */
 public class Pelipaneeli extends JPanel implements Runnable {
 

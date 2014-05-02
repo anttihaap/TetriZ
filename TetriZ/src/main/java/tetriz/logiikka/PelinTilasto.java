@@ -18,7 +18,7 @@ public class PelinTilasto {
     /**
      * Konstruktori asettaa vaikeustason parametsin mukaan ja oletusarvot.
      * Pelin alussa pisteet ja rivejaTuhottu ovat 0, paloja on luotu 1.
-     * @param vaikeustaso
+     * @param vaikeustaso vaikeustaso
      */
     public PelinTilasto(int vaikeustaso) {
         this.vaikeustaso = vaikeustaso;

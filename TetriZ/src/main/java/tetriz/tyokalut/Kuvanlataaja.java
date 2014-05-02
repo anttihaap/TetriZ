@@ -13,8 +13,8 @@ import javax.imageio.ImageIO;
 public class Kuvanlataaja {
     
     /**
-     * Palauttaa kuvan polusta.
-     * @param polku
+     * Lataa kuvan kuvan polusta ja palauttaa sen.
+     * @param polku polku
      * @return kuva
      */
     public static BufferedImage palautaKuva(String polku) {

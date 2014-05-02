@@ -32,8 +32,8 @@ public class Palalogiikka {
      * kentässä alaspäin. Palaa ei voida luoda, jos pala on kentän alalaidassa 
      * tai palan alapuoli ei ole thjä.
      *
-     * @param pala
-     * @param kentta
+     * @param pala pala
+     * @param kentta kentta
      * @return totuusarvo palan liikuttamisesta alas
      */
     public boolean voikoLiikuttaaAlas(Pala pala, Kentta kentta) {
@@ -54,8 +54,8 @@ public class Palalogiikka {
      * Metodi palauttaa totuusarvon siitä, että voiko kyseistä palaa liikuttaa
      * kentässä oikealle.
      *
-     * @param pala
-     * @param kentta
+     * @param pala pala 
+     * @param kentta kentta
      * @return tootusarvo palan liikuttamisesta oikealle
      */
     public boolean voikoLiikuttaaOikealle(Pala pala, Kentta kentta) {

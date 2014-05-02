@@ -19,6 +19,7 @@ public class Paavalikko extends Valikko {
 
     /**
      *
+     * @param ikkuna
      */
     public Paavalikko(Paaikkuna ikkuna) {
         super(ikkuna);

@@ -33,6 +33,26 @@ Luokka myös tarkistaa, että onko pala kääntäessä kentän kordinaattien sisällä.
 
 **Kenttalogiikka:** Luokka palauttaa täydet rivit ja poistaa rivejä kentästä.
 
+**PelinTilasto:** Pitää sisällään tietoa pelin kulusta: pisteet, luotujen palojen määrä ja tuhottujen rivien määrän. Luokka pisteyttää 
+riippuen pelin vaikeustasosta ja tuhottujen rivien määrästä (per. pisteytys kerta).
+
+**PelinAsetukset:** Luokka sisältää asetukset, eli pelin ominaisuudet: vaikeustaso, piirretäänkö varjopala ja piirretänkö seuraava pala.
+
+## Kayttoliittyma
+
+**Paaikkuna:** Käyttöliittymän runko, joka hallitsee käyttöliittymän paneeleita (valikkoa ja pelipaneelia). Pääikkuna tuntee kaikki Valikko-luokkaa
+käyttävät valikot ja Pelipaneelin.
+
+**Valikko:** Luokka pitää sisällään ominaisuudet, joita tarvitaan nuoli näppäimillä selattavaan valikkoon.
+
+**Päävalikko:** Luokka on päävalikko pelille. 
+
+**AsetuksetValikko:** Valikko josta käyttäjä voi vaihtaa pelin asetuksia.
+
+**Pelipaneeli:** Sisältää pelin pääsäijeen ja piirtää peliä.
+
+
+
 ## Tyokalut
 
 **Kuvanlataaja:** Kuvanlataajalla ladataan kuvia.
