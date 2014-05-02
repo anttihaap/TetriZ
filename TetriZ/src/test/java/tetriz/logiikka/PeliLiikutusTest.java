@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tetriz.logiikka;
 
 import org.junit.After;
@@ -89,6 +84,7 @@ public class PeliLiikutusTest {
 
     @Test
     public void palaLiikkuuKentanAlalaitaan() {
+        peli.liikutettavaPala = new Pala(kentanLeveys / 2, 0, Tetrispalatyypit.KOLMIOPALA);
         int[] palanYArvotEnnenLiikutusta = new int[4];
 
         for (int i = 0; i < 4; i++) {
@@ -104,7 +100,6 @@ public class PeliLiikutusTest {
 
     @Test
     public void palaLiikkuuKaantyy() {
-
         peli.liikutettavaPala = new Pala(kentanLeveys / 2, 3, Tetrispalatyypit.OIKEAL);
         Pala kaannettavaPala = new Pala(kentanLeveys / 2, 3, Tetrispalatyypit.OIKEAL);
 
@@ -118,7 +113,5 @@ public class PeliLiikutusTest {
             assertEquals(pelipalanNeliot[i].palautaX(), kannettavanPalanNeliot[i].palautaX());
             assertEquals(pelipalanNeliot[i].palautaY(), kannettavanPalanNeliot[i].palautaY());
         }
-
-        //assertArrayEquals(peli.liikutettavaPala.palautaPalanNeliot(), kaannettavaPala.palautaPalanNeliot());
     }
 }

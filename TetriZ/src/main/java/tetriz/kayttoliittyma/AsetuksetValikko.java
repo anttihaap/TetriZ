@@ -6,12 +6,16 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 
 /**
- * Asetukset-valikko.
+ * Asetukset-valikko, jossa käyttäjä voi vaihtaa pelin asetuksia.
  */
 public class AsetuksetValikko extends Valikko {
 
     Paaikkuna valikko;
 
+    /**
+     *
+     * @param ikkuna
+     */
     public AsetuksetValikko(Paaikkuna ikkuna) {
         super(ikkuna);
         this.valikko = ikkuna;
@@ -33,6 +37,10 @@ public class AsetuksetValikko extends Valikko {
         lisaaNapit(napit);
     }
 
+    /**
+     *
+     * @param aktiivinenNappi
+     */
     @Override
     public void teeKomento(int aktiivinenNappi) {
         if (aktiivinenNappi == 0) {
