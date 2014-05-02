@@ -3,6 +3,8 @@
 Aiheena totetuttaa hävytön klooni tetris-pelistä.
 
 **Pelin toiminnallisuus:**
+
+Pala liikkuu alas kentässä automaattisesti tietyn aikavälein riippuen vaikeustasosta. Korkeampi vaikeustaso liikuttaa palaa nopeammin tehden pelistä vaikeamman.
  
 * Palan liikkuminen:
   * Tetrispalaa ohjataan sivuttaissuunnassa nuolinäppäimillä.
@@ -28,5 +30,15 @@ Käyttöliittymää selataan nuoli näppäimillä ylös ja alas. Käyttäjä voi aloittaa u
   * Piirretäänkö varjopala.
   * Piiretäänkö seuraava pala.
   * Vaikeustason valinta.
+
+**Laajennusehdotuksia:**
+
+Laajennusehdotuksia: ideat joita en ehtinyt toteuttaa.
+
+* Pisteytys käyttäen käyttäjän antamaa nimeä "Highscore" taulukkona.
+* Tetrisvariaatioita:
+  * Peli luo mahdollisimman huonoja paloja riippuen pelitilanteesta. "Pelaa jumalaa vastaan"
+  * Kenttä kääntyilee 180 astetta riippeun tilanteesta.
+  * Palat tuhoutuvat kentästä värin mukaan.
 
 
