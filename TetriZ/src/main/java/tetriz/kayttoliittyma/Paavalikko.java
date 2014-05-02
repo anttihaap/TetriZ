@@ -29,6 +29,7 @@ public class Paavalikko extends Valikko {
         luoNapit();
     }
 
+    
     private void luoNapit() {
         napit = new JLabel[3];
         //akviivinenNappi = 0;

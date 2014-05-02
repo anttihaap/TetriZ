@@ -27,7 +27,7 @@ public class Pala {
     /**
      * Luo palan aloitusKordinaatteja käyttäen ja tetrispala-tyypin
      * ominaisuuksien mukaan. TetrisPalaTyyppi luodaan satunnaisesti.
-     *
+     * 
      * @param aloitusKordinaattiX
      * @param aloitusKordinaattiY
      */
