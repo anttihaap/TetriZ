@@ -26,4 +26,5 @@
 * **20.04.2014:** 3h - Käyttöliittymän päivittelyä.
 * **28.04.2014:** 4h - Javadoci:n päivittelyä + testailua + pieniä rakenteellisia muutoksia.
 * **29.04.2014:** 4h - Testailua, käyttöliittymän hiomista, javadocin päivittelyä.
+* **02.04.2014:** 5h - Dokumentointia, testailua, pieniä muutoksia, palautus.
 
