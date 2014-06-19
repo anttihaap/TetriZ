@@ -74,11 +74,20 @@ public class Pelipaneeli extends JPanel implements Runnable {
     public void aloitaPeli(int viive) {
         peli = new Peli(paaikkuna.pelinAsetukset.palautaVaikeustaso());
         repaint();
+
+        long viimeViiveenAika = System.currentTimeMillis();
         
         //Pelin pääloop:
-        while (peli.peliKaynnissa) {           
-            viive(viive);
-
+        while (peli.peliKaynnissa) {
+            
+            //Viiveestä vähennetään järjestelmän aika ja viimeisen viiveen aika
+            //jotta viive()-metodin viive on tietokoneen tehoista riippumatta sama.
+            System.out.println("jär.: " + System.currentTimeMillis());
+            System.out.println("viimeV: " + viimeViiveenAika);
+            System.out.println("erotus: " + (System.currentTimeMillis() - viimeViiveenAika));
+            System.out.println(" - - - -");
+            viive(viive - (System.currentTimeMillis() - viimeViiveenAika));
+            viimeViiveenAika = System.currentTimeMillis();
             peli.liikutaPalaaAlas();
             repaint();
         }
